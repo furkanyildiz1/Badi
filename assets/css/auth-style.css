@@ -1,0 +1,453 @@
+/* Genel Stiller */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+    background: #fff;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    overflow-y: auto;
+    overflow-x: hidden;
+}
+
+/* Animasyonlu Arka Plan */
+.animated-background {
+    position: fixed;
+    min-height: 100vh;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+}
+
+.animated-background::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(45deg, 
+        transparent 48%, 
+        rgba(97, 214, 251, 0.05) 50%, 
+        transparent 52%);
+    background-size: 30px 30px;
+    animation: slide 15s linear infinite;
+}
+
+.animated-background::after {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg,
+        transparent 48%, 
+        rgba(97, 214, 251, 0.08) 50%, 
+        transparent 52%);
+    background-size: 40px 40px;
+    animation: slide 20s linear infinite;
+}
+
+@keyframes slide {
+    0% {
+        transform: translateX(-50%) translateY(-50%);
+    }
+    100% {
+        transform: translateX(50%) translateY(50%);
+    }
+}
+
+/* Genel container stili */
+.login-container {
+    width: 100%;
+    padding: 40px 20px;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Login için özel container */
+.login-container:not(.register-container) {
+    max-width: 450px;
+    min-height: 100vh;
+}
+
+/* Register için özel container */
+.register-container {
+    max-width: 500px;
+    min-height: auto;
+    padding: 60px 20px;
+}
+
+/* Login box düzenlemesi */
+.login-box {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.95);
+    border-radius: 24px;
+    box-shadow: 0 8px 30px rgba(97, 214, 251, 0.25),
+                0 2px 8px rgba(97, 214, 251, 0.15);
+    padding: 40px;
+    border: 1px solid rgba(97, 214, 251, 0.3);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+}
+
+/* Header Stiller */
+.login-header {
+    text-align: center;
+    margin-bottom: 35px;
+}
+
+.login-header img {
+    height: 40px;
+    margin-bottom: 25px;
+    object-fit: contain;
+}
+
+.login-header h2 {
+    color: #61d6fb;
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 8px;
+}
+
+.login-header p {
+    color: #64748b;
+    font-size: 15px;
+}
+
+/* Form Stiller */
+.form-group {
+    margin-bottom: 24px;
+    position: relative;
+}
+
+.form-group:has(input[type="password"]) {
+    margin-bottom: 35px;
+}
+
+.form-group label {
+    display: block;
+    color: #334155;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.form-group i {
+    position: absolute;
+    left: 16px;
+    top: 40px;
+    color: #61d6fb;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 12px 16px 12px 45px;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(97, 214, 251, 0.25);
+    border-radius: 12px;
+    font-size: 15px;
+    color: #334155;
+    transition: all 0.2s;
+    box-shadow: 0 2px 4px rgba(97, 214, 251, 0.05);
+}
+
+.form-group input:focus {
+    outline: none;
+    background: #fff;
+    border-color: #61d6fb;
+    box-shadow: 0 0 0 3px rgba(97, 214, 251, 0.15);
+}
+
+/* Buton Stiller */
+.login-btn {
+    width: 100%;
+    padding: 14px;
+    background: #61d6fb;
+    color: #fff;
+    border: none;
+    border-radius: 12px;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 6px rgba(97, 214, 251, 0.2);
+    transition: all 0.3s;
+}
+
+.login-btn:hover {
+    background: #4bc5ea;
+    box-shadow: 0 4px 10px rgba(97, 214, 251, 0.3);
+    transform: translateY(-1px);
+}
+
+/* Footer ve Diğer Elementler */
+.login-footer {
+    text-align: center;
+    margin-top: 24px;
+}
+
+.login-footer a {
+    color: #61d6fb;
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s;
+}
+
+.divider {
+    text-align: center;
+    margin: 24px 0;
+    position: relative;
+}
+
+.divider::before,
+.divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 45%;
+    height: 1px;
+    background: rgba(97, 214, 251, 0.2);
+}
+
+.divider::before { left: 0; }
+.divider::after { right: 0; }
+
+.divider span {
+    background: #fff;
+    padding: 0 10px;
+    color: #64748b;
+    font-size: 14px;
+}
+
+/* Google Buton */
+.google-btn {
+    width: 100%;
+    padding: 14px;
+    background: #fff;
+    border: 1px solid rgba(97, 214, 251, 0.2);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #334155;
+    transition: all 0.2s;
+    box-shadow: 0 1px 3px rgba(97, 214, 251, 0.1);
+}
+
+.google-btn:hover {
+    background: #f8fafc;
+    border-color: rgba(97, 214, 251, 0.3);
+    box-shadow: 0 2px 5px rgba(97, 214, 251, 0.15);
+}
+
+/* Mesaj Kutuları */
+.error-message, 
+.success-message {
+    padding: 12px;
+    border-radius: 12px;
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: #dc2626;
+    border: 1px solid #fecaca;
+}
+
+.success-message {
+    background: rgba(97, 214, 251, 0.1);
+    color: #61d6fb;
+    border: 1px solid rgba(97, 214, 251, 0.2);
+}
+
+/* Register Sayfası İçin Ek Stiller */
+.form-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 24px;
+}
+
+.form-row .form-group {
+    flex: 1;
+    margin-bottom: 0;
+}
+
+.terms {
+    margin: 20px 0;
+    font-size: 13px;
+    color: #64748b;
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+}
+
+.terms input[type="checkbox"] {
+    margin-top: 2px;
+}
+
+.terms a {
+    color: #61d6fb;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.terms a:hover {
+    color: #4bc5ea;
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 480px) {
+    .login-container,
+    .register-container {
+        padding: 20px;
+    }
+    
+    .login-box {
+        padding: 30px 20px;
+    }
+
+    .form-row {
+        flex-direction: column;
+        gap: 0;
+    }
+
+    .form-row .form-group {
+        margin-bottom: 24px;
+    }
+}
+
+/* Şifremi unuttum linki için stil */
+.forgot-password {
+    position: absolute;
+    right: 0;
+    bottom: -22px;
+    font-size: 13px;
+    color: #64748b;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.forgot-password:hover {
+    color: #61d6fb;
+}
+
+/* Forms container düzeltmesi */
+.forms-container {
+    position: relative;
+    overflow: hidden;
+    width: 100%;
+    height: auto;
+    min-height: 400px; /* Minimum yükseklik */
+}
+
+/* Form görünürlük kontrolleri */
+.form-section {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.form-section.active {
+    display: block;
+    opacity: 1;
+}
+
+.form-section.passive {
+    display: none;
+    opacity: 0;
+}
+
+/* İlk form için başlangıç stili */
+#studentForm {
+    opacity: 1;
+    transform: translateX(0);
+    visibility: visible;
+}
+
+/* Register type seçici stilleri */
+.register-type {
+    display: flex;
+    background: rgba(97, 214, 251, 0.1);
+    border-radius: 12px;
+    padding: 4px;
+    margin-bottom: 30px;
+    position: relative;
+    width: 100%;
+}
+
+.register-type-option {
+    flex: 1;
+    padding: 12px 24px;
+    text-align: center;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    transition: all 0.3s ease;
+    font-weight: 500;
+    color: #64748b;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    user-select: none;
+}
+
+.register-type-option.active {
+    color: #fff;
+}
+
+.register-type-option i {
+    font-size: 16px;
+}
+
+.slider {
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: calc(50% - 4px);
+    height: calc(100% - 8px);
+    background: #61d6fb;
+    border-radius: 8px;
+    transition: transform 0.3s ease;
+    z-index: 1;
+}
+
+.slider.slide-right {
+    transform: translateX(calc(100% + 4px));
+}
+
+/* Responsive düzenlemeler */
+@media (max-width: 480px) {
+    .register-type-option {
+        padding: 10px 16px;
+        font-size: 14px;
+    }
+    
+    .register-type-option i {
+        font-size: 14px;
+    }
+}
