@@ -24,6 +24,72 @@ try {
     $osSor->execute();
     $osData = $osSor->fetchAll(PDO::FETCH_ASSOC);
 
+    // Generate array of last 12 months instead of 6
+    $last12Months = [];
+    for ($i = 11; $i >= 0; $i--) {  // Changed from 5 to 11
+        $last12Months[] = date('Y-m', strtotime("-$i months"));
+    }
+
+    // Orders Statistics - Changed INTERVAL to 12 MONTH
+    $siparislerSor = $db->prepare("
+        SELECT 
+            DATE_FORMAT(created_at, '%Y-%m') as ay,
+            COUNT(*) as toplam_siparis,
+            COUNT(CASE WHEN odeme_durumu = 'onaylandi' THEN 1 END) as tamamlanan,
+            COUNT(CASE WHEN odeme_durumu = 'beklemede' THEN 1 END) as bekleyen,
+            COUNT(CASE WHEN odeme_durumu = 'iptal_edildi' THEN 1 END) as iptal
+        FROM faturalar 
+        WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+    ");
+    $siparislerSor->execute();
+    $siparisData = array_fill_keys($last12Months, ['toplam_siparis' => 0, 'tamamlanan' => 0, 'bekleyen' => 0, 'iptal' => 0]);
+    
+    foreach($siparislerSor->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        if (isset($siparisData[$row['ay']])) {
+            $siparisData[$row['ay']] = $row;
+        }
+    }
+
+    // Course Sales Statistics - Changed INTERVAL to 12 MONTH
+    $kursSatisSor = $db->prepare("
+        SELECT 
+            DATE_FORMAT(f.created_at, '%Y-%m') as ay,
+            COUNT(DISTINCT sk.kurs_id) as satis_sayisi
+        FROM faturalar f
+        LEFT JOIN satilan_kurslar sk ON f.fatura_id = sk.fatura_id
+        WHERE f.created_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+        AND f.odeme_durumu = 'onaylandi'
+        GROUP BY DATE_FORMAT(f.created_at, '%Y-%m')
+    ");
+    $kursSatisSor->execute();
+    $kursSatisData = array_fill_keys($last12Months, ['satis_sayisi' => 0]);
+    
+    foreach($kursSatisSor->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        if (isset($kursSatisData[$row['ay']])) {
+            $kursSatisData[$row['ay']] = $row;
+        }
+    }
+
+    // Revenue Statistics - Changed INTERVAL to 12 MONTH
+    $gelirSor = $db->prepare("
+        SELECT 
+            DATE_FORMAT(created_at, '%Y-%m') as ay,
+            SUM(toplam_tutar) as gelir
+        FROM faturalar
+        WHERE created_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)
+        AND odeme_durumu = 'onaylandi'
+        GROUP BY DATE_FORMAT(created_at, '%Y-%m')
+    ");
+    $gelirSor->execute();
+    $gelirData = array_fill_keys($last12Months, ['gelir' => 0]);
+    
+    foreach($gelirSor->fetchAll(PDO::FETCH_ASSOC) as $row) {
+        if (isset($gelirData[$row['ay']])) {
+            $gelirData[$row['ay']] = $row;
+        }
+    }
+
 } catch(PDOException $e) {
     error_log("İstatistik sayfası hatası: " . $e->getMessage());
 }
@@ -99,6 +165,49 @@ try {
                     </div>
                     <div class="x_content">
                         <canvas id="osGrafik"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Monthly Orders Chart -->
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Son 12 Ay Sipariş İstatistikleri</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="siparisGrafik" style="height: 300px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Son 12 Ay Kurs Satış İstatistikleri</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="kursSatisGrafik" style="height: 300px;"></canvas>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-12">
+                <div class="x_panel">
+                    <div class="x_title">
+                        <h2>Son 12 Ay Gelir İstatistikleri</h2>
+                        <div class="clearfix"></div>
+                    </div>
+                    <div class="x_content">
+                        <canvas id="gelirGrafik" style="height: 300px;"></canvas>
                     </div>
                 </div>
             </div>
@@ -245,6 +354,132 @@ new Chart(document.getElementById('osGrafik'), {
         }
     }
 });
+
+// Orders Chart
+new Chart(document.getElementById('siparisGrafik'), {
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode(array_keys($siparisData)); ?>,
+        datasets: [{
+            label: 'Toplam Sipariş',
+            data: <?php echo json_encode(array_column($siparisData, 'toplam_siparis')); ?>,
+            borderColor: '#4a69bd',
+            backgroundColor: 'rgba(74, 105, 189, 0.1)',
+            tension: 0.3,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Course Sales Chart
+new Chart(document.getElementById('kursSatisGrafik'), {
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode(array_keys($kursSatisData)); ?>,
+        datasets: [{
+            label: 'Satılan Kurs Sayısı',
+            data: <?php echo json_encode(array_column($kursSatisData, 'satis_sayisi')); ?>,
+            borderColor: '#2ecc71',
+            backgroundColor: 'rgba(46, 204, 113, 0.1)',
+            tension: 0.3,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true
+            }
+        }
+    }
+});
+
+// Revenue Chart
+new Chart(document.getElementById('gelirGrafik'), {
+    type: 'line',
+    data: {
+        labels: <?php echo json_encode(array_keys($gelirData)); ?>,
+        datasets: [{
+            label: 'Aylık Gelir (TL)',
+            data: <?php echo json_encode(array_column($gelirData, 'gelir')); ?>,
+            borderColor: '#3498db',
+            backgroundColor: 'rgba(52, 152, 219, 0.1)',
+            tension: 0.3,
+            fill: true
+        }]
+    },
+    options: {
+        responsive: true,
+        maintainAspectRatio: false,
+        plugins: {
+            legend: {
+                position: 'top',
+            },
+            tooltip: {
+                callbacks: {
+                    label: function(context) {
+                        return new Intl.NumberFormat('tr-TR', {
+                            style: 'currency',
+                            currency: 'TRY'
+                        }).format(context.raw);
+                    }
+                }
+            }
+        },
+        scales: {
+            y: {
+                beginAtZero: true,
+                ticks: {
+                    callback: function(value) {
+                        return new Intl.NumberFormat('tr-TR', {
+                            style: 'currency',
+                            currency: 'TRY'
+                        }).format(value);
+                    }
+                }
+            }
+        }
+    }
+});
 </script>
+
+<style>
+.x_panel {
+    margin-bottom: 30px;
+}
+
+.x_content {
+    padding: 15px;
+    position: relative;
+    width: 100%;
+    height: 300px;
+}
+
+canvas {
+    width: 100% !important;
+    max-height: 300px;
+}
+</style>
 
 <?php include 'footer.php'; ?> 

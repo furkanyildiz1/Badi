@@ -99,7 +99,6 @@ $kurssor->execute();
             <div class="clearfix"></div>
               <div align="right">
             <a href="kurs-ekle.php"><button class="btn btn-success btn-xs">Yeni Ekle</button></a>
-            <a href="kurs-icerik.php"><button class="btn btn-success btn-xs">İçerik Ekle</button></a>
               </div>
           </div>
           <div class="x_content">
@@ -116,6 +115,7 @@ $kurssor->execute();
       <th>Kurs Detay Bilgileri</th>
       <th>İşlem 1</th>
       <th>İşlem 2</th>
+      <th>İşlem 3</th>
     </tr>
   </thead>
 
@@ -124,6 +124,7 @@ $kurssor->execute();
     <?php 
 
 // Kursleri döngü içinde listeleme
+$say = 0;
 while($kurscek=$kurssor->fetch(PDO::FETCH_ASSOC)) { 
 
     $say++;
@@ -131,13 +132,52 @@ while($kurscek=$kurssor->fetch(PDO::FETCH_ASSOC)) {
     <tr>
         <td width="20px;"><?php echo $say ?></td>
         <td><?php echo $kurscek['baslik'] ?></td>
-        <td><?php echo $kurscek['fiyat'] . " TL" ?></td>
-        <td><?php echo date('d F H:i', strtotime($kurscek['olusturma_tarihi'])); ?></td>
+        <td><?php 
+            // Find minimum certificate price (excluding transcripts)
+            $prices = [];
+            if (!empty($kurscek['edevlet_cert_price']) && $kurscek['edevlet_cert_price'] > 0) 
+                $prices[] = $kurscek['edevlet_cert_price'];
+            if (!empty($kurscek['eng_cert_price']) && $kurscek['eng_cert_price'] > 0) 
+                $prices[] = $kurscek['eng_cert_price'];
+            if (!empty($kurscek['tr_cert_price']) && $kurscek['tr_cert_price'] > 0) 
+                $prices[] = $kurscek['tr_cert_price'];
+            
+            $min_price = !empty($prices) ? min($prices) : 0;
+            echo $min_price > 0 ? $min_price . ' TL' : 'Ücretsiz';
+        ?></td>
+        <td><?php
+            $timestamp = strtotime($kurscek['olusturma_tarihi']);
+            $day = date('d', $timestamp);
+            $month_num = date('n', $timestamp); // Get month as a number (1-12)
+            $time = date('H:i', $timestamp);
+            
+            // Turkish month names
+            $turkish_months = [
+                1 => 'Ocak',
+                2 => 'Şubat',
+                3 => 'Mart',
+                4 => 'Nisan',
+                5 => 'Mayıs',
+                6 => 'Haziran',
+                7 => 'Temmuz',
+                8 => 'Ağustos',
+                9 => 'Eylül',
+                10 => 'Ekim',
+                11 => 'Kasım',
+                12 => 'Aralık'
+            ];
+            
+            echo $day . ' ' . $turkish_months[$month_num] . ' ' . $time;
+        ?></td>
         <td><a href="kurs-detay.php?kurs_id=<?php echo $kurscek['kurs_id']; ?>"><button class="btn btn-info btn-sm">Kurs Detay Bilgileri İçin Tıklayınız</button></a></td>
-        <td><center><a href="alt-kategori-duzenle.php?kurs_id=<?php echo $kurscek['kurs_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
+        <td><center><a href="kurs-duzenle.php?kurs_id=<?php echo $kurscek['kurs_id']; ?>">
+            <button class="btn btn-primary btn-xs">Düzenle</button>
+        </a></center></td>
+        <td><center><a href="kurs-icerik-duzenle.php?kurs_id=<?php echo $kurscek['kurs_id']; ?>">
+            <button class="btn btn-info btn-xs">İçerik Düzenle</button>
+        </a></center></td>
         <td>
             <center>
-                <!-- Silme Butonu için SweetAlert Onaylama -->
                 <a href="javascript:void(0);" onclick="confirmDelete('<?php echo $kurscek['kurs_id']; ?>')">
                     <button class="btn btn-danger btn-xs">Sil</button>
                 </a>

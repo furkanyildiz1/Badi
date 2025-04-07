@@ -1,14 +1,18 @@
 <?php 
+header('Content-Type: text/html; charset=utf-8');
+session_start();
 
 include 'nedmin/netting/baglan.php';
+
 $ayarsor = $db->prepare("SELECT * FROM ayar WHERE ayar_id=:ayar_id");
 $ayarsor->execute([
     'ayar_id' => 0
 ]);
 $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
 
-$menusor = $db->prepare("SELECT * FROM menu ORDER BY menu_sira ASC");
-$menusor->execute();
+$menusor = $db->prepare("SELECT * FROM menu WHERE menu_durum=:durum ORDER BY menu_sira ASC");
+$menusor->execute([
+    'durum' => 1]);
 
 $mobilmenusor = $db->prepare("SELECT * FROM menu ORDER BY menu_sira ASC");
 $mobilmenusor->execute();
@@ -164,7 +168,6 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
     <meta name="author" content="<?php echo $ayarcek['ayar_author']; ?>">
 
     <!-- Güvenlik etiketleri -->
-    <meta http-equiv="X-Frame-Options" content="DENY">
     <meta http-equiv="X-Content-Type-Options" content="nosniff">
     <meta name="referrer" content="no-referrer">
 
@@ -172,32 +175,157 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
 
-    <!-- SweetAlert2 Kullanıcıya uyarı mesajı için -->
-   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    
 
     <!-- Links of CSS files -->
     <link rel="stylesheet" href="assets/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/boxicons.min.css">
-    <link rel="stylesheet" href="assets/css/odometer.min.css">
-    <link rel="stylesheet" href="assets/css/nice-select.min.css">
-    <link rel="stylesheet" href="assets/css/owl.carousel.min.css">
-    <link rel="stylesheet" href="assets/css/meanmenu.min.css">
-    <link rel="stylesheet" href="assets/css/magnific-popup.min.css">
+    <link rel="stylesheet" href="assets/css/boxicons.min.css" media="print" onload="this.onload=null;this.media='all';">
+    <link rel="stylesheet" href="assets/css/odometer.min.css" media="print" onload="this.onload=null;this.media='all';">
+    <link rel="stylesheet" href="assets/css/nice-select.min.css" media="print" onload="this.onload=null;this.media='all';">
+    <link rel="stylesheet" href="assets/css/owl.carousel.min.css" media="print" onload="this.onload=null;this.media='all';">
+    <link rel="stylesheet" href="assets/css/meanmenu.min.css" media="print" onload="this.onload=null;this.media='all';">
+    <link rel="stylesheet" href="assets/css/magnific-popup.min.css" media="print" onload="this.onload=null;this.media='all';">
     <link rel="stylesheet" href="assets/css/style.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
 
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
-        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
-        crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+
+    
+    
 
     <!-- title etiketi buraya -->
     <title><?php echo $ayarcek['ayar_title']; ?></title>
     <link rel="icon" type="image/png" href="<?php echo $ayarcek['ayar_favicon']; ?>">
+
+    <!-- Add this CSS to the head section or your custom CSS file -->
+    <style>
+      .notification-badge {
+        position: absolute;
+        top: 10px;
+        right: 0px;
+        font-size: 0.7rem;
+        padding: 0.25rem 0.4rem;
+      }
+
+      .mobil-user-profile {
+        padding: 15px;
+        border-bottom: 1px solid rgba(43, 199, 248, 0.1);
+        background: rgba(43, 199, 248, 0.05);
+        border-radius: 8px;
+      }
+
+      .profile-header {
+        display: flex;
+        align-items: center;
+        padding: 10px;
+        cursor: pointer;
+        border-radius: 8px;
+        transition: all 0.3s ease;
+      }
+
+      .profile-header:hover {
+        background: rgba(43, 199, 248, 0.1);
+      }
+
+      .profile-header i {
+        color: #2bc7f8;
+        margin: 0px 10px;
+        transition: transform 0.3s ease;
+      }
+
+      .profile-header.active i.fa-chevron-down {
+        transform: rotate(180deg);
+      }
+
+      .profile-menu {
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease-out;
+        background: rgba(43, 199, 248, 0.05);
+        border-radius: 8px;
+        margin-top: 10px;
+        box-shadow: 0 4px 6px rgba(43, 199, 248, 0.1);
+      }
+
+      .profile-menu.show {
+        max-height: 300px;
+      }
+
+      .profile-menu a {
+        padding: 12px 15px;
+        color: #333 !important;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        transition: all 0.3s ease;
+        border-bottom: 1px solid rgba(43, 199, 248, 0.1);
+      }
+
+      .profile-menu a:last-child {
+        border-bottom: none;
+      }
+
+      .profile-menu a:hover {
+        background: rgba(43, 199, 248, 0.1);
+        padding-left: 20px;
+        color: #2bc7f8 !important;
+      }
+
+      .profile-menu i {
+        color: #2bc7f8;
+        margin-right: 10px;
+        width: 20px;
+        text-align: center;
+      }
+
+      .mobil-auth-buttons {
+        padding: 15px;
+        border-bottom: 1px solid rgba(43, 199, 248, 0.1);
+      }
+
+      .mobil-auth-buttons .btn-warning {
+        background-color: #2bc7f8;
+        border-color: #2bc7f8;
+        color: #fff;
+      }
+
+      .mobil-auth-buttons .btn-warning:hover {
+        background-color: #1ab6e8;
+        border-color: #1ab6e8;
+      }
+
+      .mobil-auth-buttons .btn-outline-light {
+        border-color: #2bc7f8;
+        color: #2bc7f8;
+      }
+
+      .mobil-auth-buttons .btn-outline-light:hover {
+        background-color: rgba(43, 199, 248, 0.1);
+        border-color: #2bc7f8;
+        color: #2bc7f8;
+      }
+
+      .notification-badge {
+        background-color: #2bc7f8;
+        color: white;
+        padding: 3px 8px;
+        border-radius: 50px;
+        font-size: 0.7rem;
+        position: absolute;
+        right: 15px;
+      }
+    </style>
 </head>
 
 <body>
+    
+    <!-- SweetAlert2 Kullanıcıya uyarı mesajı için -->
+   <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+   
+   <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css"
+        integrity="sha512-Kc323vGBEqzTmouAECnVceyQqyqdsSiqLQISBL29aUW4U/M7pSPA/gEUZQqv1cwx4OnYxTxve5UMg5GT6L4JJg=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
 
     <!-- Start Badi Top Navbar Area -->
     <div class="edu-top-navbar">
@@ -238,7 +366,7 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
             <div class="container">
                 <nav class="navbar navbar-expand-md navbar-light">
                     <!-- Logo kodları buraya eklenecek -->
-                    <a class="navbar-brand" href="index2.php"><img src="<?php echo $ayarcek['ayar_logo'] ?>"
+                    <a class="navbar-brand" href="index.php"><img src="<?php echo $ayarcek['ayar_logo'] ?>"
                             alt="logo"></a>
                     <div class="navbar-collapse mean-menu">
                         <ul class="navbar-nav">
@@ -247,7 +375,70 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
                                         class="nav-link"><?php echo $menucek['menu_ad']; ?></a>
                                 </li>
                             <?php } ?>
+                        </ul>
 
+                        <!-- User Authentication Section -->
+                        <ul class="navbar-nav ms-auto">
+                            <?php if(isset($_SESSION['userkullanici_mail'])) { 
+                                // Query to count unread invoices - fixed to use user_id
+                                $unreadInvoicesQuery = $db->prepare("SELECT COUNT(*) as count FROM faturalar 
+                                                                   WHERE user_id = :user_id 
+                                                                   AND bildirim_okundu = 0");
+                                $unreadInvoicesQuery->execute([
+                                    'user_id' => $_SESSION['userkullanici_id']
+                                ]);
+                                $unreadCount = $unreadInvoicesQuery->fetch(PDO::FETCH_ASSOC)['count'];
+                            ?>
+                                <!-- Logged in state -->
+                                <li class="nav-item">
+                                    <span style="margin-right: 15px;">
+                                        <?php
+                                        // Extract first name by splitting at the first space
+                                        $name_parts = explode(' ', $_SESSION['userkullanici_adsoyad'], 2);
+                                        echo "Hoş Geldiniz, " . $name_parts[0]; // Display only the first part (first name)
+                                        ?>
+                                    </span>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown">
+                                        <i class="fa-solid fa-user"></i>
+                                        <?php if($unreadCount > 0): ?>
+                                        <span class="badge rounded-pill bg-danger notification-badge">
+                                            <?php echo $unreadCount; ?>
+                                        </span>
+                                        <?php endif; ?>
+                                    </a>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="profile.php">Profilim</a></li>
+                                        <li><a class="dropdown-item" href="my-courses.php">Kurslarım</a></li>
+                                        <li><a class="dropdown-item position-relative" href="siparislerim.php">
+                                            Siparişlerim
+                                            <?php if($unreadCount > 0): ?>
+                                            <span class="badge rounded-pill bg-danger float-end">
+                                                <?php echo $unreadCount; ?>
+                                            </span>
+                                            <?php endif; ?>
+                                        </a></li>
+                                        <li><hr class="dropdown-divider"></li>
+                                        <li><a class="dropdown-item" href="logout.php">Çıkış Yap</a></li>
+                                    </ul>
+                                </li>
+                            <?php } else { ?>
+                                <!-- Logged out state -->
+                                <li class="nav-item">
+                                    <a class="nav-link" href="login.php">Giriş Yap</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="register.php">Üye Ol</a>
+                                </li>
+                            <?php } ?>
+                            <?php if(isset($_SESSION['userkullanici_mail'])) { ?>
+                            <li class="nav-item">
+                                <a class="nav-link" href="cart.php">
+                                    <i class="fa-solid fa-cart-shopping"></i>
+                                </a>
+                            </li>
+                            <?php } ?>
                         </ul>
                     </div>
                     <div class="nav-wp">
@@ -261,12 +452,7 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
                     </div>
                     <div class="nav-btn">
                         <ul>
-
-                            <li><a class="d-none d-md-block" href="login.php"><i class="fa-solid fa-user"></i></a>
-                            </li>
-                            <li><a class="d-none d-md-block" href="cart"><i class="fa-solid fa-cart-shopping"></i></a>
-                            </li>
-                            <li><button type="button" class="menu-button" onclick="toggleMenu()"><i
+                            <li><button type="button" class="menu-button" onclick="toggleMenu()" aria-label="Menüyü aç/kapat"><i
                                         class="fa-solid fa-bars"></i> </button>
                             </li>
                         </ul>
@@ -278,6 +464,57 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
     <div class="mobil-menu" id="sideMenu">
         <nav class="navbar mobil-navbar">
             <a class="navbar-brand" href="index.php"><img src="<?php echo $ayarcek['ayar_logo'] ?>" alt="logo"></a>
+            
+            <!-- Kullanıcı Profil Bölümü -->
+            <?php if(isset($_SESSION['userkullanici_mail'])) { ?>
+                <div class="mobil-user-profile">
+                    <div class="profile-header" onclick="toggleProfileMenu()">
+                        <i class="fa-solid fa-user"></i>
+                        <span style="color: #fff; flex-grow: 1;">
+                            <?php
+                            $name_parts = explode(' ', $_SESSION['userkullanici_adsoyad'], 2);
+                            echo "Hoş Geldiniz, " . $name_parts[0];
+                            ?>
+                        </span>
+                        <i class="fa-solid fa-chevron-down"></i>
+                    </div>
+                    <div class="profile-menu" id="profileMenu">
+                        <a href="profile.php">
+                            <i class="fa-solid fa-user-circle"></i>
+                            <span>Profilim</span>
+                        </a>
+                        <a href="my-courses.php">
+                            <i class="fa-solid fa-graduation-cap"></i>
+                            <span>Kurslarım</span>
+                        </a>
+                        <a href="siparislerim.php">
+                            <i class="fa-solid fa-shopping-bag"></i>
+                            <span>Siparişlerim</span>
+                            <?php if($unreadCount > 0): ?>
+                                <span class="notification-badge"><?php echo $unreadCount; ?></span>
+                            <?php endif; ?>
+                        </a>
+                        <a href="cart.php">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span>Sepetim</span>
+                        </a>
+                        <a href="logout.php">
+                            <i class="fa-solid fa-sign-out-alt"></i>
+                            <span>Çıkış Yap</span>
+                        </a>
+                    </div>
+                </div>
+            <?php } else { ?>
+                <div class="mobil-auth-buttons">
+                    <a href="login.php" class="btn btn-outline-light w-100 mb-2">
+                        <i class="fa-solid fa-sign-in-alt me-2"></i> Giriş Yap
+                    </a>
+                    <a href="register.php" class="btn btn-warning w-100">
+                        <i class="fa-solid fa-user-plus me-2"></i> Üye Ol
+                    </a>
+                </div>
+            <?php } ?>
+
             <div class="navbar-collapse mean-menu">
                 <ul class="navbar-nav">
                     <?php while ($mobilmenucek = $mobilmenusor->fetch(PDO::FETCH_ASSOC)) { ?>
@@ -291,17 +528,28 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
             <ul>
                 <li>
                     <p>Sorunuz mu var?</p>
-                    <a href="wa.me/+905449122234"><span class="fa-brands fa-whatsapp"></span> <?php echo $ayarcek['ayar_tel']; ?> </a>
+                    <a href="https://wa.me/+905449122234"><span class="fa-brands fa-whatsapp"></span> <?php echo $ayarcek['ayar_tel']; ?> </a>
                 </li>
                 <li>
                     <p>İletişim Adresi</p>
-                    <a href="contact.html"><i class="fa-solid fa-location-dot"></i>
+                    <a href="contact.php"><i class="fa-solid fa-location-dot"></i>
                         <?php echo $ayarcek['ayar_adres']; ?></a>
                 </li>
                 <li><a href="tel:08504806684"><i class="fa fa-phone"></i> <?php echo $ayarcek['ayar_gsm']; ?></a></li>
-                <li><a href="/iletisim"><i class="fa fa-envelope"></i> <?php echo $ayarcek['ayar_mail']; ?></a></li>
+                <li><a href="contact.php"><i class="fa fa-envelope"></i> <?php echo $ayarcek['ayar_mail']; ?></a></li>
             </ul>
         </div>
     </div>
-
+    
     <!-- End Navbar Area -->
+
+    <script>
+    function toggleProfileMenu() {
+        const menu = document.getElementById('profileMenu');
+        const header = document.querySelector('.profile-header');
+        menu.classList.toggle('show');
+        header.classList.toggle('active');
+    }
+    </script>
+</body>
+</html>

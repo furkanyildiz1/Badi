@@ -96,6 +96,8 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
     <!-- jQuery -->
     <script src="../vendors/jquery/dist/jquery.min.js"></script>
 
+    <link href="https://cdn.jsdelivr.net/npm/sweetalert2@11/dist/sweetalert2.min.css" rel="stylesheet">
+
     <style>
       /* Reset ve Temel Ayarlar */
       body {
@@ -394,13 +396,22 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
             <div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
               <div class="menu_section">
                 <ul class="nav side-menu">
-
                   <li><a href="index.php"><i class="fa fa-home"></i> Ana Sayfa </a></li>
 
                   <li>
                     <a href="istatistikler.php">
                       <i class="fa fa-chart-bar"></i> İstatistikler
                     </a>
+                  </li>
+
+                  <li><a><i class="fa fa-shopping-cart"></i> Alışveriş Yönetimi <span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="siparisler.php">Tüm Siparişler</a></li>
+                      <li><a href="kurs-erisimi.php">Kurs Erişim Bilgileri</a></li>
+                      <li><a href="kampanya-kodlari.php">Kampanya Kodları</a></li>
+                      <li><a href="paytr-ayar.php">PayTR Ayarları</a></li>
+                      <li><a href="banka-hesaplari.php">Banka Hesapları</a></li>
+                    </ul>
                   </li>
 
                   <li><a><i class="fa fa-cogs"></i>Site Ayarları<span class="fa fa-chevron-down"></span></a>
@@ -410,6 +421,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                       <li><a href="api-ayar.php">Api Ayarları</a></li>
                       <li><a href="sosyal-ayar.php">Sosyal Ayarlar</a></li>
                       <li><a href="mail-ayar.php">Mail Ayarları</a></li>
+                      <li><a href="kvkk-gizlilik.php">KVKK ve Gizlilik</a></li>
                     </ul>
                   </li>
 
@@ -450,9 +462,12 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                     </ul>
                   </li>
 
-                  <li><a href="anahakkimizda.php"><i class="fa fa-clipboard"></i> Ana Hakkımızda İşlemleri</a></li>
-
-                  <li><a href="anahakkimizda.php"><i class="fa fa-clipboard"></i> Banner İşlemleri</a></li>
+                  <li><a><i class="fa fa-clipboard"></i>Ana Sayfa İşlemleri<span class="fa fa-chevron-down"></span></a>
+                    <ul class="nav child_menu">
+                      <li><a href="anahakkimizda.php">Ana Hakkımızda İşlemleri</a></li>
+                      <li><a href="anasayfa_veriler.php">Ana Sayfa Verileri</a></li>
+                    </ul>
+                  </li>
 
                   <li><a href="sss.php"><i class="fa fa-question"></i> SSS İşlemleri</a></li>
 
@@ -467,8 +482,6 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                   <li><a href="menu.php"><i class="fa fa-list"></i> Menü İşlemleri </a></li>
 
                   <li><a href="slider.php"><i class="fa fa-image"></i> Slider İşlemleri </a></li>
-
-                 
 
                 </ul>
               </div>

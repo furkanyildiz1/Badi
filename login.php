@@ -17,6 +17,8 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
     <title>Giriş Yap - Badi Akademi</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link rel="stylesheet" href="assets/css/auth-style.css">
+    <link rel="icon" type="image/png" href="<?php echo $ayarcek['ayar_favicon']; ?>">
+
     <style>
         .alert {
             padding: 15px;
@@ -52,6 +54,18 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
             color: #0c5460;
             background-color: #d1ecf1;
             border-color: #bee5eb;
+        }
+        
+        .toggle-password {
+            position: absolute;
+            right: 10px;
+            top: 40px;
+            cursor: pointer;
+            color: #888;
+        }
+        
+        .form-group {
+            position: relative;
         }
     </style>
 </head>
@@ -119,6 +133,7 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                     <label for="password">Şifre</label>
                     <i class="fas fa-lock"></i>
                     <input type="password" id="password" name="password" placeholder="••••••••" required>
+                    <i class="fas fa-eye toggle-password" onclick="togglePasswordVisibility()"></i>
                     <a href="forgot-password.php" class="forgot-password">Şifremi Unuttum</a>
                 </div>
 
@@ -139,16 +154,31 @@ $ayarcek = $ayarsor->fetch(PDO::FETCH_ASSOC);
                 <span>veya</span>
             </div>
 
-            <button type="button" class="google-btn" onclick="googleLogin()">
+            <a href="google-auth.php" class="google-btn">
                 <i class="fab fa-google" style="color: #4285f4; font-size: 18px;"></i>
                 Google ile Giriş Yap
-            </button>
+            </a>
         </div>
     </div>
 
     <script>
         function googleLogin() {
             alert('Google ile giriş yapma özelliği yakında eklenecek!');
+        }
+        
+        function togglePasswordVisibility() {
+            const passwordInput = document.getElementById('password');
+            const toggleIcon = document.querySelector('.toggle-password');
+            
+            if (passwordInput.type === 'password') {
+                passwordInput.type = 'text';
+                toggleIcon.classList.remove('fa-eye');
+                toggleIcon.classList.add('fa-eye-slash');
+            } else {
+                passwordInput.type = 'password';
+                toggleIcon.classList.remove('fa-eye-slash');
+                toggleIcon.classList.add('fa-eye');
+            }
         }
     </script>
 </body>
