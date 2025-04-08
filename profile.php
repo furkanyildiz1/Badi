@@ -122,283 +122,130 @@ $adresler->execute([$_SESSION['userkullanici_id']]);
 <div class="profile-page">
     <div class="container">
         <div class="row">
-            <!-- Profile Info Section -->
-            <div class="col-md-6">
+            <!-- SOL TARAFTAKİ KULLANICI PANELİ -->
+            <div class="col-md-3">
                 <div class="profile-section">
                     <div class="profile-header">
-                        <h4>Profil Bilgileri</h4>
+                        <h5>Kullanıcı Panelim</h5>
                     </div>
                     <div class="profile-content">
-                        <!-- Add profile picture section -->
-                        <div class="text-center mb-4">
-                            <div class="profile-image-container">
-                                <img src="<?php 
-                                    echo $kullanici_detay['kullanici_resim'] 
-                                        ? $kullanici_detay['kullanici_resim'] 
-                                        : 'dimg/user/default.jpg'; 
-                                    ?>" 
-                                    class="profile-image" alt="Profil Resmi">
-                                <div class="image-overlay">
-                                    <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#profileImageModal">
-                                        <i class="fa fa-camera"></i> Değiştir
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('my-courses.php'); return false;">
+                                    Kurslarım
+                                </a>
+                            </li>
+<!-- DEĞİŞCEK SERTİFİKA KISMI YOK -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('sertifikalarim.php'); return false;">
+                                    Sertifikalarım
+                                </a>
+                            </li>
+                            <!-- ADRES KISMI BOUNSİTETÜ DEKİ GİBİ AMA BİZDEKİ KODA ENTEGRE ET -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('adreslerim.php'); return false;">
+                                    Adreslerim
+                                </a>
+                            </li>
+                        </ul>
 
-                        <form action="nedmin/netting/islem.php" method="POST">
-                            <div class="form-group">
-                                <label>Ad</label>
-                                <input type="text" name="kullanici_ad" class="form-control" 
-                                       value="<?php echo $kullanici_detay['kullanici_ad']; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>Soyad</label>
-                                <input type="text" name="kullanici_soyad" class="form-control" 
-                                       value="<?php echo $kullanici_detay['kullanici_soyad']; ?>">
-                            </div>
-                            <div class="form-group">
-                                <label>E-posta</label>
-                                <input type="email" class="form-control" 
-                                       value="<?php echo $kullanici_detay['kullanici_mail']; ?>" readonly>
-                                <small class="text-muted">E-posta adresi değiştirilemez.</small>
-                            </div>
-                            <div class="form-group">
-                                <label>Telefon</label>
-                                <input type="tel" name="kullanici_gsm" class="form-control" 
-                                       pattern="[0-9]*" placeholder="05xxxxxxxxx" maxlength="11"
-                                       oninput="this.value = this.value.replace(/[^0-9]/g, '')"
-                                       value="<?php echo $kullanici_detay['kullanici_tel']; ?>">
-                            </div>
-                            <button type="submit" name="kullanici_bilgi_guncelle" class="btn btn-primary">
-                                Bilgileri Güncelle
-                            </button>
-                        </form>
+                        <h5 class="mt-4">Sipariş Detayları</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('siparislerim.php'); return false;">
+                                    Siparişlerim
+                                </a>
+                            </li>
+                            <!-- KUPON SAYFASI YOK BOUNSİTETÜDEN ALINDI YAPILABİLİR -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('kuponlarim.php'); return false;">
+                                    Kuponlarım
+                                </a>
+                            </li>
+                        </ul>
+
+                        <h5 class="mt-4">Hesap Ayarları</h5>
+                        <ul class="nav flex-column">
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('profile.php'); return false;">
+                                    Genel Ayarlarım
+                                </a>
+                            </li>
+                            <!-- DROPDOWN DEĞİL SAĞ PANELE GETİR VE FONKSİYONU ÇEK -->
+                            <li class="nav-item">
+                                <a href="#" class="nav-link" onclick="loadContent('sifremi-guncelle.php'); return false;">
+                                    Şifremi Güncelle
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="logout.php" class="nav-link">
+                                    Çıkış Yap
+                                </a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
+            </div>
 
-                <!-- Password Change Section - Now Collapsible -->
-                <div class="profile-section">
-                    <div class="profile-header">
-                        <button class="btn btn-link w-100 text-left d-flex justify-content-between align-items-center" 
-                                type="button" 
-                                data-bs-toggle="collapse" 
-                                data-bs-target="#passwordSection" 
-                                aria-expanded="false">
-                            <h4 class="mb-0">Şifre Değiştir</h4>
-                            <i class="fa fa-chevron-down"></i>
-                        </button>
-                    </div>
-                    <div class="collapse" id="passwordSection">
+            <!-- SAĞ TARAFTAKİ İÇERİK ALANI -->
+            <div class="col-md-9">
+                <!-- Dinamik içerik yüklenecek alan sağ kısmı etkilenliştir-->
+                <div id="content-container">
+                    <div class="profile-section">
+                        <div class="profile-header">
+                            <h4>Profil Bilgileri</h4>
+                        </div>
                         <div class="profile-content">
+                            <!-- Profil Resmi -->
+                            <div class="text-center mb-4">
+                                <div class="profile-image-container">
+                                    <img src="<?php 
+                                        echo $kullanici_detay['kullanici_resim'] 
+                                            ? $kullanici_detay['kullanici_resim'] 
+                                            : 'dimg/user/default.jpg'; 
+                                    ?>" 
+                                    class="profile-image" alt="Profil Resmi">
+                                    <div class="image-overlay">
+                                        <button type="button" class="btn btn-sm btn-light" data-bs-toggle="modal" data-bs-target="#profileImageModal">
+                                            <i class="fa fa-camera"></i> Değiştir
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Profil Bilgileri Güncelleme Formu -->
                             <form action="nedmin/netting/islem.php" method="POST">
                                 <div class="form-group">
-                                    <label>Mevcut Şifre</label>
-                                    <div class="input-group">
-                                        <input type="password" name="eski_sifre" class="form-control" id="eski_sifre" required>
-                                        <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('eski_sifre')">
-                                            <i class="fa fa-eye" id="eski_sifre_icon"></i>
-                                        </button>
-                                    </div>
+                                    <label>Ad</label>
+                                    <input type="text" name="kullanici_ad" class="form-control" 
+                                           value="<?php echo $kullanici_detay['kullanici_ad']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Yeni Şifre</label>
-                                    <div class="input-group">
-                                        <input type="password" name="yeni_sifre" class="form-control" id="yeni_sifre" required>
-                                        <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('yeni_sifre')">
-                                            <i class="fa fa-eye" id="yeni_sifre_icon"></i>
-                                        </button>
-                                    </div>
+                                    <label>Soyad</label>
+                                    <input type="text" name="kullanici_soyad" class="form-control" 
+                                           value="<?php echo $kullanici_detay['kullanici_soyad']; ?>">
                                 </div>
                                 <div class="form-group">
-                                    <label>Yeni Şifre (Tekrar)</label>
-                                    <div class="input-group">
-                                        <input type="password" name="yeni_sifre_tekrar" class="form-control" id="yeni_sifre_tekrar" required>
-                                        <button type="button" class="btn btn-outline-secondary" onclick="togglePasswordVisibility('yeni_sifre_tekrar')">
-                                            <i class="fa fa-eye" id="yeni_sifre_tekrar_icon"></i>
-                                        </button>
-                                    </div>
+                                    <label>E-posta</label>
+                                    <input type="email" class="form-control" 
+                                           value="<?php echo $kullanici_detay['kullanici_mail']; ?>" readonly>
+                                    <small class="text-muted">E-posta adresi değiştirilemez.</small>
                                 </div>
-                                <button type="submit" name="kullanici_sifre_guncelle" class="btn btn-warning">
-                                    Şifreyi Değiştir
+                                <div class="form-group">
+                                    <label>Telefon</label>
+                                    <input type="tel" name="kullanici_gsm" class="form-control" 
+                                           pattern="[0-9]*" placeholder="05xxxxxxxxx" maxlength="11"
+                                           oninput="this.value = this.value.replace(/[^0-9]/g, '')"
+                                           value="<?php echo $kullanici_detay['kullanici_tel']; ?>">
+                                </div>
+                                <button type="submit" name="kullanici_bilgi_guncelle" class="btn btn-primary">
+                                    Bilgileri Güncelle
                                 </button>
                             </form>
                         </div>
                     </div>
                 </div>
             </div>
-
-            <!-- Addresses Section -->
-            <div class="col-md-6">
-                <div class="profile-section">
-                    <div class="profile-header d-flex justify-content-between align-items-center">
-                        <h4>Fatura Adresleri</h4>
-                        <button type="button" class="btn btn-sm btn-primary" data-bs-toggle="modal" data-bs-target="#newAddressModal">
-                            <i class="fa fa-plus"></i> Yeni Adres
-                        </button>
-                    </div>
-                    <div class="profile-content">
-                        <?php if($adresler->rowCount() > 0): ?>
-                            <?php while($adres = $adresler->fetch(PDO::FETCH_ASSOC)): ?>
-                                <div class="address-card <?php echo $adres['varsayilan'] ? 'default' : ''; ?>">
-                                    <?php if($adres['varsayilan']): ?>
-                                        <span class="default-badge">Varsayılan</span>
-                                    <?php endif; ?>
-                                    
-                                    <h5><?php echo $adres['ad_soyad']; ?></h5>
-                                    <p class="mb-1"><?php echo $adres['adres']; ?></p>
-                                    <p class="mb-1"><?php echo $adres['ilce'] . '/' . $adres['il']; ?></p>
-                                    <p class="mb-2"><?php echo $adres['telefon']; ?></p>
-                                    
-                                    <div class="btn-group">
-                                        <button type="button" class="btn btn-sm btn-info" 
-                                                onclick="editAddress(<?php echo $adres['fatura_adres_id']; ?>)">
-                                            Düzenle
-                                        </button>
-                                        <?php if(!$adres['varsayilan']): ?>
-                                            <button type="button" class="btn btn-sm btn-success" 
-                                                    onclick="makeDefault(<?php echo $adres['fatura_adres_id']; ?>)">
-                                                Varsayılan Yap
-                                            </button>
-                                            <button type="button" class="btn btn-sm btn-danger" 
-                                                    onclick="deleteAddress(<?php echo $adres['fatura_adres_id']; ?>)">
-                                                Sil
-                                            </button>
-                                        <?php endif; ?>
-                                    </div>
-                                </div>
-                            <?php endwhile; ?>
-                        <?php else: ?>
-                            <div class="text-center py-4">
-                                <p class="text-muted">Henüz kayıtlı adresiniz bulunmuyor.</p>
-                            </div>
-                        <?php endif; ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<!-- New Address Modal -->
-<div class="modal fade" id="newAddressModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Yeni Adres Ekle</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="nedmin/netting/islem.php" method="POST">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Ad Soyad</label>
-                        <input type="text" name="ad_soyad" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Telefon</label>
-                        <input type="tel" name="telefon" class="form-control" 
-                               pattern="[0-9]*" placeholder="05xxxxxxxxx" maxlength="11"
-                               oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                    </div>
-                    <div class="form-group">
-                        <label>TC No</label>
-                        <input type="text" name="tc_no" class="form-control" 
-                               pattern="[0-9]*" placeholder="xxxxxxxxxxx" maxlength="11"
-                               oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Adres</label>
-                        <textarea name="adres" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>İl</label>
-                                <input type="text" name="il" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>İlçe</label>
-                                <input type="text" name="ilce" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Posta Kodu</label>
-                        <input type="text" name="posta_kodu" class="form-control" required>
-                    </div>
-                    <div class="form-check mt-3">
-                        <input type="checkbox" name="varsayilan" class="form-check-input" id="defaultCheck">
-                        <label class="form-check-label" for="defaultCheck">
-                            Varsayılan adres olarak kaydet
-                        </label>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="submit" name="yeni_adres_ekle" class="btn btn-primary">Kaydet</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-<!-- Add this modal after the newAddressModal -->
-<div class="modal fade" id="editAddressModal" tabindex="-1">
-    <div class="modal-dialog">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title">Adres Düzenle</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-            </div>
-            <form action="nedmin/netting/islem.php" method="POST">
-                <input type="hidden" name="fatura_adres_id" id="edit_adres_id">
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label>Ad Soyad</label>
-                        <input type="text" name="ad_soyad" id="edit_ad_soyad" class="form-control" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Telefon</label>
-                        <input type="tel" name="telefon" id="edit_telefon" class="form-control" 
-                               pattern="[0-9]*" placeholder="05xxxxxxxxx" maxlength="11"
-                               oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                    </div>
-                    <div class="form-group">
-                        <label>TC No</label>
-                        <input type="text" name="tc_no" id="edit_tc_no" class="form-control" 
-                               pattern="[0-9]*" placeholder="xxxxxxxxxxx" maxlength="11"
-                               oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
-                    </div>
-                    <div class="form-group">
-                        <label>Adres</label>
-                        <textarea name="adres" id="edit_adres" class="form-control" rows="3" required></textarea>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>İl</label>
-                                <input type="text" name="il" id="edit_il" class="form-control" required>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="form-group">
-                                <label>İlçe</label>
-                                <input type="text" name="ilce" id="edit_ilce" class="form-control" required>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="form-group">
-                        <label>Posta Kodu</label>
-                        <input type="text" name="posta_kodu" id="edit_posta_kodu" class="form-control" required>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">İptal</button>
-                    <button type="submit" name="adres_duzenle" class="btn btn-primary">Kaydet</button>
-                </div>
-            </form>
         </div>
     </div>
 </div>
@@ -431,13 +278,41 @@ $adresler->execute([$_SESSION['userkullanici_id']]);
     </div>
 </div>
 
+<!-- JavaScript: Dinamik içerik yüklemesi sağ panel için gerekliş düzenleme istekelrimi burda tıoparlıcam -->
+ <!-- HATALI KISIM İNCLUDE DAN DOLAYI EN ÜST NAV BAR GELİYOR ONU DOM LA ÇIKARMAYI DENE -->
+<script>
+function loadContent(url) {
+    // Sağ paneldeki içerik alanını seçiyoruz.
+    const container = document.getElementById('content-container');
+    
+    // Yüklenmekte olduğuna dair mesaj gösterelim
+    container.innerHTML = '<p>Yükleniyor...</p>';
+
+    // PHP dosyasından içeriği fetch ile getiriyoruz.
+    fetch(url)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('İstek başarısız: ' + response.status);
+            }
+            return response.text();
+        })
+        .then(html => {
+            // Gelen HTML içeriğini sağ paneldeki alana yüklüyoruz.
+            container.innerHTML = html;
+        })
+        .catch(error => {
+            console.error('İçerik yüklenirken hata oluştu: ', error);
+            container.innerHTML = '<p>İçerik yüklenemedi.</p>';
+        });
+}
+</script>
+
+<!-- Ek JavaScript Fonksiyonları (adres düzenleme, şifre gösterme) -->
 <script>
 function editAddress(addressId) {
-    // Fetch address details via AJAX
     fetch('nedmin/netting/islem.php?adres_getir=' + addressId)
         .then(response => response.json())
         .then(data => {
-            // Populate the edit modal with address data
             document.getElementById('edit_adres_id').value = data.fatura_adres_id;
             document.getElementById('edit_ad_soyad').value = data.ad_soyad;
             document.getElementById('edit_telefon').value = data.telefon;
@@ -447,7 +322,6 @@ function editAddress(addressId) {
             document.getElementById('edit_ilce').value = data.ilce;
             document.getElementById('edit_posta_kodu').value = data.posta_kodu;
 
-            // Show the modal
             var editModal = new bootstrap.Modal(document.getElementById('editAddressModal'));
             editModal.show();
         })
@@ -485,4 +359,4 @@ function togglePasswordVisibility(inputId) {
 }
 </script>
 
-<?php include 'footer.php'; ?> 
+<?php include 'footer.php'; ?>

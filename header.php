@@ -401,7 +401,10 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
                                 </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle position-relative" href="#" role="button" data-bs-toggle="dropdown">
-                                        <i class="fa-solid fa-user"></i>
+                                        <!-- İkonu kapsayan span ekliyoruz. -->
+                                        <span onclick="window.location.href='profile.php'; event.stopPropagation();">
+                                            <i class="fa-solid fa-user"></i>
+                                        </span>
                                         <?php if($unreadCount > 0): ?>
                                         <span class="badge rounded-pill bg-danger notification-badge">
                                             <?php echo $unreadCount; ?>
