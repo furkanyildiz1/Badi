@@ -305,7 +305,7 @@ $total_pages = ceil($total_orders / $limit);
                     <i class="fas fa-shopping-bag fa-3x text-muted mb-3"></i>
                     <h3>Henüz Siparişiniz Bulunmuyor</h3>
                     <p class="text-muted">Hemen yeni bir kurs satın alarak öğrenmeye başlayın!</p>
-                    <a href="courses.php" class="btn btn-primary">Kursları İncele</a>
+                    <a href="kurslar_1.php" class="btn btn-primary">Kursları İncele</a>
                 </div>
             </div>
         <?php endif; ?>
