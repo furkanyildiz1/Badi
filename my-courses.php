@@ -1,5 +1,8 @@
 <?php 
-include 'header.php';
+header('Content-Type: text/html; charset=utf-8');
+session_start();
+
+include 'nedmin/netting/baglan.php';
 
 // Check if user is logged in
 if(!isset($_SESSION['userkullanici_mail'])) {
@@ -194,7 +197,7 @@ $kurslar->execute([$_SESSION['userkullanici_id']]);
                             <i class="fas fa-book-open fa-3x mb-3 text-muted"></i>
                             <h3>Henüz Kursunuz Bulunmuyor</h3>
                             <p class="text-muted">Hemen yeni bir kurs satın alarak öğrenmeye başlayın!</p>
-                            <a href="kurslar_1.php" class="btn btn-primary">Kursları İncele</a>
+                            <a href="courses.php" class="btn btn-primary">Kursları İncele</a>
                         </div>
                     </div>
                 </div>
@@ -287,5 +290,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-
-<?php include 'footer.php'; ?> 
