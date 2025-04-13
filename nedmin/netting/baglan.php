@@ -2,7 +2,7 @@
 
 try
 {
-	$db = new PDO("mysql:host=localhost;dbname=peraetki_badiakademi;charset=utf8",'peraetki_erdem','eA5431596417_17*');
+	$db = new PDO("mysql:host=localhost;dbname=peraetki_badiakademi;charset=utf8",'root','');
 	//echo "Veritabanı baglantısı basarili";
 }
 catch (PDOException $e)

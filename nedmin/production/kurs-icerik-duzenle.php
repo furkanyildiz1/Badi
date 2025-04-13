@@ -279,15 +279,15 @@ $kurscek = $kurssor->fetch(PDO::FETCH_ASSOC);
 
 <!-- Video Yükleme Yöntemi Modal -->
 <div class="modal fade" id="bulkAddLessonModal" tabindex="-1">
-    <div class="modal-dialog modal-xl">
+    <div class="modal-dialog modal-xl" style="max-width: 90%; width: 1200px;">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title">Video Yükleme Yöntemi</h5>
+                <h5 class="modal-title">İçerik Yükleme Yöntemi</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding: 25px 30px;">
                 <div class="upload-methods">
                     <div class="upload-method" onclick="selectUploadMethod('local')">
                         <i class='fa fa-laptop'></i>
@@ -300,12 +300,18 @@ $kurscek = $kurssor->fetch(PDO::FETCH_ASSOC);
                         <p>Sistemde kayıtlı videoları içe aktarın</p>
                     </div>
                     <div class="upload-method" onclick="selectUploadMethod('youtube')">
-                        <i class='fa fa-youtube'></i>
+                        <!-- SVG YouTube Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="red" viewBox="0 0 16 16">
+                            <path d="M8.051 1.999h.089c.822.003 4.987.033 6.11.335a2.01 2.01 0 0 1 1.415 1.42c.101.38.172.883.22 1.402l.01.104.022.26.008.104c.065.914.073 1.77.074 1.957v.075c-.001.194-.01 1.108-.082 2.06l-.008.105-.009.104c-.05.572-.124 1.14-.235 1.558a2.007 2.007 0 0 1-1.415 1.42c-1.16.312-5.569.334-6.18.335h-.142c-.309 0-1.587-.006-2.927-.052l-.17-.006-.087-.004-.171-.007-.171-.007c-1.11-.049-2.167-.128-2.654-.26a2.007 2.007 0 0 1-1.415-1.419c-.111-.417-.185-.986-.235-1.558L.09 9.82l-.008-.104A31.4 31.4 0 0 1 0 7.68v-.123c.002-.215.01-.958.064-1.778l.007-.103.003-.052.008-.104.022-.26.01-.104c.048-.519.119-1.023.22-1.402a2.007 2.007 0 0 1 1.415-1.42c.487-.13 1.544-.21 2.654-.26l.17-.007.172-.006.086-.003.171-.007A99.788 99.788 0 0 1 7.858 2h.193zM6.4 5.209v4.818l4.157-2.408L6.4 5.209z"/>
+                        </svg>
                         <h6>YouTube'dan İçe Aktar</h6>
                         <p>YouTube video veya oynatma listesi URL'si ile içe aktarın</p>
                     </div>
                     <div class="upload-method" onclick="selectUploadMethod('vimeo')">
-                        <i class='fa fa-vimeo'></i>
+                        <!-- SVG Vimeo Icon -->
+                        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="#1ab7ea" viewBox="0 0 16 16">
+                            <path d="M15.992 4.204c-.071 1.556-1.158 3.687-3.262 6.393-2.175 2.829-4.016 4.243-5.522 4.243-.933 0-1.722-.861-2.367-2.583L3.55 7.523C3.07 5.8 2.556 4.94 2.007 4.94c-.118 0-.537.253-1.254.754L0 4.724a209.56 209.56 0 0 0 2.334-2.081c1.054-.91 1.845-1.388 2.37-1.437 1.246-.123 2.013.733 2.3 2.57.31 1.97.526 3.194.647 3.673.36 1.634.754 2.45 1.185 2.45.335 0 .838-.53 1.508-1.587.67-1.058 1.03-1.863 1.077-2.414.096-.913-.263-1.37-1.077-1.37a3.022 3.022 0 0 0-1.185.261c.789-2.582 2.298-3.834 4.526-3.762 1.65.044 2.427 1.117 2.33 3.218z"/>
+                        </svg>
                         <h6>Vimeo'dan İçe Aktar</h6>
                         <p>Vimeo video veya koleksiyon URL'si ile içe aktarın</p>
                     </div>
@@ -323,6 +329,16 @@ $kurscek = $kurssor->fetch(PDO::FETCH_ASSOC);
                         <i class='fa fa-archive'></i>
                         <h6>SCORM Paketi Yükle</h6>
                         <p>SCORM uyumlu paketleri yükleyin</p>
+                    </div>
+                    <div class="upload-method" onclick="selectUploadMethod('pdf')">
+                        <i class='fa fa-file-pdf-o'></i>
+                        <h6>PDF Yükle</h6>
+                        <p>PDF dokümanları yükleyin</p>
+                    </div>
+                    <div class="upload-method" onclick="selectUploadMethod('presentation')">
+                        <i class='fa fa-file-powerpoint-o'></i>
+                        <h6>Sunum Yükle</h6>
+                        <p>PowerPoint veya diğer sunum dosyalarını yükleyin</p>
                     </div>
                     <div class="upload-method" onclick="selectUploadMethod('embed')">
                         <i class='fa fa-code'></i>
@@ -544,6 +560,13 @@ $kurscek = $kurssor->fetch(PDO::FETCH_ASSOC);
                         <label>Açıklama (Opsiyonel)</label>
                         <textarea class="form-control" name="description" rows="3"></textarea>
                     </div>
+                    
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="h5p_preview" name="is_preview" value="1">
+                            <label class="custom-control-label" for="h5p_preview">Ücretsiz Önizleme İçeriği</label>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
@@ -573,28 +596,37 @@ $kurscek = $kurssor->fetch(PDO::FETCH_ASSOC);
                     <input type="hidden" name="bolum_id" id="scorm_bolum_id">
                     
                     <div class="alert alert-info">
-                        <i class="fa fa-info-circle"></i> SCORM (.zip) dosyası yükleyin.
+                        <i class="fa fa-info-circle"></i> SCORM (.zip) paketi yükleyin.
                     </div>
                     
                     <div class="form-group">
-                        <label>SCORM Başlığı</label>
+                        <label>İçerik Başlığı <span class="text-danger">*</span></label>
                         <input type="text" class="form-control" name="title" required>
                     </div>
                     
                     <div class="form-group">
-                        <label>SCORM Paketi (.zip)</label>
+                        <label>SCORM Paketi (.zip) <span class="text-danger">*</span></label>
                         <input type="file" class="form-control" name="scorm_file" accept=".zip" required>
+                        <small class="form-text text-muted">Yalnızca .zip uzantılı SCORM paketleri kabul edilir</small>
                     </div>
                     
                     <div class="form-group">
-                        <label>Açıklama (Opsiyonel)</label>
-                        <textarea class="form-control" name="description" rows="3"></textarea>
+                        <label>Tahmini Süre (dakika)</label>
+                        <input type="number" class="form-control" name="duration" value="30" min="1">
+                        <small class="form-text text-muted">İçeriği tamamlama için gereken tahmini süre</small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <div class="custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="scorm_preview" name="is_preview" value="1">
+                            <label class="custom-control-label" for="scorm_preview">Ücretsiz Önizleme İçeriği</label>
+                        </div>
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
                     <button type="submit" class="btn btn-primary">
-                        <i class="fa fa-archive"></i> Yükle
+                        <i class="fa fa-cube"></i> Yükle
                     </button>
                 </div>
             </form>
@@ -734,8 +766,8 @@ $kurscek = $kurssor->fetch(PDO::FETCH_ASSOC);
 <!-- CSS & JS Styles -->
 <style>
 .upload-methods {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
     gap: 15px;
     justify-content: center;
 }
@@ -987,6 +1019,22 @@ function selectUploadMethod(method) {
         case 'scorm':
             document.getElementById('scorm_bolum_id').value = bolumId;
             $('#scormUploadModal').modal('show');
+            break;
+            
+        case 'pdf':
+            setTimeout(function() {
+                document.getElementById('pdf_bolum_id').value = bolumId;
+                console.log("Set pdf_bolum_id to:", bolumId);
+                $('#pdfUploadModal').modal('show');
+            }, 500);
+            break;
+            
+        case 'presentation':
+            setTimeout(function() {
+                document.getElementById('presentation_bolum_id').value = bolumId;
+                console.log("Set presentation_bolum_id to:", bolumId);
+                $('#presentationUploadModal').modal('show');
+            }, 500);
             break;
 
         case 'embed':
@@ -1771,7 +1819,111 @@ function addSelectedBunnyVideo() {
     });
 }
 
-
+$(document).ready(function() {
+    // Handle module ID passing to modals
+    $('.content-type-item').on('click', function() {
+      const modulId = $(this).data('bolum-id');
+      const targetModal = $(this).data('target');
+      
+      // Set the module ID to the appropriate input field based on modal type
+      if (targetModal === '#youtubeModal') {
+        $('#youtube_bolum_id').val(modulId);
+      } else if (targetModal === '#vimeoModal') {
+        $('#vimeo_bolum_id').val(modulId);
+      } else if (targetModal === '#embedModal') {
+        $('#embed_bolum_id').val(modulId);
+      } else if (targetModal === '#pdfUploadModal') {
+        $('#pdf_bolum_id').val(modulId);
+      } else if (targetModal === '#presentationUploadModal') {
+        $('#presentation_bolum_id').val(modulId);
+      }
+    });
+  });
 </script>
+
+<!-- PDF Upload Modal -->
+<div class="modal fade" id="pdfUploadModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">PDF Yükle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../netting/islem.php" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" name="pdf_upload" value="1">
+          <input type="hidden" name="kurs_id" value="<?php echo $kurs_id; ?>">
+          <input type="hidden" name="bolum_id" id="pdf_bolum_id">
+          
+          <div class="form-group">
+            <label>İçerik Başlığı <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="title" required>
+          </div>
+          
+          <div class="form-group">
+            <label>PDF Dosyası <span class="text-danger">*</span></label>
+            <input type="file" class="form-control" name="pdf_file" accept=".pdf" required>
+          </div>
+          
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="pdfPreview" name="is_preview" value="1">
+              <label class="custom-control-label" for="pdfPreview">Ücretsiz Önizleme İçeriği</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+          <button type="submit" class="btn btn-primary">Yükle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<!-- Presentation Upload Modal -->
+<div class="modal fade" id="presentationUploadModal" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Sunum Yükle</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <form action="../netting/islem.php" method="POST" enctype="multipart/form-data">
+        <div class="modal-body">
+          <input type="hidden" name="presentation_upload" value="1">
+          <input type="hidden" name="kurs_id" value="<?php echo $kurs_id; ?>">
+          <input type="hidden" name="bolum_id" id="presentation_bolum_id">
+          
+          <div class="form-group">
+            <label>İçerik Başlığı <span class="text-danger">*</span></label>
+            <input type="text" class="form-control" name="title" required>
+          </div>
+          
+          <div class="form-group">
+            <label>Sunum Dosyası <span class="text-danger">*</span></label>
+            <input type="file" class="form-control" name="ppt_file" accept=".ppt,.pptx,.odp,.key" required>
+            <small class="form-text text-muted">PPT, PPTX, ODP veya KEY dosyaları yükleyebilirsiniz.</small>
+          </div>
+          
+          <div class="form-group">
+            <div class="custom-control custom-checkbox">
+              <input type="checkbox" class="custom-control-input" id="pptPreview" name="is_preview" value="1">
+              <label class="custom-control-label" for="pptPreview">Ücretsiz Önizleme İçeriği</label>
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-dismiss="modal">İptal</button>
+          <button type="submit" class="btn btn-primary">Yükle</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
 
 <?php include 'footer.php'; ?> 

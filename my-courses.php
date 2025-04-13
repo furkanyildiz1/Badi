@@ -1,5 +1,8 @@
 <?php 
-include 'header.php';
+header('Content-Type: text/html; charset=utf-8');
+session_start();
+
+include 'nedmin/netting/baglan.php';
 
 // Check if user is logged in
 if(!isset($_SESSION['userkullanici_mail'])) {
@@ -287,5 +290,3 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-
-<?php include 'footer.php'; ?> 

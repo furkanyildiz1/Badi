@@ -2391,6 +2391,7 @@ if(isset($_POST['siparisi_tamamla']) && isset($_SESSION['odeme_yontemi']) && $_S
 
 // Handle bank transfer order
 if(isset($_POST['siparisi_tamamla']) && isset($_SESSION['odeme_yontemi']) && $_SESSION['odeme_yontemi'] == 'havale') {
+    
     try {
         $db->beginTransaction();
 
@@ -2398,10 +2399,10 @@ if(isset($_POST['siparisi_tamamla']) && isset($_SESSION['odeme_yontemi']) && $_S
         
         $fatura_no = $_POST['fatura_no'];
         // Create invoice and process order
-        $fatura = createOrder($db, $fatura_no, 'havale', 'beklemede');
         
+        $fatura = createOrder($db, $fatura_no, 'havale', 'beklemede');
         $db->commit();
-
+        
         // Clear checkout session data
         unset($_SESSION['fatura_adres_id']);
         unset($_SESSION['odeme_yontemi']);
@@ -2432,6 +2433,7 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
     foreach($cart_courses as $item) {
         // Base course price
         
+        
         // Add certificate total price if exists
         if(isset($item['cert_total_price']) && $item['cert_total_price'] > 0) {
             $course_total += $item['cert_total_price'];
@@ -2439,7 +2441,7 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
         
         $ara_toplam += $course_total;
     }
-
+    
     // Apply campaign discount if exists
     $indirim_tutari = 0;
     $kampanya_id = null;
@@ -2466,7 +2468,7 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
         odeme_yontemi = :odeme_yontemi,
         odeme_durumu = :odeme_durumu
     ");
-
+    
     $fatura_ekle->execute([
         'user_id' => $_SESSION['userkullanici_id'],
         'fatura_no' => $fatura_no,
@@ -2478,9 +2480,9 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
         'odeme_yontemi' => $odeme_yontemi,
         'odeme_durumu' => $odeme_durumu
     ]);
-
+    
     $fatura_id = $db->lastInsertId();
-
+    
     // Record sold courses with certificate selections
     foreach($cart_courses as $course) {
         // Parse selected certificates
@@ -2514,17 +2516,17 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
             has_eng_transcript = :eng_transcript,
             has_tr_transcript = :tr_transcript
         ");
-        
         $satis_ekle->execute([
             'fatura_id' => $fatura_id,
             'kurs_id' => $course['kurs_id'],
-            'fiyat' => $course['fiyat'],
+            'fiyat' => $course['cert_total_price'],
             'edevlet_cert' => $has_edevlet_cert,
             'eng_cert' => $has_eng_cert,
             'tr_cert' => $has_tr_cert,
             'eng_transcript' => $has_eng_transcript,
             'tr_transcript' => $has_tr_transcript
         ]);
+        
     }
 
     // Clear cart
@@ -3894,7 +3896,7 @@ if(isset($_POST['url_upload'])) {
 }
 
 // 5. H5P İçeriği Yükleme
-if(isset($_POST['h5p_upload'])) {
+/*if(isset($_POST['h5p_upload'])) {
     try {
         $kurs_id = $_POST['kurs_id'];
         $modul_id = $_POST['bolum_id']; // aslında modul_id
@@ -3952,120 +3954,187 @@ if(isset($_POST['h5p_upload'])) {
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
         exit;
     }
-}
+}*/
 
 // 6. SCORM Paketi Yükleme
 if(isset($_POST['scorm_upload'])) {
     try {
-        $kurs_id = $_POST['kurs_id'];
-        $modul_id = $_POST['bolum_id']; // aslında modul_id
-        $title = $_POST['title'];
+        // Get form data
+        $kurs_id = $_POST['kurs_id'] ?? null;
+        $bolum_id = $_POST['bolum_id'] ?? null;
+        $title = $_POST['title'] ?? '';
+        $duration = intval($_POST['duration'] ?? 30);
         
-        // Dosya yükleme kontrolü
-        if(!isset($_FILES['scorm_package']) || $_FILES['scorm_package']['error'] != 0) {
-            throw new Exception("SCORM paketi yüklenirken bir hata oluştu.");
+        // Validate required fields
+        if(empty($title)) {
+            throw new Exception("Başlık bilgisi gereklidir.");
         }
         
-        // ZIP dosya kontrolü
-        $file_extension = strtolower(pathinfo($_FILES['scorm_package']['name'], PATHINFO_EXTENSION));
-        if($file_extension !== 'zip') {
-            throw new Exception("Sadece ZIP formatında SCORM paketi yükleyebilirsiniz.");
+        if(empty($bolum_id)) {
+            throw new Exception("Modül seçilmedi!");
         }
         
-        // SCORM paketleri için klasör oluştur
-        $uploads_dir = '../../scorm_packages/' . $kurs_id;
-        if (!file_exists($uploads_dir)) {
-            mkdir($uploads_dir, 0777, true);
+        if(!isset($_FILES['scorm_file']) || $_FILES['scorm_file']['error'] != 0) {
+            throw new Exception("SCORM dosyası yükleme hatası!");
         }
         
-        // Benzersiz klasör adı oluştur
-        $uniqid = uniqid();
-        $package_folder = 'scorm_' . $uniqid;
-        $package_path = $uploads_dir . '/' . $package_folder;
-        mkdir($package_path, 0777, true);
+        // Validate file is a ZIP
+        $scorm_file = $_FILES['scorm_file'];
+        $file_ext = strtolower(pathinfo($scorm_file['name'], PATHINFO_EXTENSION));
         
-        // ZIP dosyasını yükle
-        $tmp_name = $_FILES['scorm_package']['tmp_name'];
-        $zip_path = $package_path . '/' . $_FILES['scorm_package']['name'];
+        if($file_ext != 'zip') {
+            throw new Exception("Geçersiz dosya formatı! Sadece .zip uzantılı SCORM paketleri kabul edilir.");
+        }
         
-        if(move_uploaded_file($tmp_name, $zip_path)) {
-            // ZIP dosyasını çıkart
-            $zip = new ZipArchive;
-            if($zip->open($zip_path) === TRUE) {
-                $zip->extractTo($package_path);
-                $zip->close();
-                
-                // ZIP dosyasını sil
-                unlink($zip_path);
-                
-                // index.html dosyasını bul
-                $index_file = '';
-                $directory = new RecursiveDirectoryIterator($package_path);
-                $iterator = new RecursiveIteratorIterator($directory);
-                foreach ($iterator as $file) {
-                    if($file->getFilename() === 'index.html' || $file->getFilename() === 'imsmanifest.xml') {
-                        $relative_path = str_replace($uploads_dir, '', $file->getPathname());
-                        $index_file = $relative_path;
-                        break;
+        $db->beginTransaction();
+        
+        // Get next lesson order
+        $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
+        $sirasor->execute([$bolum_id]);
+        $siracek = $sirasor->fetch(PDO::FETCH_ASSOC);
+        $bolum_sira = ($siracek['max_sira'] ?? 0) + 1;
+        
+        // Create unique folder name for the SCORM package
+        $folder_name = 'scorm_' . time() . '_' . uniqid();
+        $upload_dir = '../../uploads/scorm/' . $folder_name;
+        
+        // Create directory if it doesn't exist
+        if(!file_exists('../../uploads/scorm/')) {
+            mkdir('../../uploads/scorm/', 0755, true);
+        }
+        
+        // Create folder for this SCORM package
+        if(!mkdir($upload_dir, 0755, true)) {
+            throw new Exception("Dizin oluşturulamadı. Lütfen yetkileri kontrol edin.");
+        }
+        
+        // Upload the zip file
+        $zip_path = $upload_dir . '/' . basename($scorm_file['name']);
+        if(!move_uploaded_file($scorm_file['tmp_name'], $zip_path)) {
+            throw new Exception("Dosya yükleme hatası!");
+        }
+        
+        // Extract the zip file
+        $zip = new ZipArchive;
+
+        if($zip->open($zip_path) === TRUE) {
+            
+            $zip->extractTo($upload_dir);
+            $zip->close();
+            
+            // Delete the original zip file to save space
+            unlink($zip_path);
+            
+            // Find index.html or imsmanifest.xml - common SCORM entry points
+            $entry_file = '';
+            if(file_exists($upload_dir . '/index.html')) {
+                $entry_file = 'index.html';
+            } elseif(file_exists($upload_dir . '/imsmanifest.xml')) {
+                // Find the first HTML file referenced in the manifest
+                $manifest = simplexml_load_file($upload_dir . '/imsmanifest.xml');
+                if($manifest) {
+                    $namespace = $manifest->getNamespaces(true);
+                    $resources = $manifest->resources->resource ?? $manifest->resource;
+                    if($resources && count($resources) > 0) {
+                        foreach($resources as $resource) {
+                            $href = (string)$resource['href'];
+                            if(!empty($href) && (strtolower(pathinfo($href, PATHINFO_EXTENSION)) == 'html' || 
+                                strtolower(pathinfo($href, PATHINFO_EXTENSION)) == 'htm')) {
+                                $entry_file = $href;
+                                break;
+                            }
+                        }
                     }
                 }
                 
-                if(empty($index_file)) {
-                    throw new Exception("SCORM paketi içinde başlangıç dosyası bulunamadı.");
+                // If no entry file found, set to imsmanifest.xml
+                if(empty($entry_file)) {
+                    $entry_file = 'imsmanifest.xml';
                 }
-                
-                $db->beginTransaction();
-                
-                // Sıradaki mevcut son ders sırasını bul
-                $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
-                $sirasor->execute([$modul_id]);
-                $siracek = $sirasor->fetch(PDO::FETCH_ASSOC);
-                $bolum_sira = ($siracek['max_sira'] ?? 0) + 1;
-                
-                // Veritabanına kaydet
-                $kaydet = $db->prepare("INSERT INTO kurs_bolumleri SET
-                    modul_id = ?,
-                    bolum_ad = ?,
-                    bolum_sira = ?,
-                    bolum_sure_saat = ?,
-                    bolum_sure_dakika = ?,
-                    icerik_tipi = ?,
-                    video_url = ?");
-                
-                $insert = $kaydet->execute([
-                    $modul_id,
-                    $title,
-                    $bolum_sira,
-                    0, // Süre bilgisi yok
-                    0, // Süre bilgisi yok
-                    'scorm',
-                    $package_folder . $index_file
-                ]);
-                
-                if(!$insert) {
-                    throw new Exception("İçerik kaydedilirken bir hata oluştu.");
-                }
-                
-                $db->commit();
-                
-                // AJAX isteği için JSON yanıtı döndür
-                echo json_encode(['success' => true, 'message' => 'SCORM paketi başarıyla yüklendi.']);
-                exit;
-                
             } else {
-                throw new Exception("ZIP dosyası çıkartılamadı.");
+                // Look for any HTML file
+                $files = glob($upload_dir . '/*.{html,htm}', GLOB_BRACE);
+                if(!empty($files)) {
+                    $entry_file = basename($files[0]);
+                } else {
+                    throw new Exception("SCORM paketinde giriş dosyası bulunamadı!");
+                }
             }
+            
+            // Create URL path for the entry file
+            $scorm_url = '/uploads/scorm/' . $folder_name . '/' . $entry_file;
+            
+            // Calculate hours and minutes
+            $sure_saat = floor($duration / 60);
+            $sure_dakika = $duration % 60;
+            
+            // Create embed code
+            $embed_code = '<iframe src="' . $scorm_url . '" width="100%" height="600" frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
+            
+            // Save to database
+            $kaydet = $db->prepare("INSERT INTO kurs_bolumleri SET
+                modul_id = ?,
+                bolum_ad = ?,
+                bolum_sira = ?,
+                bolum_sure_saat = ?,
+                bolum_sure_dakika = ?,
+                icerik_tipi = ?,
+                video_url = ?,
+                embed_kodu = ?,
+                is_preview = ?");
+            
+            $insert = $kaydet->execute([
+                $bolum_id,
+                $title,
+                $bolum_sira,
+                $sure_saat,
+                $sure_dakika,
+                'scorm',
+                $scorm_url,
+                $embed_code,
+                isset($_POST['is_preview']) ? 1 : 0
+            ]);
+            
+            if(!$insert) {
+                throw new Exception("İçerik kaydedilirken bir hata oluştu.");
+            }
+            
+            $db->commit();
+            
+            // Redirect to course content page
+            header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=ok");
+            exit;
+            
         } else {
-            throw new Exception("Dosya yüklenirken bir hata oluştu.");
+            throw new Exception("ZIP dosyası açılamadı!");
         }
         
     } catch(Exception $e) {
-        if($db->inTransaction()) {
+        if(isset($db) && $db->inTransaction()) {
             $db->rollBack();
         }
         
-        // AJAX isteği için JSON hata yanıtı döndür
-        echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        // Clean up any created directories if there was an error
+        if(isset($upload_dir) && file_exists($upload_dir)) {
+            // Recursive function to delete directory and its contents
+            function rrmdir($dir) {
+                if(is_dir($dir)) {
+                    $objects = scandir($dir);
+                    foreach($objects as $object) {
+                        if($object != "." && $object != "..") {
+                            if(is_dir($dir . "/" . $object))
+                                rrmdir($dir . "/" . $object);
+                            else
+                                unlink($dir . "/" . $object);
+                        }
+                    }
+                    rmdir($dir);
+                }
+            }
+            rrmdir($upload_dir);
+        }
+        
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=no&hata=" . urlencode($e->getMessage()));
         exit;
     }
 }
@@ -4098,7 +4167,7 @@ if(isset($_POST['embed_upload'])) {
             bolum_sure_saat = ?,
             bolum_sure_dakika = ?,
             icerik_tipi = ?,
-            video_url = ?");
+            embed_kodu = ?");
         
         $insert = $kaydet->execute([
             $modul_id,
@@ -4253,7 +4322,7 @@ if (isset($_GET['bolum_sil'])) {
     $kurs = $fetch_kurs_id->fetch(PDO::FETCH_ASSOC);
     $kurs_id = $kurs['kurs_id'];
     try {
-        // First check if this is a Bunny Stream video
+        // First check if this is a Bunny Stream video, H5P content, or SCORM package
         $videosor = $db->prepare("SELECT icerik_tipi, video_url FROM kurs_bolumleri WHERE bolum_id = ?");
         $videosor->execute([$bolum_id]);
         $videocek = $videosor->fetch(PDO::FETCH_ASSOC);
@@ -4276,6 +4345,157 @@ if (isset($_GET['bolum_sil'])) {
             if (!$deleteResult) {
                 error_log("Warning: Failed to delete video from Bunny Stream: " . $videocek['video_url']);
                 // Continue with database deletion even if Bunny Stream deletion fails
+            }
+        }
+        
+        // If it's an H5P content, delete the file from server
+        if ($videocek && $videocek['icerik_tipi'] == 'h5p' && !empty($videocek['video_url'])) {
+            $file_path = $_SERVER['DOCUMENT_ROOT'] . $videocek['video_url'];
+            $file_path = "../../" . $videocek['video_url'];
+            // Delete the file if it exists
+            if (file_exists($file_path)) {
+                unlink($file_path);
+                error_log("Deleted H5P file: " . $videocek['video_url']);
+            } else {
+                error_log("H5P file not found: " . $file_path);
+            }
+        }
+        
+        // If it's a SCORM package, delete the directory
+        if ($videocek && $videocek['icerik_tipi'] == 'scorm' && !empty($videocek['video_url'])) {
+            // Extract folder path from the URL more reliably
+            $video_url = $videocek['video_url'];
+            
+            // Get folder path excluding the file
+            $url_parts = explode('/', $video_url);
+            array_pop($url_parts); // Remove file name
+            $relative_folder = implode('/', $url_parts);
+            
+            // Extract the SCORM folder name - it should follow a pattern like "scorm_timestamp_uniqueid"
+            $scorm_folder_pattern = 'scorm_\d+_[a-f0-9]+';
+            $matches = [];
+            if (preg_match('/' . $scorm_folder_pattern . '/', $video_url, $matches)) {
+                $scorm_folder = $matches[0];
+                error_log("Detected SCORM folder name: " . $scorm_folder);
+            } else {
+                error_log("Could not detect SCORM folder pattern in URL: " . $video_url);
+                $scorm_folder = '';
+            }
+            
+            // Get document root and script path
+            $doc_root = $_SERVER['DOCUMENT_ROOT'];
+            $script_path = dirname($_SERVER['SCRIPT_FILENAME']);
+            
+            // Attempt to find the actual path to the uploads directory by looking at our script location
+            $script_to_root = str_replace($doc_root, '', $script_path);
+            $parts = explode('/', trim($script_to_root, '/'));
+            
+            // Detect badiakademi-lms from the script path
+            $base_app = '';
+            foreach ($parts as $part) {
+                if (strpos($part, 'badiakademi') !== false) {
+                    $base_app = $part;
+                    break;
+                }
+            }
+            
+            error_log("Base application folder detected: " . ($base_app ?: "None"));
+            
+            // Now try multiple path possibilities
+            $possible_paths = [
+                // Try with the detected base application folder
+                $doc_root . '/' . $base_app . '/uploads/scorm/' . $scorm_folder,
+                
+                // Try with fully qualified path using the original URL structure
+                $doc_root . '/badiakademi-lms/badiakademi/uploads/scorm/' . $scorm_folder,
+                
+                // Try direct path from document root
+                $doc_root . '/uploads/scorm/' . $scorm_folder,
+                
+                // Try with just badiakademi
+                $doc_root . '/badiakademi/uploads/scorm/' . $scorm_folder,
+                
+                // Try with document root and relative folder
+                $doc_root . $relative_folder,
+                
+                // Try parent directory (for subdirectory installations)
+                dirname($doc_root) . '/badiakademi/uploads/scorm/' . $scorm_folder,
+                
+                // Try with xampp/htdocs standard path
+                'C:/xampp/htdocs/badiakademi-lms/badiakademi/uploads/scorm/' . $scorm_folder,
+            ];
+            
+            // Make sure rrmdir function is defined only once
+            if (!function_exists('rrmdir')) {
+                // Recursive function to delete directory and its contents
+                function rrmdir($dir) {
+                    if (is_dir($dir)) {
+                        $objects = scandir($dir);
+                        foreach ($objects as $object) {
+                            if ($object != "." && $object != "..") {
+                                if (is_dir($dir . "/" . $object))
+                                    rrmdir($dir . "/" . $object);
+                                else
+                                    unlink($dir . "/" . $object);
+                            }
+                        }
+                        rmdir($dir);
+                        return true;
+                    }
+                    return false;
+                }
+            }
+            
+            // Try to use realpath to resolve actual directory
+            $realpath_tried = false;
+            foreach ($possible_paths as $index => $test_path) {
+                if (!$realpath_tried) {
+                    // First try with realpath to make sure we have correct slashes
+                    $real_test_path = str_replace('\\', '/', realpath($test_path));
+                    if ($real_test_path !== false) {
+                        $possible_paths[] = $real_test_path;
+                        $realpath_tried = true;
+                    }
+                }
+            }
+            
+            $deleted = false;
+            
+            // Try each possible path
+            foreach ($possible_paths as $path) {
+                $path = str_replace('\\', '/', $path);
+                error_log("Trying path: " . $path);
+                
+                if (file_exists($path)) {
+                    error_log("Found SCORM directory at: " . $path);
+                    $delete_result = rrmdir($path);
+                    error_log("Deleted SCORM directory: " . $path . " Result: " . ($delete_result ? "Success" : "Failed"));
+                    $deleted = true;
+                    break;
+                }
+            }
+            
+            if (!$deleted) {
+                error_log("Could not find SCORM directory to delete. URL was: " . $video_url);
+            }
+        }
+
+        if ($videocek && ($videocek['icerik_tipi'] == 'pdf' || $videocek['icerik_tipi'] == 'presentation') && !empty($videocek['video_url'])) {
+            $file_path = $_SERVER['DOCUMENT_ROOT'] . $videocek['video_url'];
+            
+            // Delete the file if it exists
+            if (file_exists($file_path)) {
+                unlink($file_path);
+                error_log("Deleted file: " . $videocek['video_url']);
+            } else {
+                // Try with different root path
+                $alt_path = dirname($_SERVER['DOCUMENT_ROOT']) . '/badiakademi' . $videocek['video_url'];
+                if (file_exists($alt_path)) {
+                    unlink($alt_path);
+                    error_log("Deleted file (alternative path): " . $alt_path);
+                } else {
+                    error_log("File not found: " . $file_path);
+                }
             }
         }
         
@@ -4662,6 +4882,304 @@ if(isset($_POST['bunny_add_selected_video'])) {
         
         // AJAX isteği için JSON hata yanıtı döndür
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
+        exit;
+    }
+}
+
+// Handle H5P content upload
+if(isset($_POST['h5p_upload'])) {
+    try {
+        $kurs_id = $_POST['kurs_id'];
+        $bolum_id = $_POST['bolum_id']; // This is actually the module ID
+        $title = $_POST['title'];
+        $description = $_POST['description'] ?? '';
+        
+        // Validation
+        if(empty($bolum_id)) {
+            throw new Exception("Modül seçilmedi!");
+        }
+        
+        if(!isset($_FILES['h5p_file']) || $_FILES['h5p_file']['error'] != 0) {
+            throw new Exception("H5P dosyası yükleme hatası!");
+        }
+        
+        $db->beginTransaction();
+        
+        // Get next lesson order
+        $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
+        $sirasor->execute([$bolum_id]);
+        $siracek = $sirasor->fetch(PDO::FETCH_ASSOC);
+        $bolum_sira = ($siracek['max_sira'] ?? 0) + 1;
+        
+        // Process H5P file
+        $h5p_file = $_FILES['h5p_file'];
+        $file_ext = strtolower(pathinfo($h5p_file['name'], PATHINFO_EXTENSION));
+        
+        if($file_ext != 'h5p') {
+            throw new Exception("Geçersiz dosya formatı! Sadece .h5p uzantılı dosyalar kabul edilir.");
+        }
+        
+        // Create unique filename
+        $new_filename = time() . '_' . uniqid() . '.h5p';
+        $upload_dir = '../../uploads/h5p/';
+        
+        // Create directory if it doesn't exist
+        if(!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+        
+        $upload_path = $upload_dir . $new_filename;
+        
+        if(!move_uploaded_file($h5p_file['tmp_name'], $upload_path)) {
+            throw new Exception("Dosya yükleme hatası!");
+        }
+        
+        // Create embed code for H5P content
+        $h5p_url = 'uploads/h5p/' . $new_filename;
+        $embed_code = '<iframe src="' . $h5p_url . '" width="100%" height="500" frameborder="0" allowfullscreen="allowfullscreen"></iframe>';
+        
+        // For now, we'll store a simple embed placeholder
+        // In a production system, you'd likely have an H5P integration library or service
+        
+        // Save to database with embed code
+        $kaydet = $db->prepare("INSERT INTO kurs_bolumleri SET
+            modul_id = ?,
+            bolum_ad = ?,
+            bolum_sira = ?,
+            bolum_sure_saat = ?,
+            bolum_sure_dakika = ?,
+            icerik_tipi = ?,
+            video_url = ?,
+            embed_kodu = ?,
+            is_preview = ?");
+        
+        $insert = $kaydet->execute([
+            $bolum_id,
+            $title,
+            $bolum_sira,
+            0, // Default hours
+            30, // Default minutes (for h5p content)
+            'h5p',
+            $h5p_url,
+            $embed_code,
+            isset($_POST['is_preview']) ? 1 : 0
+        ]);
+        
+        if(!$insert) {
+            throw new Exception("İçerik kaydedilirken bir hata oluştu.");
+        }
+        
+        $db->commit();
+        
+        // Redirect to course content page
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=ok");
+        exit;
+        
+    } catch(Exception $e) {
+        if(isset($db) && $db->inTransaction()) {
+            $db->rollBack();
+        }
+        
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=no&hata=" . urlencode($e->getMessage()));
+        exit;
+    }
+}
+
+// PDF Upload Handler
+if(isset($_POST['pdf_upload'])) {
+    try {
+        $kurs_id = $_POST['kurs_id'];
+        $bolum_id = $_POST['bolum_id']; // modul_id
+        $title = $_POST['title'];
+        
+        if(empty($title) || empty($bolum_id)) {
+            throw new Exception("Başlık ve bölüm bilgileri gereklidir.");
+        }
+        
+        // PDF dosyası kontrolü
+        if(!isset($_FILES['pdf_file']) || $_FILES['pdf_file']['error'] != 0) {
+            throw new Exception("PDF dosyası yükleme hatası!");
+        }
+        
+        $pdf_file = $_FILES['pdf_file'];
+        $file_ext = strtolower(pathinfo($pdf_file['name'], PATHINFO_EXTENSION));
+        
+        if($file_ext != 'pdf') {
+            throw new Exception("Geçersiz dosya formatı! Sadece PDF dosyaları kabul edilir.");
+        }
+        
+        $db->beginTransaction();
+        
+        // Sıradaki mevcut son ders sırasını bul
+        $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
+        $sirasor->execute([$bolum_id]);
+        $siracek = $sirasor->fetch(PDO::FETCH_ASSOC);
+        $bolum_sira = ($siracek['max_sira'] ?? 0) + 1;
+        
+        // PDF için klasör oluştur
+        $upload_dir = '../../uploads/pdf/';
+        if(!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+        
+        // Benzersiz dosya adı oluştur
+        $fileName = 'pdf_' . time() . '_' . uniqid() . '.pdf';
+        $filePath = $upload_dir . $fileName;
+        
+        // Dosyayı yükle
+        if(!move_uploaded_file($pdf_file['tmp_name'], $filePath)) {
+            throw new Exception("Dosya yüklenirken bir hata oluştu!");
+        }
+        
+        // Veritabanına kaydet
+        $file_url = '/uploads/pdf/' . $fileName;
+        $embed_code = '<iframe src="' . $file_url . '" width="100%" height="600" frameborder="0"></iframe>';
+        
+        $kaydet = $db->prepare("INSERT INTO kurs_bolumleri SET
+            modul_id = ?,
+            bolum_ad = ?,
+            bolum_sira = ?,
+            bolum_sure_saat = ?,
+            bolum_sure_dakika = ?,
+            icerik_tipi = ?,
+            video_url = ?,
+            embed_kodu = ?,
+            is_preview = ?");
+        
+        $insert = $kaydet->execute([
+            $bolum_id,
+            $title,
+            $bolum_sira,
+            0, // Süre bilgisi yok
+            0, // Süre bilgisi yok
+            'pdf',
+            $file_url,
+            $embed_code,
+            isset($_POST['is_preview']) ? 1 : 0
+        ]);
+        
+        if(!$insert) {
+            throw new Exception("PDF kaydedilirken bir hata oluştu.");
+        }
+        
+        $db->commit();
+        
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=ok");
+        exit;
+        
+    } catch(Exception $e) {
+        if(isset($db) && $db->inTransaction()) {
+            $db->rollBack();
+        }
+        
+        // Hata varsa yüklenen dosyayı sil
+        if(isset($filePath) && file_exists($filePath)) {
+            unlink($filePath);
+        }
+        
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=" . $_POST['kurs_id'] . "&durum=no&hata=" . urlencode($e->getMessage()));
+        exit;
+    }
+}
+
+// Presentation Upload Handler
+if(isset($_POST['presentation_upload'])) {
+    try {
+        $kurs_id = $_POST['kurs_id'];
+        $bolum_id = $_POST['bolum_id']; // modul_id
+        $title = $_POST['title'];
+        
+        if(empty($title) || empty($bolum_id)) {
+            throw new Exception("Başlık ve bölüm bilgileri gereklidir.");
+        }
+        
+        // Sunum dosyası kontrolü
+        if(!isset($_FILES['ppt_file']) || $_FILES['ppt_file']['error'] != 0) {
+            throw new Exception("Sunum dosyası yükleme hatası!");
+        }
+        
+        $ppt_file = $_FILES['ppt_file'];
+        $file_ext = strtolower(pathinfo($ppt_file['name'], PATHINFO_EXTENSION));
+        
+        $allowed_exts = ['ppt', 'pptx', 'odp', 'key'];
+        if(!in_array($file_ext, $allowed_exts)) {
+            throw new Exception("Geçersiz dosya formatı! Sadece PPT, PPTX, ODP veya KEY dosyaları kabul edilir.");
+        }
+        
+        $db->beginTransaction();
+        
+        // Sıradaki mevcut son ders sırasını bul
+        $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
+        $sirasor->execute([$bolum_id]);
+        $siracek = $sirasor->fetch(PDO::FETCH_ASSOC);
+        $bolum_sira = ($siracek['max_sira'] ?? 0) + 1;
+        
+        // Sunum için klasör oluştur
+        $upload_dir = '../../uploads/presentations/';
+        if(!file_exists($upload_dir)) {
+            mkdir($upload_dir, 0755, true);
+        }
+        
+        // Benzersiz dosya adı oluştur
+        $fileName = 'ppt_' . time() . '_' . uniqid() . '.' . $file_ext;
+        $filePath = $upload_dir . $fileName;
+        
+        // Dosyayı yükle
+        if(!move_uploaded_file($ppt_file['tmp_name'], $filePath)) {
+            throw new Exception("Dosya yüklenirken bir hata oluştu!");
+        }
+        
+        // Veritabanına kaydet
+        $file_url = '/uploads/presentations/' . $fileName;
+        $embed_code = '<div class="presentation-container">
+                          <a href="' . $file_url . '" class="btn btn-primary btn-lg" target="_blank">
+                              <i class="fa fa-file-powerpoint-o"></i> Sunumu Görüntüle/İndir
+                          </a>
+                      </div>';
+        
+        $kaydet = $db->prepare("INSERT INTO kurs_bolumleri SET
+            modul_id = ?,
+            bolum_ad = ?,
+            bolum_sira = ?,
+            bolum_sure_saat = ?,
+            bolum_sure_dakika = ?,
+            icerik_tipi = ?,
+            video_url = ?,
+            embed_kodu = ?,
+            is_preview = ?");
+        
+        $insert = $kaydet->execute([
+            $bolum_id,
+            $title,
+            $bolum_sira,
+            0, // Süre bilgisi yok
+            0, // Süre bilgisi yok
+            'presentation',
+            $file_url,
+            $embed_code,
+            isset($_POST['is_preview']) ? 1 : 0
+        ]);
+        
+        if(!$insert) {
+            throw new Exception("Sunum kaydedilirken bir hata oluştu.");
+        }
+        
+        $db->commit();
+        
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=ok");
+        exit;
+        
+    } catch(Exception $e) {
+        if(isset($db) && $db->inTransaction()) {
+            $db->rollBack();
+        }
+        
+        // Hata varsa yüklenen dosyayı sil
+        if(isset($filePath) && file_exists($filePath)) {
+            unlink($filePath);
+        }
+        
+        header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=" . $_POST['kurs_id'] . "&durum=no&hata=" . urlencode($e->getMessage()));
         exit;
     }
 }

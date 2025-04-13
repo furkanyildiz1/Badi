@@ -496,21 +496,14 @@ function showInlineSection(section) {
 
 // Şifre güç kontrolü örneği
 function calcPasswordStrength(password) {
+    let strengthText = "Çok Zayıf";
     let strength = 0;
-
-    // Şifrenin uzunluğuna bağlı puanlar
     if (password.length >= 6) strength++;
     if (password.length >= 8) strength++;
-
-    // Karakter çeşitliliği kontrolleri (global bayrak kullanılmadığından emin olun)
     if (/[A-Z]/.test(password)) strength++;
     if (/[a-z]/.test(password)) strength++;
     if (/[0-9]/.test(password)) strength++;
     if (/[^A-Za-z0-9]/.test(password)) strength++;
-
-    let strengthText = "";
-
-    // Puan değerlerine göre şifre gücü belirleniyor
     switch (strength) {
         case 0:
         case 1:
@@ -526,16 +519,11 @@ function calcPasswordStrength(password) {
         case 5:
             strengthText = "Güçlü";
             break;
-        case 6:
-            strengthText = "Çok Güçlü";
-            break;
         default:
             strengthText = "Çok Zayıf";
     }
-
     document.getElementById('password_strength_level').textContent = strengthText;
 }
-
 
 // Şifre güncelleme formu gönderim ön kontrolü
 function validatePasswordUpdate() {
