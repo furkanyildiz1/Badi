@@ -496,34 +496,47 @@ function showInlineSection(section) {
 
 // Şifre güç kontrolü örneği
 function calcPasswordStrength(password) {
-    let strengthText = "Çok Zayıf";
     let strength = 0;
+
+    // Uzunluk kontrolleri
     if (password.length >= 6) strength++;
     if (password.length >= 8) strength++;
+
+    // Karakter çeşitliliği: Büyük harf, küçük harf, rakam
     if (/[A-Z]/.test(password)) strength++;
     if (/[a-z]/.test(password)) strength++;
     if (/[0-9]/.test(password)) strength++;
-    if (/[^A-Za-z0-9]/.test(password)) strength++;
-    switch (strength) {
-        case 0:
-        case 1:
-            strengthText = "Çok Zayıf";
-            break;
-        case 2:
-            strengthText = "Zayıf";
-            break;
-        case 3:
-            strengthText = "Orta";
-            break;
-        case 4:
-        case 5:
-            strengthText = "Güçlü";
-            break;
-        default:
-            strengthText = "Çok Zayıf";
+
+    // Sembol kontrolü: Belirtilen semboller ve benzerleri
+    // /[^A-Za-z0-9]/g ifadesi, A-Z, a-z ve 0-9 dışındaki tüm karakterleri yakalar.
+    let symbolMatches = password.match(/[^A-Za-z0-9]/g) || [];
+    let symbolCount = symbolMatches.length;
+    if (symbolCount >= 1) {
+        // İlk sembol için +1
+        strength++;
+        // İlk sembolden sonraki semboller bonus puan (maksimum bonus 2 puan)
+        let bonus = Math.min(symbolCount - 1, 2);
+        strength += bonus;
     }
+
+    // Toplam puana göre şifre gücünü belirleme
+    let strengthText = "";
+    if (strength <= 1) {
+        strengthText = "Çok Zayıf";
+    } else if (strength === 2) {
+        strengthText = "Zayıf";
+    } else if (strength === 3) {
+        strengthText = "Orta";
+    } else if (strength <= 5) {
+        strengthText = "Güçlü";
+    } else {
+        strengthText = "Çok Güçlü";
+    }
+
+    // Sonucu sayfadaki ilgili elementte göster
     document.getElementById('password_strength_level').textContent = strengthText;
 }
+
 
 // Şifre güncelleme formu gönderim ön kontrolü
 function validatePasswordUpdate() {
