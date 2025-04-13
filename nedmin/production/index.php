@@ -25,6 +25,66 @@ try {
     $istatistikziyaretSor = $db->prepare("SELECT COUNT(*) as toplam FROM site_ziyaret WHERE ziyaret_tarih >= DATE_SUB(CURDATE(), INTERVAL 7 DAY)");
     $istatistikziyaretSor->execute();
     $istatistikziyaretSayi = $istatistikziyaretSor->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // New statistics
+    // 1. Bekleyen Siparişler
+    $bekleyenSiparisler = $db->prepare("SELECT COUNT(*) as toplam FROM faturalar WHERE odeme_durumu = 'beklemede'");
+    $bekleyenSiparisler->execute();
+    $bekleyenSiparisSayi = $bekleyenSiparisler->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 1.5 İptal Edilen Siparişler
+    $iptalSiparisler = $db->prepare("SELECT COUNT(*) as toplam FROM faturalar WHERE odeme_durumu = 'iptal_edildi'");
+    $iptalSiparisler->execute();
+    $iptalSiparisSayi = $iptalSiparisler->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 2. Son 1 Ay İçerisinde Gelen Siparişler
+    $sonAySiparisler = $db->prepare("SELECT COUNT(*) as toplam FROM faturalar WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH);");
+    $sonAySiparisler->execute();
+    $sonAySiparisSayi = $sonAySiparisler->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 3. Toplam Siparişler
+    $toplamSiparisler = $db->prepare("SELECT COUNT(*) as toplam FROM faturalar");
+    $toplamSiparisler->execute();
+    $toplamSiparisSayi = $toplamSiparisler->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 4. Son 1 Ay İçerisinde Satılan Kurs Sayısı
+    $sonAyKursSatis = $db->prepare("
+        SELECT COUNT(*) as toplam 
+        FROM faturalar s
+        JOIN satilan_kurslar sk ON sk.fatura_id = s.fatura_id
+        WHERE s.created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH) AND s.odeme_durumu = 'onaylandi';
+    ");
+    $sonAyKursSatis->execute();
+    $sonAyKursSatisSayi = $sonAyKursSatis->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 5. Toplam Satılan Kurs Sayısı
+    $toplamKursSatis = $db->prepare("
+        SELECT COUNT(*) as toplam 
+        FROM faturalar s
+        JOIN satilan_kurslar sk ON sk.fatura_id = s.fatura_id
+        WHERE s.odeme_durumu = 'onaylandi';
+    ");
+    $toplamKursSatis->execute();
+    $toplamKursSatisSayi = $toplamKursSatis->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 6. Son 1 Ay İçerisinde Elde Edilen Gelir
+    $sonAyGelir = $db->prepare("
+        SELECT COALESCE(SUM(toplam_tutar), 0) as toplam 
+        FROM faturalar 
+        WHERE created_at >= DATE_SUB(NOW(), INTERVAL 1 MONTH)
+        AND odeme_durumu = 'onaylandi';
+    ");
+    $sonAyGelir->execute();
+    $sonAyGelirToplam = $sonAyGelir->fetch(PDO::FETCH_ASSOC)['toplam'];
+
+    // 7. Toplam Elde Edilen Gelir
+    $toplamGelir = $db->prepare("
+        SELECT COALESCE(SUM(toplam_tutar), 0) as toplam 
+        FROM faturalar 
+        WHERE odeme_durumu = 'onaylandi';
+    ");
+    $toplamGelir->execute();
+    $toplamGelirToplam = $toplamGelir->fetch(PDO::FETCH_ASSOC)['toplam'];
 } catch(PDOException $e) {
     // Hata durumunda varsayılan değerler
     $istatistikkullaniciSayi = 0;
@@ -33,6 +93,17 @@ try {
     $istatistikziyaretSayi = 0;
     
     // Hata logla
+    error_log("Dashboard istatistik hatası: " . $e->getMessage());
+
+    // Error handling
+    $bekleyenSiparisSayi = 0;
+    $iptalSiparisSayi = 0;
+    $sonAySiparisSayi = 0;
+    $toplamSiparisSayi = 0;
+    $sonAyKursSatisSayi = 0;
+    $toplamKursSatisSayi = 0;
+    $sonAyGelirToplam = 0;
+    $toplamGelirToplam = 0;
     error_log("Dashboard istatistik hatası: " . $e->getMessage());
 }
 ?>
@@ -94,6 +165,110 @@ try {
                 <div class="stat-info">
                     <h3><?php echo $istatistikziyaretSayi; ?></h3>
                     <p>Haftalık Ziyaret</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Bekleyen Siparişler -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #fff3e0;">
+                    <i class="fa fa-clock" style="color: #ff9800;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $bekleyenSiparisSayi; ?></h3>
+                    <p>Bekleyen Siparişler</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- İptal Edilen Siparişler -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #ffebee;">
+                    <i class="fa fa-times-circle" style="color: #f44336;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $iptalSiparisSayi; ?></h3>
+                    <p>İptal Edilen Siparişler</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Son 1 Ay Siparişler -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #e8eaf6;">
+                    <i class="fa fa-shopping-cart" style="color: #3f51b5;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $sonAySiparisSayi; ?></h3>
+                    <p>Son 1 Ay Siparişler</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Siparişler -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #fce4ec;">
+                    <i class="fa fa-shopping-bag" style="color: #e91e63;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $toplamSiparisSayi; ?></h3>
+                    <p>Toplam Siparişler</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Son 1 Ay Satılan Kurslar -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #e0f2f1;">
+                    <i class="fa fa-book" style="color: #009688;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $sonAyKursSatisSayi; ?></h3>
+                    <p>Son 1 Ay Satılan Kurslar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Satılan Kurslar -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #f3e5f5;">
+                    <i class="fa fa-graduation-cap" style="color: #9c27b0;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo $toplamKursSatisSayi; ?></h3>
+                    <p>Toplam Satılan Kurslar</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Son 1 Ay Gelir -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #e8f5e9;">
+                    <i class="fa fa-money-bill" style="color: #4caf50;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo number_format($sonAyGelirToplam, 2, ',', '.'); ?> ₺</h3>
+                    <p>Son 1 Ay Gelir</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toplam Gelir -->
+        <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="stat-card">
+                <div class="stat-icon" style="background: #f1f8e9;">
+                    <i class="fa fa-wallet" style="color: #8bc34a;"></i>
+                </div>
+                <div class="stat-info">
+                    <h3><?php echo number_format($toplamGelirToplam, 2, ',', '.'); ?> ₺</h3>
+                    <p>Toplam Gelir</p>
                 </div>
             </div>
         </div>

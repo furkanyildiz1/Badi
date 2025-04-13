@@ -5,7 +5,7 @@ error_reporting(0);
 include 'header.php'; 
 
 //Belirli veriyi seçme işlemi
-$kullanicisor=$db->prepare("SELECT * FROM kullanici");
+$kullanicisor=$db->prepare("SELECT * FROM kullanici WHERE kullanici_tip!='admin'");
 $kullanicisor->execute();
 
 
@@ -135,9 +135,9 @@ $kullanicisor->execute();
         while ($kullanicicek = $kullanicisor->fetch(PDO::FETCH_ASSOC)) { ?>
             <tr>
                 <td><?php echo $kullanicicek['kullanici_zaman']; ?></td>
-                <td><?php echo $kullanicicek['kullanici_adsoyad']; ?></td>
+                <td><?php echo $kullanicicek['kullanici_ad'] . ' ' . $kullanicicek['kullanici_soyad']; ?></td>
                 <td><?php echo $kullanicicek['kullanici_mail']; ?></td>
-                <td><?php echo $kullanicicek['kullanici_gsm']; ?></td>
+                <td><?php echo $kullanicicek['kullanici_tel']; ?></td>
                 <td>
                     <center>
                         <a href="kullanici-duzenle.php?kullanici_id=<?php echo $kullanicicek['kullanici_id']; ?>">

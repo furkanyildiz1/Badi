@@ -179,12 +179,12 @@ $ssssor->execute();
 <!-- End Video Area -->
 
 <!-- Start Faq Area -->
-<div class="edu-faq-area sectionBg15 ptb-100">
+<div id="faq-section" class="edu-faq-area sectionBg15 ptb-100">
     <div class="container">
         <div class="row align-items-center">
             <div class="col-lg-6 col-md-12">
                 <div class="edu-faq-content">
-                    <h2>Sıkça Sorulan <span class="shape02">Sualler</span></h2>
+                    <h2>Sıkça Sorulan <span class="shape02">Sorular</span></h2>
                 </div>
                 <div class="accordion edu-faqs-list" id="accordionFlushExample">
                     <?php

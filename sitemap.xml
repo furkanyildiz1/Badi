@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <!-- Ana Sayfa -->
+    <url>
+        <loc>https://badiakademi.com/</loc>
+        <changefreq>daily</changefreq>
+        <priority>1.0</priority>
+    </url>
+
+    <!-- Kurslar Sayfası -->
+    <url>
+        <loc>https://badiakademi.com/kurslar_1.php</loc>
+        <changefreq>daily</changefreq>
+        <priority>0.9</priority>
+    </url>
+
+    <!-- Blog Sayfası -->
+    <url>
+        <loc>https://badiakademi.com/blog.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- İletişim Sayfası -->
+    <url>
+        <loc>https://badiakademi.com/contact.php</loc>
+        <changefreq>monthly</changefreq>
+        <priority>0.7</priority>
+    </url>
+
+    <!-- Dinamik Kurs Detay Sayfaları için Yer Tutucu -->
+    <url>
+        <loc>https://badiakademi.com/kurs-detay.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.8</priority>
+    </url>
+
+    <!-- Dinamik Blog Detay Sayfaları için Yer Tutucu -->
+    <url>
+        <loc>https://badiakademi.com/blog-details.php</loc>
+        <changefreq>weekly</changefreq>
+        <priority>0.7</priority>
+    </url>
+</urlset> 

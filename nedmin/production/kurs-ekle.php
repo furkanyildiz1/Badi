@@ -103,14 +103,6 @@ include 'header.php';
                       </div>  
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kurs Fiyatını Giriniz <span class="required">*</span>
-                        </label>
-                        <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" name="kurs_fiyat"  class="form-control col-md-7 col-xs-12" placeholder="Lütfen Kurs Fiyatını Giriniz">
-                        </div>
-                      </div>
-
-                      <div class="form-group">
                             <label class="control-label col-md-3 col-sm-3 col-xs-12" for="kategori_id">Lütfen Eğitmen Seçiniz <span class="required">*</span></label>
                             <div class="col-md-6 col-sm-6 col-xs-12">
                                 <select name="egitmen_id" class="form-control" required>
@@ -144,7 +136,7 @@ include 'header.php';
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kurs Resmi (1 Adet) <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="file" id="first-name" required="required" name="kurs_resimyol"  class="form-control col-md-7 col-xs-12" placeholder="Lütfen Kurs Fiyatını Giriniz">
+                          <input type="file" id="first-name" required="required" name="kurs_resimyol"  class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -152,10 +144,59 @@ include 'header.php';
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kurs Ön İzleme Videosu <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="file" id="first-name" required="required" name="kurs_videoyol"  class="form-control col-md-7 col-xs-12" placeholder="Lütfen Kurs Fiyatını Giriniz">
+                          <input type="file" id="first-name" required="required" name="kurs_videoyol"  class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
-                                   
+
+                      <!-- Update the certificate pricing section -->
+                      <div class="x_title">
+                        <h2><strong>Sertifika ve Transkript</strong> Fiyatlandırması <small>(En düşük sertifika fiyatı, kursun temel fiyatı olarak gösterilecektir)</small></h2>
+                        <div class="clearfix"></div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="edevlet_cert_price">E-Devlet Sertifika Fiyatı
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="edevlet_cert_price" name="edevlet_cert_price" class="form-control col-md-7 col-xs-12" placeholder="E-Devlet Sertifika Fiyatını Giriniz">
+                          <small class="text-muted">Bu fiyat kursun başlangıç fiyatı olarak kullanılabilir.</small>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="eng_cert_price">İngilizce Sertifika Fiyatı
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="eng_cert_price" name="eng_cert_price" class="form-control col-md-7 col-xs-12" placeholder="İngilizce Sertifika Fiyatını Giriniz">
+                          <small class="text-muted">Bu fiyat kursun başlangıç fiyatı olarak kullanılabilir.</small>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tr_cert_price">Türkçe Sertifika Fiyatı
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="tr_cert_price" name="tr_cert_price" class="form-control col-md-7 col-xs-12" placeholder="Türkçe Sertifika Fiyatını Giriniz">
+                          <small class="text-muted">Bu fiyat kursun başlangıç fiyatı olarak kullanılabilir.</small>
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="eng_transcript_price">İngilizce Transkript Fiyatı
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="eng_transcript_price" name="eng_transcript_price" class="form-control col-md-7 col-xs-12" placeholder="İngilizce Transkript Fiyatını Giriniz">
+                        </div>
+                      </div>
+
+                      <div class="form-group">
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="tr_transcript_price">Türkçe Transkript Fiyatı
+                        </label>
+                        <div class="col-md-6 col-sm-6 col-xs-12">
+                          <input type="text" id="tr_transcript_price" name="tr_transcript_price" class="form-control col-md-7 col-xs-12" placeholder="Türkçe Transkript Fiyatını Giriniz">
+                        </div>
+                      </div>
+
                       <div class="form-group">
                         <div align="right" class="col-md-6 col-sm-6 col-xs-12 col-md-offset-3">
                           <button type="submit" class="btn btn-success" name="kurskaydet">Kaydet</button>

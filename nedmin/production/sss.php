@@ -130,7 +130,11 @@ $ssssor->execute();
       <td><?php echo $ssscek['sss_aciklama'] ?></td>
 
 
-      <td><center><a href="sss-duzenle.php?sss_id=<?php echo $ssscek['sss_id']; ?>"><button class="btn btn-primary btn-xs">Düzenle</button></a></center></td>
+      <td><center>
+        <a href="sss-duzenle.php?sss_id=<?php echo $ssscek['sss_id']; ?>" class="btn btn-primary btn-xs">
+          Düzenle
+        </a>
+      </center></td>
       <td>
         <center>
           <!-- Silme Butonu için SweetAlert Onaylama -->

@@ -42,20 +42,16 @@ if ($_GET['durum'] == "ok") { ?>
             <div class="row">
                 <div class="col-lg-4 col-md-6 col-sm-6">
                     <div class="single-footer-widget">
-                        <a href="index2.php" class="logo">
+                        <a href="index.php" class="logo">
                             <img src="assets/img/logo/badi akademi.png" alt="image">
                         </a>
                         <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has
                             been the industry's...</p>
                         <ul class="social-links">
-                            <li><a href="https://www.facebook.com/badietkinlik" target="_blank"><i
-                                        class='bx bxl-facebook'></i></a></li>
-                            <li><a href="https://tr.linkedin.com/company/badietkinlik" target="_blank"><i
-                                        class='bx bxl-linkedin'></i></a></li>
-                            <li><a href="https://www.instagram.com/badietkinlik" target="_blank"><i
-                                        class='bx bxl-instagram'></i></a></li>
-                            <li><a href="https://www.youtube.com/@badietkinlik" target="_blank"><i
-                                        class='bx bxl-youtube'></i></a></li>
+                            <li><a href="<?php echo $ayarcek['ayar_facebook']; ?>" target="_blank" aria-label="Facebook sayfamızı ziyaret et"><i class='bx bxl-facebook'></i></a></li>
+                            <li><a href="<?php echo $ayarcek['ayar_google']; ?>" target="_blank" aria-label="LinkedIn profilimizi ziyaret et"><i class='bx bxl-linkedin'></i></a></li>
+                            <li><a href="<?php echo $ayarcek['ayar_twitter']; ?>" target="_blank" aria-label="Instagram sayfamızı ziyaret et"><i class='bx bxl-instagram'></i></a></li>
+                            <li><a href="<?php echo $ayarcek['ayar_youtube']; ?>" target="_blank" aria-label="YouTube kanalımızı ziyaret et"><i class='bx bxl-youtube'></i></a></li>
                         </ul>
                     </div>
                 </div>
@@ -63,11 +59,10 @@ if ($_GET['durum'] == "ok") { ?>
                     <div class="single-footer-widget pl-5">
                         <h3>Hızlı Erişim</h3>
                         <ul class="links-list">
-                            <li><a href="#">Anasayfa</a></li>
-                            <li><a href="#">Kurslarımız</a></li>
-                            <li><a href="#">Eğitmenler</a></li>
-                            <li><a href="#">Kategoriler</a></li>
-                            <li><a href="#">Blog</a></li>
+                            <li><a href="index.php">Anasayfa</a></li>
+                            <li><a href="kurslar_1.php">Kurslarımız</a></li>
+                            <li><a href="blog.php">Blog</a></li>
+                            <li><a href="about-us.php#faq-section">Sıkça Sorulan Sorular</a></li>
                         </ul>
                     </div>
                 </div>
@@ -75,11 +70,10 @@ if ($_GET['durum'] == "ok") { ?>
                     <div class="single-footer-widget">
                         <h3>Hakkımızda</h3>
                         <ul class="links-list">
-                            <li><a href="#">Hakkımızda</a></li>
-                            <li><a href="#">İletişim</a></li>
-                            <li><a href="#">Destek</a></li>
-                            <li><a href="#">Gizlilik Politikası</a></li>
-                            <li><a href="#">Kvkk</a></li>
+                            <li><a href="about-us.php">Hakkımızda</a></li>
+                            <li><a href="contact.php">İletişim</a></li>
+                            <li><a href="kvkk-gizlilik.php#gizlilik">Gizlilik Politikası</a></li>
+                            <li><a href="kvkk-gizlilik.php#kvkk">Kvkk</a></li>
                         </ul>
                     </div>
                 </div>

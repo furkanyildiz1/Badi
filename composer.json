@@ -1,6 +1,8 @@
 {
     "require": {
+        "mews/paytr": "^0.3.5",
+        "vlucas/phpdotenv": "^5.6",
         "sendgrid/sendgrid": "^8.1",
-        "vlucas/phpdotenv": "^5.6"
+        "google/apiclient": "2.12"
     }
 }

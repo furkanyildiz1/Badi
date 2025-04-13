@@ -1,0 +1,20 @@
+User-agent: *
+Allow: /
+Allow: /kurslar_1.php
+Allow: /kurs-detay.php
+Allow: /blog.php
+Allow: /blog-details.php
+Allow: /contact.php
+Allow: /assets/
+
+Disallow: /nedmin/
+Disallow: /nedmin/netting/
+Disallow: /nedmin/production/
+Disallow: /*.sql$
+Disallow: /*.zip$
+Disallow: /*.env
+Disallow: /*.config
+Disallow: /cgi-bin/
+Disallow: /*.json$
+
+Sitemap: https://badiakademi.com/sitemap.xml 

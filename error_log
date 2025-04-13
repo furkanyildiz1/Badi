@@ -1,0 +1,282 @@
+[01-Mar-2025 17:14:03 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 17:14:03 Europe/Istanbul] Looking for order: 
+[01-Mar-2025 18:38:40 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 18:38:40 Europe/Istanbul] Looking for order: 
+[01-Mar-2025 18:46:43 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 18:46:43 Europe/Istanbul] Looking for order: 
+[01-Mar-2025 23:27:58 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:27:58 Europe/Istanbul] Looking for order: INV-20250301-3737
+[01-Mar-2025 23:27:58 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 18
+    [user_id] => 80
+    [fatura_no] => INV-20250301-3737
+    [fatura_adres_id] => 2
+    [ara_toplam] => 1000.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 200.00
+    [toplam_tutar] => 800.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-01 23:27:58
+)
+
+[01-Mar-2025 23:29:11 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:29:11 Europe/Istanbul] Looking for order: INV-20250301-6019
+[01-Mar-2025 23:29:11 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 19
+    [user_id] => 80
+    [fatura_no] => INV-20250301-6019
+    [fatura_adres_id] => 2
+    [ara_toplam] => 1500.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1500.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-01 23:29:11
+)
+
+[01-Mar-2025 23:29:53 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:29:53 Europe/Istanbul] Looking for order: INV-20250301-7327
+[01-Mar-2025 23:29:53 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 20
+    [user_id] => 80
+    [fatura_no] => INV-20250301-7327
+    [fatura_adres_id] => 2
+    [ara_toplam] => 2500.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 2500.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-01 23:29:53
+)
+
+[01-Mar-2025 23:30:11 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:30:11 Europe/Istanbul] Looking for order: INV-20250301-4877
+[01-Mar-2025 23:30:11 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 21
+    [user_id] => 80
+    [fatura_no] => INV-20250301-4877
+    [fatura_adres_id] => 2
+    [ara_toplam] => 1100.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1100.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-01 23:30:11
+)
+
+[01-Mar-2025 23:40:30 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:40:30 Europe/Istanbul] Looking for order: 
+[01-Mar-2025 23:40:53 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:40:53 Europe/Istanbul] Looking for order: INV-20250301-7427
+[01-Mar-2025 23:40:53 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 22
+    [user_id] => 80
+    [fatura_no] => INV-20250301-7427
+    [fatura_adres_id] => 2
+    [ara_toplam] => 2500.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 500.00
+    [toplam_tutar] => 2000.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-01 23:40:53
+)
+
+[01-Mar-2025 23:56:36 Europe/Istanbul] Order Success Page Loaded
+[01-Mar-2025 23:56:36 Europe/Istanbul] Looking for order: INV-20250301-9839
+[01-Mar-2025 23:56:36 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 27
+    [user_id] => 80
+    [fatura_no] => INV-20250301-9839
+    [fatura_adres_id] => 2
+    [ara_toplam] => 8500.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 1700.00
+    [toplam_tutar] => 6800.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-01 23:56:36
+)
+
+[02-Mar-2025 00:55:01 Europe/Istanbul] Order Success Page Loaded
+[02-Mar-2025 00:55:01 Europe/Istanbul] Looking for order: INV-20250302-1053
+[02-Mar-2025 00:55:01 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 28
+    [user_id] => 77
+    [fatura_no] => INV-20250302-1053
+    [fatura_adres_id] => 4
+    [ara_toplam] => 1500.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1500.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-02 00:55:01
+)
+
+[02-Mar-2025 00:55:37 Europe/Istanbul] Order Success Page Loaded
+[02-Mar-2025 00:55:37 Europe/Istanbul] Looking for order: 
+[02-Mar-2025 00:56:24 Europe/Istanbul] Order Success Page Loaded
+[02-Mar-2025 00:56:24 Europe/Istanbul] Looking for order: INV-20250302-3607
+[02-Mar-2025 00:56:24 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 29
+    [user_id] => 83
+    [fatura_no] => INV-20250302-3607
+    [fatura_adres_id] => 6
+    [ara_toplam] => 1000.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1000.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-02 00:56:24
+)
+
+[02-Mar-2025 21:03:03 Europe/Istanbul] Order Success Page Loaded
+[02-Mar-2025 21:03:03 Europe/Istanbul] Looking for order: INV-20250302-8948
+[02-Mar-2025 21:03:03 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 30
+    [user_id] => 81
+    [fatura_no] => INV-20250302-8948
+    [fatura_adres_id] => 1
+    [ara_toplam] => 3800.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 760.00
+    [toplam_tutar] => 3040.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-02 21:03:03
+)
+
+[02-Mar-2025 21:04:21 Europe/Istanbul] Order Success Page Loaded
+[02-Mar-2025 21:04:21 Europe/Istanbul] Looking for order: INV-20250302-4356
+[02-Mar-2025 21:04:21 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 31
+    [user_id] => 81
+    [fatura_no] => INV-20250302-4356
+    [fatura_adres_id] => 1
+    [ara_toplam] => 1800.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 360.00
+    [toplam_tutar] => 1440.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-02 21:04:21
+)
+
+[02-Mar-2025 21:05:50 Europe/Istanbul] Order Success Page Loaded
+[02-Mar-2025 21:05:50 Europe/Istanbul] Looking for order: 
+[05-Mar-2025 21:58:02 Europe/Istanbul] Order Success Page Loaded
+[05-Mar-2025 21:58:02 Europe/Istanbul] Looking for order: INV-20250305-4398
+[05-Mar-2025 21:58:02 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 32
+    [user_id] => 84
+    [fatura_no] => INV-20250305-4398
+    [fatura_adres_id] => 7
+    [ara_toplam] => 1800.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1800.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-05 21:58:02
+)
+
+[05-Mar-2025 21:59:00 Europe/Istanbul] Order Success Page Loaded
+[05-Mar-2025 21:59:00 Europe/Istanbul] Looking for order: INV-20250305-6136
+[05-Mar-2025 21:59:00 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 33
+    [user_id] => 85
+    [fatura_no] => INV-20250305-6136
+    [fatura_adres_id] => 8
+    [ara_toplam] => 1000.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1000.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-05 21:59:00
+)
+
+[08-Mar-2025 20:46:27 Europe/Istanbul] Order Success Page Loaded
+[08-Mar-2025 20:46:27 Europe/Istanbul] Looking for order: INV-20250308-4671
+[08-Mar-2025 20:46:27 Europe/Istanbul] Order details: Array
+(
+    [fatura_id] => 34
+    [user_id] => 77
+    [fatura_no] => INV-20250308-4671
+    [fatura_adres_id] => 4
+    [ara_toplam] => 1800.00
+    [kampanya_kodu_id] => 
+    [indirim_tutari] => 0.00
+    [toplam_tutar] => 1800.00
+    [odeme_yontemi] => havale
+    [odeme_durumu] => beklemede
+    [bildirim_okundu] => 0
+    [created_at] => 2025-03-08 20:46:27
+)
+
+[10-Mar-2025 14:26:45 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 14:26:45 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 14:26:48 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 14:26:48 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 14:38:08 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 14:38:08 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 14:43:37 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 14:43:37 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 14:48:45 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 14:48:45 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 15:21:25 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 15:21:25 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 15:22:15 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 15:22:15 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:09:01 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:09:01 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:10:32 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:10:32 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:13:24 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:13:24 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:15:54 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:15:54 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:23:07 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:23:07 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:24:30 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:24:30 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:25:49 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:25:49 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:27:30 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:27:30 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:28:30 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:28:30 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:31:18 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:31:18 Europe/Istanbul] Looking for order: 
+[10-Mar-2025 16:35:21 Europe/Istanbul] Order Success Page Loaded
+[10-Mar-2025 16:35:21 Europe/Istanbul] Looking for order: INV202503108819

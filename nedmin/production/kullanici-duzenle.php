@@ -111,18 +111,18 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
 
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kullanıcı Ad Soyad <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kullanıcı Ad <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" name="kullanici_adsoyad" value="<?php echo $kullanicicek['kullanici_adsoyad']; ?>" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="first-name" required="required" name="kullanici_ad" value="<?php echo $kullanicicek['kullanici_ad']; ?>" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
                       <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kullanıcı TC <span class="required">*</span>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kullanıcı Soyad <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" name="kullanici_tc" value="<?php echo $kullanicicek['kullanici_tc']; ?>" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="first-name" required="required" name="kullanici_soyad" value="<?php echo $kullanicicek['kullanici_soyad']; ?>" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 
@@ -138,7 +138,7 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                         <label class="control-label col-md-3 col-sm-3 col-xs-12" for="first-name">Kullanıcı Telefon <span class="required">*</span>
                         </label>
                         <div class="col-md-6 col-sm-6 col-xs-12">
-                          <input type="text" id="first-name" required="required" name="kullanici_gsm" value="<?php echo $kullanicicek['kullanici_gsm']; ?>" class="form-control col-md-7 col-xs-12">
+                          <input type="text" id="first-name" required="required" name="kullanici_gsm" value="<?php echo $kullanicicek['kullanici_tel']; ?>" class="form-control col-md-7 col-xs-12">
                         </div>
                       </div>
 

@@ -3,6 +3,15 @@
 error_reporting(0);
 
 include 'header.php'; 
+try
+{
+	$db = new PDO("mysql:host=localhost;dbname=badiakademi;charset=utf8",'root','179492');
+	//echo "Veritabanı baglantısı basarili";
+}
+catch (PDOException $e)
+{
+	echo $e->getMessage();
+}
 
 //Belirli veriyi seçme işlemi
 $slidersor=$db->prepare("SELECT * FROM slider");

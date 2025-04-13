@@ -1,0 +1,962 @@
+[07-Mar-2025 19:40:52 Europe/Istanbul] Mail Error: SMTP Error: Could not connect to SMTP host.
+[07-Mar-2025 19:44:14 Europe/Istanbul] Mail Error: SMTP Error: Could not connect to SMTP host.
+[07-Mar-2025 19:44:26 Europe/Istanbul] Mail Error: SMTP Error: Could not connect to SMTP host.
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 220-mt-santa.guzelhosting.com ESMTP Exim 4.98.1 #2 Fri, 07 Mar 2025 19:44:36 +0300 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: EHLO badiakademi.com
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250-mt-santa.guzelhosting.com Hello badiakademi.com [89.252.186.150]
+250-SIZE 52428800
+250-LIMITS MAILMAX=1000 RCPTMAX=50000
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: AUTH LOGIN
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 235 Authentication succeeded
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MAIL FROM:<hello@badiakademi.com>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: RCPT TO:<berkayyy5445@gmail.com>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 Accepted
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: DATA
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 354 Enter message, ending with "." on a line by itself
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Date: Fri, 7 Mar 2025 19:44:36 +0300
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: To: =?UTF-8?Q?berkay_ar=C4=B1kan?= <berkayyy5445@gmail.com>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: From: Beker SOFTWARE Panelss <hello@badiakademi.com>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Subject: =?UTF-8?Q?=C5=9Eifre_S=C4=B1f=C4=B1rlama_Talebi_-_Beker_SOFTWARE_Panelss?=
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Message-ID: <Z0Hg9BmEJ568JReqNl6lx6wXrL1tGcxiCinLTIXFg@badiakademi.com>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: X-Mailer: PHPMailer 6.9.3 (https://github.com/PHPMailer/PHPMailer)
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MIME-Version: 1.0
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <!DOCTYPE html>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <html>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <head>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <meta charset="UTF-8">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <title>Şifre Sıfırlama</title>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <style>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .header { text-align: center; margin-bottom: 20px; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .logo { max-width: 200px; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .content { padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .button { display: inline-block; padding: 10px 20px; background-color: #26B99A; color: white; text-decoration: none; border-radius: 4px; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </style>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </head>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <body>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <div class="container">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="header">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <img src="dimg/26746badi akademi siyah.png" alt="Beker SOFTWARE Panelss" class="logo">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <h2>Şifre Sıfırlama Talebi</h2>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="content">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Merhaba berkay arıkan,</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Hesabınız için bir şifre sıfırlama talebinde bulundunuz. Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p style="text-align: center;">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                     <a href="https://www.badiakademi.com/reset-password.php?token=9897bd74e40c25e9dcfca34504b116a80d513c21ac8ef9bcbf56e307e8d6c823&email=berkayyy5445%40gmail.com" class="button">Şifremi Sıfırla</a>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 </p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Veya aşağıdaki bağlantıyı tarayıcınıza kopyalayabilirsiniz:</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>https://www.badiakademi.com/reset-password.php?token=9897bd74e40c25e9dcfca34504b116a80d513c21ac8ef9bcbf56e307e8d6c823&email=berkayyy5445%40gmail.com</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu bağlantı 1 saat boyunca geçerlidir.</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="footer">
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu e-posta Beker SOFTWARE Panelss tarafından gönderilmiştir.</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Çeliktepe Mah. İsmet İnönü Cd. No:11,34394 Kâğıthane/İstanbul</p>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </div>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </body>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </html>
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: .
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK id=1tqaoO-000000004f5-3FxR
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: QUIT
+
+[07-Mar-2025 19:44:36 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 221 mt-santa.guzelhosting.com closing connection
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 220-mt-santa.guzelhosting.com ESMTP Exim 4.98.1 #2 Thu, 13 Mar 2025 00:32:47 +0300 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: EHLO badiakademi.com
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250-mt-santa.guzelhosting.com Hello badiakademi.com [89.252.186.150]
+250-SIZE 52428800
+250-LIMITS MAILMAX=1000 RCPTMAX=50000
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: AUTH LOGIN
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 235 Authentication succeeded
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MAIL FROM:<hello@badiakademi.com>
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK
+
+[13-Mar-2025 00:32:47 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: RCPT TO:<erdemakcan1717@gmail.com>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 Accepted
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: DATA
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 354 Enter message, ending with "." on a line by itself
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Date: Thu, 13 Mar 2025 00:32:47 +0300
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: To: erdem akcan <erdemakcan1717@gmail.com>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: From: Beker SOFTWARE Panelss <hello@badiakademi.com>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Subject: =?UTF-8?Q?=C5=9Eifre_S=C4=B1f=C4=B1rlama_Talebi_-_Beker_SOFTWARE_Panelss?=
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Message-ID: <cBwHrVQwWGgeWkLWsMVh9EXtt5uiSkpN1B9fN1qFo0@badiakademi.com>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: X-Mailer: PHPMailer 6.9.3 (https://github.com/PHPMailer/PHPMailer)
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MIME-Version: 1.0
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <!DOCTYPE html>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <html>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <head>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <meta charset="UTF-8">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <title>Şifre Sıfırlama</title>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <style>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .header { text-align: center; margin-bottom: 20px; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .logo { max-width: 200px; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .content { padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .button { display: inline-block; padding: 10px 20px; background-color: #26B99A; color: white; text-decoration: none; border-radius: 4px; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </style>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </head>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <body>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <div class="container">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="header">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <img src="dimg/26746badi akademi siyah.png" alt="Beker SOFTWARE Panelss" class="logo">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <h2>Şifre Sıfırlama Talebi</h2>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="content">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Merhaba erdem akcan,</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Hesabınız için bir şifre sıfırlama talebinde bulundunuz. Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p style="text-align: center;">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                     <a href="https://www.badiakademi.com/reset-password.php?token=88a585cebc126e75da5dfdcd99d87de96a22bfd76a595c9a276351f341236622&email=erdemakcan1717%40gmail.com" class="button">Şifremi Sıfırla</a>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 </p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Veya aşağıdaki bağlantıyı tarayıcınıza kopyalayabilirsiniz:</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>https://www.badiakademi.com/reset-password.php?token=88a585cebc126e75da5dfdcd99d87de96a22bfd76a595c9a276351f341236622&email=erdemakcan1717%40gmail.com</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu bağlantı 1 saat boyunca geçerlidir.</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="footer">
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu e-posta Beker SOFTWARE Panelss tarafından gönderilmiştir.</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Çeliktepe Mah. İsmet İnönü Cd. No:11,34394 Kâğıthane/İstanbul</p>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </div>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </body>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </html>
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: .
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK id=1tsTh2-000000003nJ-0F51
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: QUIT
+
+[13-Mar-2025 00:32:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 221 mt-santa.guzelhosting.com closing connection
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 220-mt-santa.guzelhosting.com ESMTP Exim 4.98.1 #2 Thu, 13 Mar 2025 10:00:07 +0300 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: EHLO badiakademi.com
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250-mt-santa.guzelhosting.com Hello badiakademi.com [89.252.186.150]
+250-SIZE 52428800
+250-LIMITS MAILMAX=1000 RCPTMAX=50000
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: AUTH LOGIN
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 235 Authentication succeeded
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MAIL FROM:<hello@badiakademi.com>
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK
+
+[13-Mar-2025 10:00:07 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: RCPT TO:<arikan.mberkay@gmail.com>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 Accepted
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: DATA
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 354 Enter message, ending with "." on a line by itself
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Date: Thu, 13 Mar 2025 10:00:07 +0300
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: To: =?UTF-8?Q?Berkay_Mustafa_Ar=C4=B1kan?= <arikan.mberkay@gmail.com>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: From: Beker SOFTWARE Panelss <hello@badiakademi.com>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Subject: =?UTF-8?Q?=C5=9Eifre_S=C4=B1f=C4=B1rlama_Talebi_-_Beker_SOFTWARE_Panelss?=
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Message-ID: <C2J1xOlyxolpDjSi5HbPqQz5EhxG08U6s13Bz0FQs@badiakademi.com>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: X-Mailer: PHPMailer 6.9.3 (https://github.com/PHPMailer/PHPMailer)
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MIME-Version: 1.0
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <!DOCTYPE html>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <html>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <head>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <meta charset="UTF-8">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <title>Şifre Sıfırlama</title>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <style>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .header { text-align: center; margin-bottom: 20px; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .logo { max-width: 200px; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .content { padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .button { display: inline-block; padding: 10px 20px; background-color: #26B99A; color: white; text-decoration: none; border-radius: 4px; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </style>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </head>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <body>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <div class="container">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="header">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <img src="dimg/26746badi akademi siyah.png" alt="Beker SOFTWARE Panelss" class="logo">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <h2>Şifre Sıfırlama Talebi</h2>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="content">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Merhaba Berkay Mustafa Arıkan,</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Hesabınız için bir şifre sıfırlama talebinde bulundunuz. Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p style="text-align: center;">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                     <a href="https://www.badiakademi.com/reset-password.php?token=4f8bcff377e5be9aca5f93805db6210a31bb4cee906a7139e40be45b7614cfff&email=arikan.mberkay%40gmail.com" class="button">Şifremi Sıfırla</a>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 </p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Veya aşağıdaki bağlantıyı tarayıcınıza kopyalayabilirsiniz:</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>https://www.badiakademi.com/reset-password.php?token=4f8bcff377e5be9aca5f93805db6210a31bb4cee906a7139e40be45b7614cfff&email=arikan.mberkay%40gmail.com</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu bağlantı 1 saat boyunca geçerlidir.</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="footer">
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu e-posta Beker SOFTWARE Panelss tarafından gönderilmiştir.</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Çeliktepe Mah. İsmet İnönü Cd. No:11,34394 Kâğıthane/İstanbul</p>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </div>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </body>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </html>
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: .
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK id=1tscY4-000000007m8-0QTo
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: QUIT
+
+[13-Mar-2025 10:00:08 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 221 mt-santa.guzelhosting.com closing connection
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 220-mt-santa.guzelhosting.com ESMTP Exim 4.98.1 #2 Thu, 13 Mar 2025 10:13:55 +0300 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: EHLO badiakademi.com
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250-mt-santa.guzelhosting.com Hello badiakademi.com [89.252.186.150]
+250-SIZE 52428800
+250-LIMITS MAILMAX=1000 RCPTMAX=50000
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: AUTH LOGIN
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 235 Authentication succeeded
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MAIL FROM:<hello@badiakademi.com>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: RCPT TO:<arikan.mberkay@gmail.com>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 Accepted
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: DATA
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 354 Enter message, ending with "." on a line by itself
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Date: Thu, 13 Mar 2025 10:13:55 +0300
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: To: =?UTF-8?Q?Berkay_Mustafa_Ar=C4=B1kan?= <arikan.mberkay@gmail.com>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: From: Badi Akademi <hello@badiakademi.com>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Subject: =?UTF-8?Q?=C5=9Eifre_S=C4=B1f=C4=B1rlama_Talebi_-_Badi_Akademi?=
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Message-ID: <ch9sOwGgQZNjHDAR6wj4tMzQMohx1er4nIX7r20yo@badiakademi.com>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: X-Mailer: PHPMailer 6.9.3 (https://github.com/PHPMailer/PHPMailer)
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MIME-Version: 1.0
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <!DOCTYPE html>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <html>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <head>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <meta charset="UTF-8">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <title>Şifre Sıfırlama</title>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <style>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .header { text-align: center; margin-bottom: 20px; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .logo { max-width: 200px; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .content { padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .button { display: inline-block; padding: 10px 20px; background-color: #26B99A; color: white; text-decoration: none; border-radius: 4px; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </style>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </head>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <body>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <div class="container">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="header">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <img src="dimg/26746badi akademi siyah.png" alt="Badi Akademi" class="logo">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <h2>Şifre Sıfırlama Talebi</h2>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="content">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Merhaba Berkay Mustafa Arıkan,</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Hesabınız için bir şifre sıfırlama talebinde bulundunuz. Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p style="text-align: center;">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                     <a href="https://www.badiakademi.com/reset-password.php?token=e0d86b54c08685f3acab850134ce2ed07447923673abbd9cfcee362712c8584c&email=arikan.mberkay%40gmail.com" class="button">Şifremi Sıfırla</a>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 </p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Veya aşağıdaki bağlantıyı tarayıcınıza kopyalayabilirsiniz:</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>https://www.badiakademi.com/reset-password.php?token=e0d86b54c08685f3acab850134ce2ed07447923673abbd9cfcee362712c8584c&email=arikan.mberkay%40gmail.com</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu bağlantı 1 saat boyunca geçerlidir.</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="footer">
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu e-posta Badi Akademi tarafından gönderilmiştir.</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Çeliktepe Mah. İsmet İnönü Cd. No:11,34394 Kâğıthane/İstanbul</p>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </div>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </body>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </html>
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: .
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK id=1tsclP-000000003n5-2wvp
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: QUIT
+
+[13-Mar-2025 10:13:55 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 221 mt-santa.guzelhosting.com closing connection
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 220-mt-santa.guzelhosting.com ESMTP Exim 4.98.1 #2 Thu, 13 Mar 2025 10:25:48 +0300 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: EHLO badiakademi.com
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250-mt-santa.guzelhosting.com Hello badiakademi.com [89.252.186.150]
+250-SIZE 52428800
+250-LIMITS MAILMAX=1000 RCPTMAX=50000
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: AUTH LOGIN
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 235 Authentication succeeded
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MAIL FROM:<hello@badiakademi.com>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: RCPT TO:<berkayyy5445@gmail.com>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 Accepted
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: DATA
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 354 Enter message, ending with "." on a line by itself
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Date: Thu, 13 Mar 2025 10:25:48 +0300
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: To: =?UTF-8?Q?berkay_ar=C4=B1kan?= <berkayyy5445@gmail.com>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: From: Badi Akademi <hello@badiakademi.com>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Subject: =?UTF-8?Q?=C5=9Eifre_S=C4=B1f=C4=B1rlama_Talebi_-_Badi_Akademi?=
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Message-ID: <4ZrSlTFybEWBYqep3vPtaF3DqnI5Ah6j0daidnL4xI@badiakademi.com>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: X-Mailer: PHPMailer 6.9.3 (https://github.com/PHPMailer/PHPMailer)
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MIME-Version: 1.0
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <!DOCTYPE html>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <html>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <head>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <meta charset="UTF-8">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <title>Şifre Sıfırlama</title>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <style>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .header { text-align: center; margin-bottom: 20px; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .logo { max-width: 200px; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .content { padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .button { display: inline-block; padding: 10px 20px; background-color: #26B99A; color: white; text-decoration: none; border-radius: 4px; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </style>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </head>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <body>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <div class="container">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="header">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <img src="dimg/26746badi akademi siyah.png" alt="Badi Akademi" class="logo">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <h2>Şifre Sıfırlama Talebi</h2>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="content">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Merhaba berkay arıkan,</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Hesabınız için bir şifre sıfırlama talebinde bulundunuz. Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p style="text-align: center;">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                     <a href="https://www.badiakademi.com/reset-password.php?token=488b9c36ced5b9609e1da7ed3d2e502eeff213d05d490556ecbebd722f0de69c&email=berkayyy5445%40gmail.com" class="button">Şifremi Sıfırla</a>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 </p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Veya aşağıdaki bağlantıyı tarayıcınıza kopyalayabilirsiniz:</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>https://www.badiakademi.com/reset-password.php?token=488b9c36ced5b9609e1da7ed3d2e502eeff213d05d490556ecbebd722f0de69c&email=berkayyy5445%40gmail.com</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu bağlantı 1 saat boyunca geçerlidir.</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="footer">
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu e-posta Badi Akademi tarafından gönderilmiştir.</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Çeliktepe Mah. İsmet İnönü Cd. No:11,34394 Kâğıthane/İstanbul</p>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </div>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </body>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </html>
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: .
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK id=1tscwu-000000001A7-1EcT
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: QUIT
+
+[13-Mar-2025 10:25:48 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 221 mt-santa.guzelhosting.com closing connection
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 220-mt-santa.guzelhosting.com ESMTP Exim 4.98.1 #2 Thu, 13 Mar 2025 11:26:42 +0300 
+220-We do not authorize the use of this system to transport unsolicited, 
+220 and/or bulk e-mail.
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: EHLO badiakademi.com
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250-mt-santa.guzelhosting.com Hello badiakademi.com [89.252.186.150]
+250-SIZE 52428800
+250-LIMITS MAILMAX=1000 RCPTMAX=50000
+250-8BITMIME
+250-PIPELINING
+250-PIPECONNECT
+250-AUTH PLAIN LOGIN
+250 HELP
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: AUTH LOGIN
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 VXNlcm5hbWU6
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 334 UGFzc3dvcmQ6
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: [credentials hidden]
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 235 Authentication succeeded
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MAIL FROM:<hello@badiakademi.com>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: RCPT TO:<erdemakcan1717@gmail.com>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 Accepted
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: DATA
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 354 Enter message, ending with "." on a line by itself
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Date: Thu, 13 Mar 2025 11:26:42 +0300
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: To: erdem akcan <erdemakcan1717@gmail.com>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: From: Badi Akademi <hello@badiakademi.com>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Subject: =?UTF-8?Q?=C5=9Eifre_S=C4=B1f=C4=B1rlama_Talebi_-_Badi_Akademi?=
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Message-ID: <o1AmY0imROT3UOBcqyv9E0zVGNVFNwz4pBR2X4jNzWc@badiakademi.com>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: X-Mailer: PHPMailer 6.9.3 (https://github.com/PHPMailer/PHPMailer)
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: MIME-Version: 1.0
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Type: text/html; charset=UTF-8
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: Content-Transfer-Encoding: 8bit
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <!DOCTYPE html>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <html>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <head>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <meta charset="UTF-8">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <title>Şifre Sıfırlama</title>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <style>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             body { font-family: Arial, sans-serif; line-height: 1.6; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .header { text-align: center; margin-bottom: 20px; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .logo { max-width: 200px; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .content { padding: 20px; background-color: #f9f9f9; border-radius: 5px; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .button { display: inline-block; padding: 10px 20px; background-color: #26B99A; color: white; text-decoration: none; border-radius: 4px; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             .footer { margin-top: 20px; font-size: 12px; color: #777; text-align: center; }
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </style>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </head>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     <body>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         <div class="container">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="header">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <img src="dimg/26746badi akademi siyah.png" alt="Badi Akademi" class="logo">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <h2>Şifre Sıfırlama Talebi</h2>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="content">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Merhaba erdem akcan,</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Hesabınız için bir şifre sıfırlama talebinde bulundunuz. Aşağıdaki bağlantıya tıklayarak şifrenizi sıfırlayabilirsiniz:</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p style="text-align: center;">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                     <a href="https://www.badiakademi.com/reset-password.php?token=bb3dca6c49501bcc7382da5942788927bf1d9af5d1dea155cfe060818355ec76&email=erdemakcan1717%40gmail.com" class="button">Şifremi Sıfırla</a>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 </p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Veya aşağıdaki bağlantıyı tarayıcınıza kopyalayabilirsiniz:</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>https://www.badiakademi.com/reset-password.php?token=bb3dca6c49501bcc7382da5942788927bf1d9af5d1dea155cfe060818355ec76&email=erdemakcan1717%40gmail.com</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu bağlantı 1 saat boyunca geçerlidir.</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Eğer bu talebi siz yapmadıysanız, bu e-postayı görmezden gelebilirsiniz.</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             <div class="footer">
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Bu e-posta Badi Akademi tarafından gönderilmiştir.</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:                 <p>Çeliktepe Mah. İsmet İnönü Cd. No:11,34394 Kâğıthane/İstanbul</p>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:             </div>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:         </div>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </body>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER:     </html>
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: 
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: .
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 250 OK id=1tsdtq-0000000083k-3eCp
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: CLIENT -> SERVER: QUIT
+
+[13-Mar-2025 11:26:42 Europe/Istanbul] SMTP Debug: SERVER -> CLIENT: 221 mt-santa.guzelhosting.com closing connection
+
+[04-Apr-2025 23:16:27 Europe/Istanbul] Collections retrieved: {"totalItems":1,"currentPage":1,"itemsPerPage":100,"items":[{"videoLibraryId":405649,"guid":"8db58197-1f5a-479f-8fca-c1f4589c53f8","name":"PHP Geliştirme Eğitimi","videoCount":2,"totalSize":10525850,"previewVideoIds":"64652edd-30c8-4332-979f-df11b57eefbd,05f0a56f-44ab-4d46-8648-02911bc76888","previewImageUrls":[]}]}
+[04-Apr-2025 23:45:15 Europe/Istanbul] Collections retrieved: {"totalItems":1,"currentPage":1,"itemsPerPage":100,"items":[{"videoLibraryId":405649,"guid":"8db58197-1f5a-479f-8fca-c1f4589c53f8","name":"PHP Geliştirme Eğitimi","videoCount":1,"totalSize":5262925,"previewVideoIds":"02af2a44-f152-48bb-803b-bd11530b4ab3","previewImageUrls":[]}]}
+[04-Apr-2025 23:45:20 Europe/Istanbul] Successfully deleted video from Bunny Stream: aad23b1f-a07e-44f1-902d-b5089903a235
+[04-Apr-2025 23:45:50 Europe/Istanbul] Collections retrieved: {"totalItems":1,"currentPage":1,"itemsPerPage":100,"items":[{"videoLibraryId":405649,"guid":"8db58197-1f5a-479f-8fca-c1f4589c53f8","name":"PHP Geliştirme Eğitimi","videoCount":0,"totalSize":0,"previewVideoIds":"","previewImageUrls":[]}]}
+[04-Apr-2025 23:46:01 Europe/Istanbul] Successfully deleted video from Bunny Stream: 1cf7b1ec-f98e-42db-b8b4-4e5d8b1e31f5

@@ -8,7 +8,49 @@
 
     $toplamKursSorgu = $db->query("SELECT COUNT(*) as toplam FROM kurslar");
     $toplamKurs = $toplamKursSorgu->fetch(PDO::FETCH_ASSOC)['toplam'];
-    $gosterilenKursSayisi = 8;
+    if($toplamKurs > 8){
+        $gosterilenKursSayisi = 8;
+    }else{
+        $gosterilenKursSayisi = $toplamKurs;
+    }
+
+    // Add these variables near the top after other PHP queries
+    $sayfa = isset($_GET['sayfa']) ? (int)$_GET['sayfa'] : 1;
+    $limit = 8;
+    $offset = ($sayfa - 1) * $limit;
+
+    // Add these variables for filtering and sorting
+    $kategori_id = isset($_GET['kategori_id']) ? (int)$_GET['kategori_id'] : 0;
+    $siralama = isset($_GET['siralama']) ? $_GET['siralama'] : '';
+
+    // Modify the kurssor query to include filtering and sorting
+    $sql = "SELECT * FROM kurslar";
+    if ($kategori_id > 0) {
+        $sql .= " WHERE kategori_id = :kategori_id";
+    }
+
+    // Add sorting
+    switch ($siralama) {
+        case 'puan':
+            $sql .= " ORDER BY puan DESC";
+            break;
+        case 'ogrenci':
+            $sql .= " ORDER BY ogrenci_sayi DESC";
+            break;
+        case 'sure':
+            $sql .= " ORDER BY sure DESC";
+            break;
+    }
+
+    $sql .= " LIMIT :limit OFFSET :offset";
+
+    $kurssor = $db->prepare($sql);
+    if ($kategori_id > 0) {
+        $kurssor->bindParam(':kategori_id', $kategori_id, PDO::PARAM_INT);
+    }
+    $kurssor->bindParam(':limit', $limit, PDO::PARAM_INT);
+    $kurssor->bindParam(':offset', $offset, PDO::PARAM_INT);
+    $kurssor->execute();
 ?>
 
         <!-- Start EduMim Page Title Area -->
@@ -37,17 +79,35 @@
                         <div class="col-lg-6 col-md-7 result-count">
                             <a href="kurslar_2.php" class="courbtn "><i class='bx bx-grid-alt'></i></a>
                             <a href="kurslar_1.php" class="courbtn active-courbtn"><i class='bx bx-list-ul'></i></a>
-                            <p><?php echo "<p>{$toplamKurs} kurstan {$gosterilenKursSayisi} tanesi gösteriliyor</p>"; ?></p>
+                            <p id="courseCountDisplay"><?php echo "{$toplamKurs} kurstan {$gosterilenKursSayisi} tanesi gösteriliyor"; ?></p>
                         </div>
                         <div class="col-lg-6 col-md-5 ordering">
-                            <div class="select-box">
-                                <label></label>
-                                <select>
-                                    <option selected disabled>Filtre: Lütfen Seçiniz</option>
-                                    <?php while($kategoricekk=$kategorisorr->fetch(PDO::FETCH_ASSOC)) { ?>
-                                    <option value="<?php echo $kategoricekk['kategori_id'] ?>"><?php echo $kategoricekk['ad']; ?></option>
-                                    <?php } ?>
-                                </select>
+                            <div class="filter-wrapper d-flex flex-wrap justify-content-end">
+                                <div class="filter-item mb-2 mb-md-0 me-md-2">
+                                    <label for="siralamaFilter" class="filter-label d-none d-md-block mb-1">Sıralama</label>
+                                    <div class="select-container">
+                                        <select id="siralamaFilter" class="form-select custom-select" onchange="filterAndSort()">
+                                            <option value="">Sırala</option>
+                                            <option value="puan" <?php echo ($siralama == 'puan') ? 'selected' : ''; ?>><i class="fas fa-star me-1"></i> Puana Göre</option>
+                                            <option value="ogrenci" <?php echo ($siralama == 'ogrenci') ? 'selected' : ''; ?>><i class="fas fa-users me-1"></i> Öğrenci Sayısına Göre</option>
+                                            <option value="sure" <?php echo ($siralama == 'sure') ? 'selected' : ''; ?>><i class="fas fa-clock me-1"></i> Kurs Uzunluğuna Göre</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="filter-item">
+                                    <label for="kategoriFilter" class="filter-label d-none d-md-block mb-1">Kategori</label>
+                                    <div class="select-container">
+                                        <select id="kategoriFilter" class="form-select custom-select" onchange="filterAndSort()">
+                                            <option value="0">Tüm Kategoriler</option>
+                                            <?php while($kategoricekk=$kategorisorr->fetch(PDO::FETCH_ASSOC)) { ?>
+                                            <option value="<?php echo $kategoricekk['kategori_id'] ?>" 
+                                                <?php echo ($kategori_id == $kategoricekk['kategori_id']) ? 'selected' : ''; ?>>
+                                                <?php echo $kategoricekk['ad']; ?>
+                                            </option>
+                                            <?php } ?>
+                                        </select>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -56,21 +116,6 @@
                 <div class="row justify-content-center">
 
                     <?php while($kurscek=$kurssor->fetch(PDO::FETCH_ASSOC)) {
-
-                     $puansor = $db->prepare("SELECT AVG(puan) as ortalama_puan FROM kurs_puan WHERE kurs_id = :kurs_id");
-                     $puansor->execute([
-                         'kurs_id' => $kurscek['kurs_id']
-                     ]);
-                     $puancek = $puansor->fetch(PDO::FETCH_ASSOC);
-                     
-                     $ortalama_puan = $puancek['ortalama_puan'] ? round($puancek['ortalama_puan'], 2) : 0;
-
-                     $puansayisor = $db->prepare("SELECT COUNT(*) as toplam FROM kurs_puan WHERE kurs_id = :kurs_id");
-                     $puansayisor->execute([
-                         'kurs_id' => $kurscek['kurs_id']
-                     ]);
-                     $puansayicek = $puansayisor->fetch(PDO::FETCH_ASSOC);
-                     $ortalama_puan = $puancek['ortalama_puan'] ? round($puancek['ortalama_puan'], 2) : 0;
 
                      $kategorisor = $db->prepare("SELECT * FROM kategoriler WHERE kategori_id=:kategori_id");
                      $kategorisor->execute([
@@ -83,12 +128,6 @@
                          'alt_kategori_id' => $kurscek['alt_kategori_id']
                      ]);
                      $altkategoricek = $altkategorisor->fetch(PDO::FETCH_ASSOC);
-
-                     $ogrsayisor = $db->prepare("SELECT * FROM ogr_sayi WHERE kurs_id=:kurs_id");
-                     $ogrsayisor->execute([
-                         'kurs_id' => $kurscek['kurs_id']
-                     ]);
-                     $ogrsayicek = $ogrsayisor->fetch(PDO::FETCH_ASSOC);
 
                      $egitmensor=$db->prepare("SELECT * FROM egitmen WHERE egitmen_id=:egitmen_id");
                      $egitmensor->execute([
@@ -108,10 +147,10 @@
                                     <div class="content-herd">
                                         <span class="cr-price" ><?php echo $kurscek['fiyat']; ?> TL</span>
                                         <div class="rating">
-                                        <span class="rating-score"><?php echo number_format($ortalama_puan, 1, ',', ''); ?></span>
+                                        <span class="rating-score"><?php echo number_format($kurscek['puan'], 1, ',', ''); ?></span>
                                         <?php
-                                        $filledStars = floor($ortalama_puan); // Tam dolu yıldızlar
-                                        $halfStar = ($ortalama_puan - $filledStars) >= 0.5; // Yarım yıldız kontrolü
+                                        $filledStars = floor($kurscek['puan']); // Tam dolu yıldızlar
+                                        $halfStar = ($kurscek['puan'] - $filledStars) >= 0.5; // Yarım yıldız kontrolü
                                         $emptyStars = 5 - $filledStars - ($halfStar ? 1 : 0); // Boş yıldızlar
 
                                         // Dolu yıldızları ekle
@@ -136,7 +175,7 @@
                                     <ul class="cr-items" >
                                         <li><i class='bx bx-time'></i> <span><?php echo $kurscek['sure'] ?> Saat</span> </li>
                                         <li><i class='bx bx-user'></i> <span>
-                                            <?php echo isset($ogrsayicek['ogr_sayisi']) && $ogrsayicek['ogr_sayisi'] ? $ogrsayicek['ogr_sayisi'] : 0; ?> Öğrenci
+                                            <?php echo $kurscek['ogrenci_sayi'] ?> Öğrenci
                                         </span></li>
                                     </ul>
                                 </div>
@@ -146,8 +185,12 @@
 
                     <?php } ?>
 
-                    <div class="section-button">
-                        <a href="#" class="default-btn">Daha Fazla <i class='bx bx-revision'></i></a>
+                    <div class="section-button text-center">
+                        <?php if ($toplamKurs > ($sayfa * $limit)) { ?>
+                            <a href="javascript:void(0)" class="default-btn" id="loadMoreBtn" data-page="<?php echo $sayfa; ?>">
+                                Daha Fazla <i class='bx bx-revision'></i>
+                            </a>
+                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -155,4 +198,123 @@
         <!-- End EduMim Courses Area -->
 
        <?php include 'footer.php'; ?>
+       
+<script>
+function filterAndSort() {
+    const kategoriId = document.getElementById('kategoriFilter').value;
+    const siralama = document.getElementById('siralamaFilter').value;
+    
+    // Build the URL with current parameters
+    let url = new URL(window.location.href);
+    url.searchParams.set('kategori_id', kategoriId);
+    if (siralama) {
+        url.searchParams.set('siralama', siralama);
+    } else {
+        url.searchParams.delete('siralama');
+    }
+    url.searchParams.set('sayfa', '1'); // Reset to first page when filtering/sorting
+    
+    window.location.href = url.toString();
+}
+
+// Update the existing loadMoreBtn event listener to maintain filters when loading more
+document.getElementById('loadMoreBtn').addEventListener('click', function() {
+    const currentPage = parseInt(this.getAttribute('data-page'));
+    const nextPage = currentPage + 1;
+    const limit = <?php echo $limit; ?>;
+    const totalCourses = <?php echo $toplamKurs; ?>;
+    
+    // Add current filter and sort parameters to the AJAX request
+    const kategoriId = document.getElementById('kategoriFilter').value;
+    const siralama = document.getElementById('siralamaFilter').value;
+    
+    let url = `kurslar_ajax.php?sayfa=${nextPage}`;
+    if (kategoriId > 0) url += `&kategori_id=${kategoriId}`;
+    if (siralama) url += `&siralama=${siralama}`;
+    
+    fetch(url)
+        .then(response => response.text())
+        .then(data => {
+            document.querySelector('.section-button').insertAdjacentHTML('beforebegin', data);
+            this.setAttribute('data-page', nextPage);
+            
+            const shownCourses = Math.min(nextPage * limit, totalCourses);
+            document.getElementById('courseCountDisplay').textContent = 
+                `${totalCourses} kurstan ${shownCourses} tanesi gösteriliyor`;
+            
+            if (totalCourses <= (nextPage * limit)) {
+                this.style.display = 'none';
+            }
+        });
+});
+</script>
+
+<style>
+/* Filtreleme ve sıralama için özel stiller */
+.filter-wrapper {
+    width: 100%;
+}
+
+.filter-item {
+    width: 100%;
+}
+
+.filter-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: #555;
+}
+
+.select-container {
+    position: relative;
+}
+
+.custom-select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    padding: 10px 35px 10px 15px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    background-color: #fff;
+    font-size: 14px;
+    font-weight: 500;
+    width: 100%;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+}
+
+.custom-select:hover, .custom-select:focus {
+    border-color: #0093c4;
+    box-shadow: 0 3px 8px rgba(0,147,196,0.1);
+}
+
+.filter-icon {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #0093c4;
+    pointer-events: none;
+}
+
+/* Responsive ayarlar */
+@media (min-width: 768px) {
+    .filter-item {
+        width: auto;
+        min-width: 180px;
+    }
+}
+
+@media (max-width: 767px) {
+    .filter-item {
+        margin-bottom: 10px;
+    }
+    
+    .custom-select {
+        padding: 8px 35px 8px 12px;
+    }
+}
+</style>
        

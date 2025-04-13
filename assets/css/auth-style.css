@@ -126,12 +126,8 @@ body {
 
 /* Form Stiller */
 .form-group {
-    margin-bottom: 24px;
-    position: relative;
-}
-
-.form-group:has(input[type="password"]) {
     margin-bottom: 35px;
+    position: relative;
 }
 
 .form-group label {
@@ -450,4 +446,8 @@ body {
     .register-type-option i {
         font-size: 14px;
     }
+}
+i.toggle-password {
+    left: auto;
+    right: 16px;
 }
