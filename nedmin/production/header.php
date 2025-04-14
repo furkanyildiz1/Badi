@@ -407,7 +407,6 @@ $kullanicicek=$kullanicisor->fetch(PDO::FETCH_ASSOC);
                   <li><a><i class="fa fa-shopping-cart"></i> Alışveriş Yönetimi <span class="fa fa-chevron-down"></span></a>
                     <ul class="nav child_menu">
                       <li><a href="siparisler.php">Tüm Siparişler</a></li>
-                      <li><a href="kurs-erisimi.php">Kurs Erişim Bilgileri</a></li>
                       <li><a href="kampanya-kodlari.php">Kampanya Kodları</a></li>
                       <li><a href="paytr-ayar.php">PayTR Ayarları</a></li>
                       <li><a href="banka-hesaplari.php">Banka Hesapları</a></li>
