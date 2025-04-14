@@ -133,17 +133,7 @@ while($kurscek=$kurssor->fetch(PDO::FETCH_ASSOC)) {
         <td width="20px;"><?php echo $say ?></td>
         <td><?php echo $kurscek['baslik'] ?></td>
         <td><?php 
-            // Find minimum certificate price (excluding transcripts)
-            $prices = [];
-            if (!empty($kurscek['edevlet_cert_price']) && $kurscek['edevlet_cert_price'] > 0) 
-                $prices[] = $kurscek['edevlet_cert_price'];
-            if (!empty($kurscek['eng_cert_price']) && $kurscek['eng_cert_price'] > 0) 
-                $prices[] = $kurscek['eng_cert_price'];
-            if (!empty($kurscek['tr_cert_price']) && $kurscek['tr_cert_price'] > 0) 
-                $prices[] = $kurscek['tr_cert_price'];
-            
-            $min_price = !empty($prices) ? min($prices) : 0;
-            echo $min_price > 0 ? $min_price . ' TL' : 'Ücretsiz';
+            echo $kurscek['kurs_fiyat'] > 0 ? $kurscek['kurs_fiyat'] . ' TL' : 'Ücretsiz';
         ?></td>
         <td><?php
             $timestamp = strtotime($kurscek['olusturma_tarihi']);
