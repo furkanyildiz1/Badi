@@ -110,50 +110,50 @@ $kurscek=$kurssor->fetch(PDO::FETCH_ASSOC);
                                 </div>
                             </div>
 
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Kurs Fiyatı</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="kurs_fiyat" value="<?php echo $kurscek['kurs_fiyat']; ?>" 
+                                           class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Kurs Türü</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <select name="kurs_tur" class="form-control">
+                                        <option value="canli" <?php echo $kurscek['kurs_tur'] == 'canli' ? 'selected' : ''; ?>>Canlı</option>
+                                        <option value="online" <?php echo $kurscek['kurs_tur'] == 'online' ? 'selected' : ''; ?>>Online</option>
+                                        <option value="yuzyuze" <?php echo $kurscek['kurs_tur'] == 'yuzyuze' ? 'selected' : ''; ?>>Yüzyüze</option>
+                                    </select>
+                                </div>
+                            </div>
+
                             <div class="x_title">
-                                <h2><strong>Sertifika ve Transkript</strong> Fiyatlandırması <small>(En düşük sertifika fiyatı, kursun temel fiyatı olarak gösterilecektir)</small></h2>
+                                <h2><strong>Sertifika Fiyatlandırması</strong></h2>
                                 <div class="clearfix"></div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">E-Devlet Sertifika Fiyatı</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Kurum Onaylı Sertifika Fiyatı</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="edevlet_cert_price" value="<?php echo $kurscek['edevlet_cert_price']; ?>" 
-                                           class="form-control">
-                                    <small class="text-muted">Bu fiyat kursun başlangıç fiyatı olarak kullanılabilir.</small>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">İngilizce Sertifika Fiyatı</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="eng_cert_price" value="<?php echo $kurscek['eng_cert_price']; ?>" 
-                                           class="form-control">
-                                    <small class="text-muted">Bu fiyat kursun başlangıç fiyatı olarak kullanılabilir.</small>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Türkçe Sertifika Fiyatı</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="tr_cert_price" value="<?php echo $kurscek['tr_cert_price']; ?>" 
-                                           class="form-control">
-                                    <small class="text-muted">Bu fiyat kursun başlangıç fiyatı olarak kullanılabilir.</small>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">İngilizce Transkript Fiyatı</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="eng_transcript_price" value="<?php echo $kurscek['eng_transcript_price']; ?>" 
+                                    <input type="text" name="kurum_onayli_sertifika_fiyat" value="<?php echo $kurscek['kurum_onayli_sertifika_fiyat']; ?>" 
                                            class="form-control">
                                 </div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Türkçe Transkript Fiyatı</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Üniversite Onaylı Sertifika Fiyatı</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <input type="text" name="tr_transcript_price" value="<?php echo $kurscek['tr_transcript_price']; ?>" 
+                                    <input type="text" name="uni_onayli_sertifika_fiyat" value="<?php echo $kurscek['uni_onayli_sertifika_fiyat']; ?>" 
+                                           class="form-control">
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">2 Sertifika Fiyatı</label>
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <input type="text" name="sertifikalar_birlikte_fiyat" value="<?php echo $kurscek['sertifikalar_birlikte_fiyat']; ?>" 
                                            class="form-control">
                                 </div>
                             </div>
