@@ -51,6 +51,7 @@ $cart_items->execute(['user_id' => $_SESSION['userkullanici_id']]);
                 <div class="col-lg-8">
                     <div class="cart-items">
                         <?php 
+                        $total_price = 0;
                         while($item = $cart_items->fetch(PDO::FETCH_ASSOC)) {  // Base course price
                             if(!empty($item['selected_certs'])) {
                                 $total_price += $item['cert_total_price'];
@@ -70,27 +71,20 @@ $cart_items->execute(['user_id' => $_SESSION['userkullanici_id']]);
                                         <div class="cart-item-details">
                                             <?php 
                                             if(!empty($item['selected_certs'])) {
-                                                $certs = explode(',', $item['selected_certs']);
+                                                $certs = $item['selected_certs'];
                                                 echo "<div class='selected-certs'>";
                                                 echo "<strong>Seçilen Sertifikalar:</strong><br>";
-                                                foreach($certs as $cert) {
-                                                    switch($cert) {
-                                                        case 'edevlet_cert':
-                                                            echo "- e-Devlet & Üniversite Sertifikası<br>";
+                                                switch($certs) {
+                                                    case 'kurum_cert':
+                                                        echo "Kurum Onaylı Sertifika<br>";
                                                             break;
-                                                        case 'eng_cert':
-                                                            echo "- Uluslararası İngilizce Sertifika<br>";
+                                                        case 'uni_cert':
+                                                            echo "Üniversite Onaylı Sertifika<br>";
                                                             break;
-                                                        case 'tr_cert':
-                                                            echo "- Uluslararası Türkçe Sertifika<br>";
+                                                        case 'both_cert':
+                                                            echo "Kurum & Üniversite Onaylı Sertifika<br>";
                                                             break;
-                                                        case 'eng_transcript':
-                                                            echo "- Uluslararası İngilizce Transkript<br>";
-                                                            break;
-                                                        case 'tr_transcript':
-                                                            echo "- Uluslararası Türkçe Transkript<br>";
-                                                            break;
-                                                    }
+                                                    
                                                 }
                                                 echo "</div>";
                                             }

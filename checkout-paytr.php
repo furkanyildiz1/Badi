@@ -65,47 +65,8 @@ $basket_items = array();
 while($item = $cart_items->fetch(PDO::FETCH_ASSOC)) {
     $item_total = 0;
     // Add certificates if selected
-    if(!empty($item['selected_certs'])) {
-        $certs = explode(',', $item['selected_certs']);
-        foreach($certs as $cert) {
-            $cert_price = 0;
-            $cert_name = '';
-            
-            switch($cert) {
-                case 'edevlet_cert':
-                    $cert_price = $item['edevlet_cert_price'];
-                    $cert_name = "e-Devlet Sertifikası - " . $item['baslik'];
-                    break;
-                case 'eng_cert':
-                    $cert_price = $item['eng_cert_price'];
-                    $cert_name = "İngilizce Sertifika - " . $item['baslik'];
-                    break;
-                case 'tr_cert':
-                    $cert_price = $item['tr_cert_price'];
-                    $cert_name = "Türkçe Sertifika - " . $item['baslik'];
-                    break;
-                case 'eng_transcript':
-                    $cert_price = $item['eng_transcript_price'];
-                    $cert_name = "İngilizce Transkript - " . $item['baslik'];
-                    break;
-                case 'tr_transcript':
-                    $cert_price = $item['tr_transcript_price'];
-                    $cert_name = "Türkçe Transkript - " . $item['baslik'];
-                    break;
-            }
-            
-            if($cert_price > 0) {
-                $basket_items[] = array(
-                    $cert_name,
-                    $cert_price * 100, // Convert to kuruş
-                    1 // Quantity
-                );
-                $item_total += $cert_price;
-            }
-        }
-    }
     
-    $ara_toplam += $item_total;
+    $ara_toplam += $item['cert_total_price'];
 }
 
 // Apply campaign discount if exists
@@ -205,6 +166,7 @@ $fatura_ekle = $db->prepare("INSERT INTO temp_faturalar (
     odeme_durumu,
     created_at
 ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, NOW())");
+
 
 $fatura_ekle->execute([
     $_SESSION['userkullanici_id'],

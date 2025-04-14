@@ -106,26 +106,35 @@ if (!empty($data)) {
             $sepetcek = $db->prepare("SELECT * FROM sepet WHERE user_id = ?");
             $sepetcek->execute([$fatura['user_id']]);
 
+
+
+
             $insert_satilan = $db->prepare("INSERT INTO satilan_kurslar (
                 fatura_id,
                 kurs_id,
-                has_edevlet_cert,
-                has_eng_cert,
-                has_tr_cert,
-                has_eng_transcript,
-                has_tr_transcript,
+                has_kurum_cert,
+                has_uni_cert,
                 created_at
             ) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
 
             while($sepet = $sepetcek->fetch(PDO::FETCH_ASSOC)) {
+                $kurum_cert = 0;
+                $uni_cert = 0;
+                if($sepet['selected_certs'] == 'kurum_cert') {
+                    $kurum_cert = 1;
+                }
+                if($sepet['selected_certs'] == 'uni_cert') {
+                    $uni_cert = 1;
+                }
+                if($sepet['selected_certs'] == 'both_cert') {
+                    $kurum_cert = 1;
+                    $uni_cert = 1;
+                }
             $insert_satilan->execute([
                 $fatura_onayla_id,
                 $sepet['course_id'],
-                str_contains($sepet['selected_certs'], 'edevlet_cert') ? 1 : 0,
-                str_contains($sepet['selected_certs'], 'eng_cert') ? 1 : 0,
-                str_contains($sepet['selected_certs'], 'tr_cert') ? 1 : 0,
-                str_contains($sepet['selected_certs'], 'eng_transcript') ? 1 : 0,
-                str_contains($sepet['selected_certs'], 'tr_transcript') ? 1 : 0
+                $kurum_cert,
+                $uni_cert
             ]);
             }
             // Sepeti temizle

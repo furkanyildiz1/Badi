@@ -467,11 +467,94 @@ function loadContent(url) {
         })
         .then(html => {
             container.innerHTML = html;
+            
+            // Execute any script tags in the loaded content
+            const scripts = container.querySelectorAll('script');
+            scripts.forEach(oldScript => {
+                const newScript = document.createElement('script');
+                
+                // Copy all attributes from the old script to the new one
+                Array.from(oldScript.attributes).forEach(attr => {
+                    newScript.setAttribute(attr.name, attr.value);
+                });
+                
+                // Copy the content of the script
+                newScript.textContent = oldScript.textContent;
+                
+                // Replace the old script with the new one to force execution
+                oldScript.parentNode.replaceChild(newScript, oldScript);
+            });
+
+            // Special handling for orders page
+            if (url.includes('siparislerim.php')) {
+                initializeOrderHandlers();
+            }
         })
         .catch(error => {
             console.error('İçerik yüklenirken hata:', error);
             container.innerHTML = '<p>İçerik yüklenemedi.</p>';
         });
+}
+
+// Function to initialize order handlers for siparislerim.php
+function initializeOrderHandlers() {
+    console.log("Initializing order handlers for dynamically loaded content");
+    
+    // Find all order headers in the loaded content
+    const orderHeaders = document.querySelectorAll('.order-header');
+    console.log(`Found ${orderHeaders.length} order headers`);
+    
+    // Attach click handlers to each order header
+    orderHeaders.forEach(header => {
+        header.addEventListener('click', function() {
+            console.log("Order header clicked");
+            
+            // Get the target from data attribute
+            const targetSelector = this.getAttribute('data-bs-target');
+            if (!targetSelector) {
+                console.error("No target selector found");
+                return;
+            }
+            
+            // Extract the order ID
+            const orderId = targetSelector.split('_')[1];
+            if (!orderId) {
+                console.error("Could not extract order ID");
+                return;
+            }
+            
+            console.log(`Processing order ID: ${orderId}`);
+            
+            // Check if order has already been read
+            const orderCard = this.closest('.order-card');
+            if (!orderCard || !orderCard.classList.contains('border-danger')) {
+                console.log("Order already marked as read");
+                return;
+            }
+            
+            // Mark as read via AJAX
+            const formData = new FormData();
+            formData.append('fatura_id', orderId);
+            
+            fetch('mark-order-read.php', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log("Response:", data);
+                if (data.success) {
+                    // Update UI to show order as read
+                    orderCard.classList.remove('border-danger');
+                    const badge = orderCard.querySelector('.badge.bg-danger');
+                    if (badge) badge.style.display = 'none';
+                }
+            })
+            .catch(error => {
+                console.error("Error marking order as read:", error);
+            });
+        });
+    });
 }
 
 // Inline içerik bölümleri arasında geçiş: profile_info, adreslerim, sifre_guncelle

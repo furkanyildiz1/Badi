@@ -700,76 +700,59 @@ if(isset($_SESSION['userkullanici_id'])) {
                                     ?>
                                         <div class="certificate-options-container">
                                             <div class="alert alert-info">
-                                                <strong>Önemli Bilgi:</strong> Kurs kaydınızı tamamlamak için en az bir sertifika seçeneği seçmeniz gerekmektedir. Transkript hizmetleri isteğe bağlıdır.
+                                                <strong>Önemli Bilgi:</strong> Kurs kaydınızı tamamlamak için bir sertifika seçeneği seçiniz veya sertifika istemiyorum seçeneğini işaretleyiniz.
                                             </div>
                                             
                                             <h4 class="widget-title">Sertifika Seçenekleri</h4>
-                                            <p class="text-danger mb-3">* En az bir sertifika seçmelisiniz</p>
+                                            <p class="text-danger mb-3">* Bir seçenek seçmelisiniz</p>
                                             
                                             <div class="certificate-options">
-                                                <?php if ($kurs['edevlet_cert_price'] > 0) { ?>
+                                                <!-- Base course price will always be added -->
                                                 <div class="form-check mb-2">
-                                                    <input class="form-check-input cert-option" type="checkbox" id="edevlet_cert" 
-                                                           data-type="edevlet_cert" data-price="<?php echo $kurs['edevlet_cert_price']; ?>">
-                                                    <label class="form-check-label" for="edevlet_cert">
-                                                        E-Devlet Sertifikası 
+                                                    <input class="form-check-input cert-option" type="radio" name="cert_selection" id="no_cert" 
+                                                           data-type="no_cert" data-price="0" checked>
+                                                    <label class="form-check-label" for="no_cert">
+                                                        Sertifika İstemiyorum
+                                                        <span class="badge bg-secondary" style="background-color: #6c757d; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 5px;">
+                                                            0 TL
+                                                        </span>
+                                                    </label>
+                                                </div>
+                                                
+                                                <?php if ($kurs['kurum_onayli_sertifika_fiyat'] > 0) { ?>
+                                                <div class="form-check mb-2">
+                                                    <input class="form-check-input cert-option" type="radio" name="cert_selection" id="kurum_cert" 
+                                                           data-type="kurum_cert" data-price="<?php echo $kurs['kurum_onayli_sertifika_fiyat']; ?>">
+                                                    <label class="form-check-label" for="kurum_cert">
+                                                        Kurum Onaylı Sertifika 
                                                         <span class="badge bg-primary" style="background-color: #007bff; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 5px;">
-                                                            <?php echo $kurs['edevlet_cert_price']; ?> TL
+                                                            <?php echo $kurs['kurum_onayli_sertifika_fiyat']; ?> TL
                                                         </span>
                                                     </label>
                                                 </div>
                                                 <?php } ?>
                                                 
-                                                <?php if ($kurs['tr_cert_price'] > 0) { ?>
+                                                <?php if ($kurs['uni_onayli_sertifika_fiyat'] > 0) { ?>
                                                 <div class="form-check mb-2">
-                                                    <input class="form-check-input cert-option" type="checkbox" id="tr_cert" 
-                                                           data-type="tr_cert" data-price="<?php echo $kurs['tr_cert_price']; ?>">
-                                                    <label class="form-check-label" for="tr_cert">
-                                                        Türkçe Sertifika 
+                                                    <input class="form-check-input cert-option" type="radio" name="cert_selection" id="uni_cert" 
+                                                           data-type="uni_cert" data-price="<?php echo $kurs['uni_onayli_sertifika_fiyat']; ?>">
+                                                    <label class="form-check-label" for="uni_cert">
+                                                        Üniversite Onaylı Sertifika 
                                                         <span class="badge bg-primary" style="background-color: #007bff; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 5px;">
-                                                            <?php echo $kurs['tr_cert_price']; ?> TL
+                                                            <?php echo $kurs['uni_onayli_sertifika_fiyat']; ?> TL
                                                         </span>
                                                     </label>
                                                 </div>
                                                 <?php } ?>
                                                 
-                                                <?php if ($kurs['eng_cert_price'] > 0) { ?>
+                                                <?php if ($kurs['sertifikalar_birlikte_fiyat'] > 0) { ?>
                                                 <div class="form-check mb-2">
-                                                    <input class="form-check-input cert-option" type="checkbox" id="eng_cert" 
-                                                           data-type="eng_cert" data-price="<?php echo $kurs['eng_cert_price']; ?>">
-                                                    <label class="form-check-label" for="eng_cert">
-                                                        İngilizce Sertifika 
+                                                    <input class="form-check-input cert-option" type="radio" name="cert_selection" id="both_cert" 
+                                                           data-type="both_cert" data-price="<?php echo $kurs['sertifikalar_birlikte_fiyat']; ?>">
+                                                    <label class="form-check-label" for="both_cert">
+                                                        2 Sertifika Dahil 
                                                         <span class="badge bg-primary" style="background-color: #007bff; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 5px;">
-                                                            <?php echo $kurs['eng_cert_price']; ?> TL
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <?php } ?>
-                                            </div>
-                                            
-                                            <h4 class="widget-title mt-4">Ek Hizmetler (İsteğe Bağlı)</h4>
-                                            <div class="extra-services">
-                                                <?php if ($kurs['tr_transcript_price'] > 0) { ?>
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input cert-option" type="checkbox" id="tr_transcript" 
-                                                           data-type="tr_transcript" data-price="<?php echo $kurs['tr_transcript_price']; ?>">
-                                                    <label class="form-check-label" for="tr_transcript">
-                                                        Türkçe Transkript 
-                                                        <span class="badge bg-info" style="background-color: #17a2b8; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 5px;">
-                                                            <?php echo $kurs['tr_transcript_price']; ?> TL
-                                                        </span>
-                                                    </label>
-                                                </div>
-                                                <?php } ?>
-                                                
-                                                <?php if ($kurs['eng_transcript_price'] > 0) { ?>
-                                                <div class="form-check mb-2">
-                                                    <input class="form-check-input cert-option" type="checkbox" id="eng_transcript" 
-                                                           data-type="eng_transcript" data-price="<?php echo $kurs['eng_transcript_price']; ?>">
-                                                    <label class="form-check-label" for="eng_transcript">
-                                                        İngilizce Transkript 
-                                                        <span class="badge bg-info" style="background-color: #17a2b8; color: white; padding: 3px 8px; border-radius: 4px; margin-left: 5px;">
-                                                            <?php echo $kurs['eng_transcript_price']; ?> TL
+                                                            <?php echo $kurs['sertifikalar_birlikte_fiyat']; ?> TL
                                                         </span>
                                                     </label>
                                                 </div>
@@ -778,26 +761,39 @@ if(isset($_SESSION['userkullanici_id'])) {
                                             
                                             <div class="price-summary mt-3">
                                                 <div class="d-flex justify-content-between">
+                                                    <strong>Kurs Fiyatı:</strong>
+                                                    <span id="course-base-price"><?php echo $kurs['kurs_fiyat']; ?> TL</span>
+                                                </div>
+                                                <div class="d-flex justify-content-between">
+                                                    <strong>Sertifika Ücreti:</strong>
+                                                    <span id="cert-price">0.00 TL</span>
+                                                </div>
+                                                <hr>
+                                                <div class="d-flex justify-content-between">
                                                     <strong>Toplam:</strong>
-                                                    <span id="total-price">0.00 TL</span>
+                                                    <span id="total-price"><?php echo $kurs['kurs_fiyat']; ?> TL</span>
                                                 </div>
                                             </div>
                                             
                                             <!-- Add these hidden fields to both forms -->
                                             <form method="POST" action="nedmin/netting/islem.php" class="add-to-cart-form">
                                                 <input type="hidden" name="course_id" value="<?php echo $kurs_id; ?>">
-                                                <input type="hidden" name="selected_certs" class="selected-certs-input" value="">
-                                                <input type="hidden" name="cert_total_price" class="cert-total-price-input" value="0">
-                                                <button type="submit" name="addToCart" class="btn btn-primary" id="add-to-cart-btn" disabled style="width: 100%;">
+                                                <input type="hidden" name="selected_cert" class="selected-cert-input" value="no_cert">
+                                                <input type="hidden" name="cert_price" class="cert-price-input" value="0">
+                                                <input type="hidden" name="course_base_price" value="<?php echo $kurs['kurs_fiyat']; ?>">
+                                                <input type="hidden" name="total_price" class="total-price-input" value="<?php echo $kurs['kurs_fiyat']; ?>">
+                                                <button type="submit" name="addToCart" class="btn btn-primary" id="add-to-cart-btn" style="width: 100%;">
                                                     Sepete Ekle
                                                 </button>
                                             </form>
                                             
                                             <form method="POST" action="nedmin/netting/islem.php" class="buy-now-form mt-2">
                                                 <input type="hidden" name="course_id" value="<?php echo $kurs_id; ?>">
-                                                <input type="hidden" name="selected_certs" class="selected-certs-input" value="">
-                                                <input type="hidden" name="cert_total_price" class="cert-total-price-input" value="0">
-                                                <button type="submit" name="buyNow" class="btn btn-success" id="buy-now-btn" disabled style="width: 100%;">
+                                                <input type="hidden" name="selected_cert" class="selected-cert-input" value="no_cert">
+                                                <input type="hidden" name="cert_price" class="cert-price-input" value="0">
+                                                <input type="hidden" name="course_base_price" value="<?php echo $kurs['kurs_fiyat']; ?>">
+                                                <input type="hidden" name="total_price" class="total-price-input" value="<?php echo $kurs['kurs_fiyat']; ?>">
+                                                <button type="submit" name="buyNow" class="btn btn-success" id="buy-now-btn" style="width: 100%;">
                                                     Hemen Satın Al
                                                 </button>
                                             </form>
@@ -841,6 +837,38 @@ if(isset($_SESSION['userkullanici_id'])) {
                                             Öğrenci</p></li>
                                         <li><div class="icon"><img src="assets/img/icon/target.svg" alt="icon"> Kurs Seviyesi</div> <p><?php echo $seviyecek['seviye_ad']; ?></p></li>
                                         <li><div class="icon"><img src="assets/img/icon/web.svg" alt="icon"> Dil</div> <p>Türkçe</p></li>
+                                        
+                                        <?php 
+                                        // Display course type
+                                        $kurs_tur = $kurs['kurs_tur'];
+                                        $tur_label = '';
+                                        $tur_icon = '';
+                                        
+                                        switch($kurs_tur) {
+                                            case 'canli':
+                                                $tur_label = 'Canlı Eğitim';
+                                                $tur_icon = '<i class="fas fa-video" style="color: #2980b9;"></i>';
+                                                break;
+                                            case 'online':
+                                                $tur_label = 'Online Eğitim';
+                                                $tur_icon = '<i class="fas fa-play-circle" style="color: #27ae60;"></i>';
+                                                break;
+                                            case 'yuzyuze':
+                                                $tur_label = 'Yüz Yüze Eğitim';
+                                                $tur_icon = '<i class="fas fa-users" style="color: #f39c12;"></i>';
+                                                break;
+                                            default:
+                                                $tur_label = 'Kurs';
+                                                $tur_icon = '<i class="fas fa-book" style="color: #7f8c8d;"></i>';
+                                        }
+                                        ?>
+                                        <li>
+                                            <div class="icon">
+                                                <?php echo $tur_icon; ?> 
+                                                <span style="margin-left: 5px;">Eğitim Türü</span>
+                                            </div> 
+                                            <p><?php echo $tur_label; ?></p>
+                                        </li>
                                     </ul>
                                     <ul class="course-shared">
                                         <li class="title">Paylaş:</li>
@@ -938,7 +966,7 @@ if(isset($_SESSION['userkullanici_id'])) {
                                                 ?>
                                             </a>
                                         </h4>
-                                        <span><?php echo $sonKursCek['fiyat']; ?> TL</span>
+                                        <span><?php echo $sonKursCek['kurs_fiyat']; ?> TL</span>
                                     </div>
                                 </article>
                                 <?php } ?>
@@ -986,44 +1014,69 @@ if(isset($_SESSION['userkullanici_id'])) {
         $(document).ready(function() {
             console.log('Document ready handler executing');
             
+            // Get base course price and convert to number
+            const basePrice = parseFloat(<?php echo $kurs['kurs_fiyat']; ?>);
+            
             // Handle certificate selection
             $('.cert-option').change(function() {
                 console.log('Certificate option changed');
-                let selectedCerts = [];
-                let totalCertPrice = 0;
-                let hasMandatoryCert = false;
+                let selectedCert = $(this).data('type');
+                let certPrice = parseFloat($(this).data('price'));
+                let totalPrice = basePrice + certPrice;
                 
-                $('.cert-option:checked').each(function() {
-                    selectedCerts.push($(this).data('type'));
-                    totalCertPrice += parseFloat($(this).data('price'));
-                    
-                    // Check if this is a mandatory certificate (not a transcript)
-                    const certType = $(this).data('type');
-                    if (certType === 'edevlet_cert' || certType === 'tr_cert' || certType === 'eng_cert') {
-                        hasMandatoryCert = true;
-                    }
-                });
-
-                // Update total price display
-                $('#total-price').text(totalCertPrice.toFixed(2) + ' TL');
+                // Update price displays
+                $('#cert-price').text(certPrice.toFixed(2) + ' TL');
+                $('#total-price').text(totalPrice.toFixed(2) + ' TL');
 
                 // Update both "Buy Now" and "Add to Cart" forms
                 $('.buy-now-form, .add-to-cart-form').each(function() {
-                    $(this).find('.selected-certs-input').val(selectedCerts.join(','));
-                    $(this).find('.cert-total-price-input').val(totalCertPrice);
+                    $(this).find('.selected-cert-input').val(selectedCert);
+                    $(this).find('.cert-price-input').val(certPrice);
+                    $(this).find('.total-price-input').val(totalPrice);
                 });
-                
-                // Enable/disable Add to Cart and Buy Now buttons based on selection
-                $('#add-to-cart-btn, #buy-now-btn').prop('disabled', !hasMandatoryCert);
             });
 
-            // Debug form submission
-            $('form').submit(function(e) {
+            // Form validation for both "Add to Cart" and "Buy Now" forms
+            $('.add-to-cart-form, .buy-now-form').submit(function(e) {
+                // Make sure we have a certificate option selected
+                if (!$('.cert-option:checked').length) {
+                    e.preventDefault();
+                    alert('Lütfen bir sertifika seçeneği seçin.');
+                    return false;
+                }
+
+                // Get selected certificate from checked radio button
+                const selectedCert = $('.cert-option:checked').data('type');
+                const certPrice = parseFloat($('.cert-option:checked').data('price'));
+                const totalPrice = basePrice + certPrice;
+                
+                // One final update to ensure values are correct on submission
+                $(this).find('.selected-cert-input').val(selectedCert);
+                $(this).find('.cert-price-input').val(certPrice);
+                $(this).find('.total-price-input').val(totalPrice);
+                
                 console.log('Form submitting with data:', {
-                    selected_certs: $(this).find('.selected-certs-input').val(),
-                    cert_total_price: $(this).find('.cert-total-price-input').val()
+                    selected_cert: $(this).find('.selected-cert-input').val(),
+                    cert_price: $(this).find('.cert-price-input').val(),
+                    course_base_price: $(this).find('input[name="course_base_price"]').val(),
+                    total_price: $(this).find('.total-price-input').val()
                 });
             });
+            
+            // Initialize form values with default selected certificate (no_cert)
+            const defaultCert = $('.cert-option:checked');
+            if (defaultCert.length) {
+                const selectedCert = defaultCert.data('type');
+                const certPrice = parseFloat(defaultCert.data('price'));
+                const totalPrice = basePrice + certPrice;
+                
+                // Update both forms with initial values
+                $('.buy-now-form, .add-to-cart-form').each(function() {
+                    $(this).find('.selected-cert-input').val(selectedCert);
+                    $(this).find('.cert-price-input').val(certPrice);
+                    $(this).find('.total-price-input').val(totalPrice);
+                });
+            }
         });
 
         document.addEventListener('DOMContentLoaded', function() {

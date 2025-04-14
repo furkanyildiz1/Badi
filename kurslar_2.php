@@ -149,9 +149,34 @@
                                 <div class="cr-tag">
                                     <a href="#"><span><?php echo $altkategoricek['ad']; ?></span></a>
                                 </div>
+                                <?php 
+                                // Display course type
+                                $kurs_tur = $kurscek['kurs_tur'];
+                                $tur_label = '';
+                                $tur_class = '';
+                                
+                                switch($kurs_tur) {
+                                    case 'canli':
+                                        $tur_label = 'Canlı';
+                                        $tur_class = 'bg-primary';
+                                        break;
+                                    case 'online':
+                                        $tur_label = 'Online';
+                                        $tur_class = 'bg-success';
+                                        break;
+                                    case 'yuzyuze':
+                                        $tur_label = 'Yüz Yüze';
+                                        $tur_class = 'bg-warning';
+                                        break;
+                                    default:
+                                        $tur_label = 'Kurs';
+                                        $tur_class = 'bg-secondary';
+                                }
+                                ?>
+                                <div class="course-type-badge <?php echo $tur_class; ?>"><?php echo $tur_label; ?></div>
                             </div>
                             <div class="content">
-                                <span class="cr-price" ><?php echo $kurscek['fiyat']; ?> TL</span>
+                                <span class="cr-price" ><?php echo $kurscek['kurs_fiyat'] > 0 ? $kurscek['kurs_fiyat'] . ' TL' : 'Ücretsiz'; ?></span>
                                 <h3><a href="kurs-detay.php?kurs_id=<?php echo $kurscek['kurs_id']; ?>"><?php echo $kurscek['baslik']; ?></a></h3>
                                 <ul class="cr-items" >
                                     <li><i class='bx bx-user'></i> <span>
@@ -357,6 +382,58 @@
             .custom-select {
                 padding: 8px 35px 8px 12px;
             }
+        }
+
+        /* Enhanced Course Type Badge Styles */
+        .course-type-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 50px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+            z-index: 5;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .course-type-badge:before {
+            content: "";
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.8);
+            margin-right: 2px;
+        }
+
+        .image:hover .course-type-badge {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+        }
+
+        .bg-primary {
+            background: linear-gradient(135deg, #2980b9, #3498db);
+        }
+
+        .bg-success {
+            background: linear-gradient(135deg, #27ae60, #2ecc71);
+        }
+
+        .bg-warning {
+            background: linear-gradient(135deg, #f39c12, #f1c40f);
+            color: #333;
+        }
+
+        .bg-secondary {
+            background: linear-gradient(135deg, #575757, #7f8c8d);
         }
         </style>
     </body>

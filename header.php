@@ -413,15 +413,6 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
                                     </a>
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="profile.php">Profilim</a></li>
-                                        <li><a class="dropdown-item" href="my-courses.php">Kurslarım</a></li>
-                                        <li><a class="dropdown-item position-relative" href="siparislerim.php">
-                                            Siparişlerim
-                                            <?php if($unreadCount > 0): ?>
-                                            <span class="badge rounded-pill bg-danger float-end">
-                                                <?php echo $unreadCount; ?>
-                                            </span>
-                                            <?php endif; ?>
-                                        </a></li>
                                         <li><hr class="dropdown-divider"></li>
                                         <li><a class="dropdown-item" href="logout.php">Çıkış Yap</a></li>
                                     </ul>
@@ -485,17 +476,6 @@ if(!strpos($_SERVER['REQUEST_URI'], 'nedmin')) {
                         <a href="profile.php">
                             <i class="fa-solid fa-user-circle"></i>
                             <span>Profilim</span>
-                        </a>
-                        <a href="my-courses.php">
-                            <i class="fa-solid fa-graduation-cap"></i>
-                            <span>Kurslarım</span>
-                        </a>
-                        <a href="siparislerim.php">
-                            <i class="fa-solid fa-shopping-bag"></i>
-                            <span>Siparişlerim</span>
-                            <?php if($unreadCount > 0): ?>
-                                <span class="notification-badge"><?php echo $unreadCount; ?></span>
-                            <?php endif; ?>
                         </a>
                         <a href="cart.php">
                             <i class="fa-solid fa-cart-shopping"></i>

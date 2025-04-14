@@ -142,10 +142,35 @@
                             <div class="single-courses-box02">
                                 <div class="image">
                                     <img src="<?php echo $kurscek['resim_yol']; ?>" alt="image">
+                                    <?php 
+                                    // Display course type
+                                    $kurs_tur = $kurscek['kurs_tur'];
+                                    $tur_label = '';
+                                    $tur_class = '';
+                                    
+                                    switch($kurs_tur) {
+                                        case 'canli':
+                                            $tur_label = 'Canlı';
+                                            $tur_class = 'bg-primary';
+                                            break;
+                                        case 'online':
+                                            $tur_label = 'Online';
+                                            $tur_class = 'bg-success';
+                                            break;
+                                        case 'yuzyuze':
+                                            $tur_label = 'Yüz Yüze';
+                                            $tur_class = 'bg-warning';
+                                            break;
+                                        default:
+                                            $tur_label = 'Kurs';
+                                            $tur_class = 'bg-secondary';
+                                    }
+                                    ?>
+                                    <div class="course-type-badge <?php echo $tur_class; ?>"><?php echo $tur_label; ?></div>
                                 </div>
                                 <div class="content">
                                     <div class="content-herd">
-                                        <span class="cr-price" ><?php echo $kurscek['fiyat']; ?> TL</span>
+                                        <span class="cr-price" ><?php echo $kurscek['kurs_fiyat'] > 0 ? $kurscek['kurs_fiyat'] . ' TL' : 'Ücretsiz'; ?></span>
                                         <div class="rating">
                                         <span class="rating-score"><?php echo number_format($kurscek['puan'], 1, ',', ''); ?></span>
                                         <?php
@@ -315,6 +340,63 @@ document.getElementById('loadMoreBtn').addEventListener('click', function() {
     .custom-select {
         padding: 8px 35px 8px 12px;
     }
+}
+
+/* Fixed Course Type Badge Styles for kurslar_1.php */
+.single-courses-box02 .image {
+    position: relative;
+    overflow: hidden;
+}
+
+.single-courses-box02 .image .course-type-badge {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    color: white;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 12px;
+    border-radius: 50px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15);
+    z-index: 5;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.single-courses-box02 .image .course-type-badge:before {
+    content: "";
+    display: inline-block;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: rgba(255, 255, 255, 0.8);
+    margin-right: 2px;
+}
+
+.single-courses-box02 .image:hover .course-type-badge {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2);
+}
+
+.single-courses-box02 .image .bg-primary {
+    background: linear-gradient(135deg, #2980b9, #3498db);
+}
+
+.single-courses-box02 .image .bg-success {
+    background: linear-gradient(135deg, #27ae60, #2ecc71);
+}
+
+.single-courses-box02 .image .bg-warning {
+    background: linear-gradient(135deg, #f39c12, #f1c40f);
+    color: #333;
+}
+
+.single-courses-box02 .image .bg-secondary {
+    background: linear-gradient(135deg, #575757, #7f8c8d);
 }
 </style>
        
