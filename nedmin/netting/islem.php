@@ -993,13 +993,7 @@ if(isset($_POST['kurskaydet']))
 			unlink("../../$videosilunlink");
 		}
 
-	// Calculate minimum price from certificate prices only (excluding transcripts)
-	$prices = [];
-	if (!empty($_POST['edevlet_cert_price'])) $prices[] = $_POST['edevlet_cert_price'];
-	if (!empty($_POST['eng_cert_price'])) $prices[] = $_POST['eng_cert_price'];
-	if (!empty($_POST['tr_cert_price'])) $prices[] = $_POST['tr_cert_price'];
-	
-	$min_price = !empty($prices) ? min($prices) : 0;
+
 	
 	$kurskaydet=$db->prepare("INSERT INTO kurslar SET
 		baslik=:baslik,
@@ -1009,14 +1003,13 @@ if(isset($_POST['kurskaydet']))
 		egitmen_id=:egitmen_id,
 		aciklama=:aciklama,
 		sure=:sure,
-		fiyat=:fiyat,
+		kurs_fiyat=:kurs_fiyat,
 		video_yol=:video_yol,
 		resim_yol=:resim_yol,
-		edevlet_cert_price=:edevlet_cert_price,
-		eng_cert_price=:eng_cert_price,
-		tr_cert_price=:tr_cert_price,
-		eng_transcript_price=:eng_transcript_price,
-		tr_transcript_price=:tr_transcript_price
+        kurs_tur=:kurs_tur,
+		kurum_onayli_sertifika_fiyat=:kurum_onayli_sertifika_fiyat,
+		uni_onayli_sertifika_fiyat=:uni_onayli_sertifika_fiyat,
+		sertifikalar_birlikte_fiyat=:sertifikalar_birlikte_fiyat
 	");
 
 	$kaydet=$kurskaydet->execute([
@@ -1028,14 +1021,13 @@ if(isset($_POST['kurskaydet']))
 		'egitmen_id' => $_POST['egitmen_id'],
 		'aciklama' => $_POST['kurs_aciklama'],
 		'sure' => $_POST['kurs_sure'],
-		'fiyat' => $min_price,
+		'kurs_fiyat' => $_POST['kurs_fiyat'],
 		'video_yol' => $refvideoyol,
 		'resim_yol' => $refimgyol,
-		'edevlet_cert_price' => $_POST['edevlet_cert_price'] ?: 0,
-		'eng_cert_price' => $_POST['eng_cert_price'] ?: 0,
-		'tr_cert_price' => $_POST['tr_cert_price'] ?: 0,
-		'eng_transcript_price' => $_POST['eng_transcript_price'] ?: 0,
-		'tr_transcript_price' => $_POST['tr_transcript_price'] ?: 0
+		'kurs_tur' => $_POST['kurs_tur'],
+		'kurum_onayli_sertifika_fiyat' => $_POST['kurum_onayli_sertifika_fiyat'] ?: 0,
+		'uni_onayli_sertifika_fiyat' => $_POST['uni_onayli_sertifika_fiyat'] ?: 0,
+		'sertifikalar_birlikte_fiyat' => $_POST['sertifikalar_birlikte_fiyat'] ?: 0
 	]);
 
 	if($kaydet)
@@ -1799,17 +1791,26 @@ if(isset($_POST["addToCart"])) {
     }
     
     $kurs_id = $_POST['course_id'];
-    $selected_certs = isset($_POST['selected_certs']) ? $_POST['selected_certs'] : '';
-    $cert_total_price = isset($_POST['cert_total_price']) ? floatval($_POST['cert_total_price']) : 0;
+    $selected_cert = isset($_POST['selected_cert']) ? $_POST['selected_cert'] : '';
+    $cert_price = isset($_POST['cert_price']) ? floatval($_POST['cert_price']) : 0;
+    $total_price = isset($_POST['total_price']) ? floatval($_POST['total_price']) : 0;
     
-    
-    
-    // Validate that at least one certificate is selected
-    if (empty($selected_certs)) {
+    // Validate that a certificate option is selected
+    if (empty($selected_cert)) {
         Header("Location:../../kurs-detay.php?kurs_id=$kurs_id&durum=sertifikasec");
         exit;
     }
 
+    // Convert single certificate selection to the format expected by the database
+    $selected_certs = '';
+    if ($selected_cert == 'kurum_cert') {
+        $selected_certs = 'kurum_cert';
+    } else if ($selected_cert == 'uni_cert') {
+        $selected_certs = 'uni_cert';
+    } else if ($selected_cert == 'both_cert') {
+        $selected_certs = 'both_cert';
+    }
+    
     // Check if course already in cart
     $cart_check = $db->prepare("SELECT * FROM sepet WHERE user_id = :user_id AND course_id = :course_id");
     $cart_check->execute([
@@ -1827,7 +1828,7 @@ if(isset($_POST["addToCart"])) {
             'user_id' => $_SESSION["userkullanici_id"],
             'course_id' => $kurs_id,
             'selected_certs' => $selected_certs,
-            'cert_total_price' => $cert_total_price
+            'cert_total_price' => $total_price
         ]);
         if($insert) {
             Header("Location:../../kurs-detay.php?kurs_id=".$kurs_id."&islem=eklendi");
@@ -1842,7 +1843,7 @@ if(isset($_POST["addToCart"])) {
             
         $update = $cart_update->execute([
             'selected_certs' => $selected_certs,
-            'cert_total_price' => $cert_total_price,
+            'cert_total_price' => $total_price,
             'user_id' => $_SESSION["userkullanici_id"],
             'course_id' => $kurs_id
         ]);
@@ -1904,9 +1905,37 @@ if(isset($_POST['yorum_ekle'])) {
 if(isset($_POST['kurs_duzenle'])) {
     $kurs_id = $_POST['kurs_id'];
 
-    // Image handling (existing code)
+    // Image handling
     if($_FILES['resim_yol']['size'] > 0) {
-        // ... existing image upload code ...
+        $uploads_dir = '../../dimg/kurs_image';
+        
+        @$tmp_name = $_FILES['resim_yol']["tmp_name"];
+        @$name = $_FILES['resim_yol']["name"];
+        
+        // Get the file extension
+        $ext = strtolower(substr($name, strripos($name, '.') + 1));
+        
+        // Check if it's a valid image file
+        $allowed_extensions = array('jpg', 'jpeg', 'png', 'gif');
+        if(in_array($ext, $allowed_extensions)) {
+            // Generate unique name
+            $benzersizsayi1 = rand(20000, 32000);
+            $benzersizsayi2 = rand(20000, 32000);
+            $benzersizad = $benzersizsayi1 . $benzersizsayi2;
+            $resim_yol = substr($uploads_dir, 6) . "/" . $benzersizad . $name;
+            
+            // Move the uploaded file
+            @move_uploaded_file($tmp_name, "$uploads_dir/$benzersizad$name");
+            
+            // Delete old image if exists
+            if(!empty($_POST['eski_resim']) && file_exists("../../" . $_POST['eski_resim'])) {
+                unlink("../../" . $_POST['eski_resim']);
+            }
+        } else {
+            // Invalid file type
+            header("Location:../production/kurs-duzenle.php?kurs_id=$kurs_id&durum=imgformat");
+            exit;
+        }
     } else {
         $resim_yol = $_POST['eski_resim'];
     }
@@ -1934,43 +1963,35 @@ if(isset($_POST['kurs_duzenle'])) {
     }
 
     // Calculate minimum price from certificate prices only (excluding transcripts)
-    $prices = [];
-    if (!empty($_POST['edevlet_cert_price'])) $prices[] = $_POST['edevlet_cert_price'];
-    if (!empty($_POST['eng_cert_price'])) $prices[] = $_POST['eng_cert_price'];
-    if (!empty($_POST['tr_cert_price'])) $prices[] = $_POST['tr_cert_price'];
-    
-    $min_price = !empty($prices) ? min($prices) : 0;
     
     $duzenle=$db->prepare("UPDATE kurslar SET
         baslik=:baslik,
         aciklama=:aciklama,
-        fiyat=:fiyat,
+        kurs_fiyat=:kurs_fiyat,
         vitrin_durum=:vitrin_durum,
         resim_yol=:resim_yol,
         video_yol=:onizleme_video,
         kurs_seviye_id=:kurs_seviye_id,
-        edevlet_cert_price=:edevlet_cert_price,
-        eng_cert_price=:eng_cert_price,
-        tr_cert_price=:tr_cert_price,
-        eng_transcript_price=:eng_transcript_price,
-        tr_transcript_price=:tr_transcript_price
+        kurs_tur=:kurs_tur,
+        kurum_onayli_sertifika_fiyat=:kurum_onayli_sertifika_fiyat,
+        uni_onayli_sertifika_fiyat=:uni_onayli_sertifika_fiyat,
+        sertifikalar_birlikte_fiyat=:sertifikalar_birlikte_fiyat
         WHERE kurs_id=:kurs_id
     ");
 
     $update=$duzenle->execute([
         'baslik' => $_POST['baslik'],
         'aciklama' => $_POST['aciklama'],
-        'fiyat' => $min_price,
+        'kurs_fiyat' => $_POST['kurs_fiyat'],
         'vitrin_durum' => $_POST['vitrin_durum'],
         'resim_yol' => $resim_yol,
         'onizleme_video' => $video_yol,
         'kurs_seviye_id' => $_POST['kurs_seviye_id'],
+        'kurs_tur' => $_POST['kurs_tur'],
         'kurs_id' => $_POST['kurs_id'],
-        'edevlet_cert_price' => $_POST['edevlet_cert_price'] ?: 0,
-        'eng_cert_price' => $_POST['eng_cert_price'] ?: 0,
-        'tr_cert_price' => $_POST['tr_cert_price'] ?: 0,
-        'eng_transcript_price' => $_POST['eng_transcript_price'] ?: 0,
-        'tr_transcript_price' => $_POST['tr_transcript_price'] ?: 0
+        'kurum_onayli_sertifika_fiyat' => $_POST['kurum_onayli_sertifika_fiyat'] ?: 0,
+        'uni_onayli_sertifika_fiyat' => $_POST['uni_onayli_sertifika_fiyat'] ?: 0,
+        'sertifikalar_birlikte_fiyat' => $_POST['sertifikalar_birlikte_fiyat'] ?: 0
     ]);
 
     if($update) {
@@ -2430,10 +2451,12 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
     
     $ara_toplam = 0;
     $cart_courses = $cart_items->fetchAll(PDO::FETCH_ASSOC);
+    
+
     foreach($cart_courses as $item) {
         // Base course price
         
-        
+        $course_total = 0;
         // Add certificate total price if exists
         if(isset($item['cert_total_price']) && $item['cert_total_price'] > 0) {
             $course_total += $item['cert_total_price'];
@@ -2441,7 +2464,6 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
         
         $ara_toplam += $course_total;
     }
-    
     // Apply campaign discount if exists
     $indirim_tutari = 0;
     $kampanya_id = null;
@@ -2488,43 +2510,34 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
         // Parse selected certificates
         $selected_certs = [];
         if(!empty($course['selected_certs'])) {
-            $selected_certs = explode(',', $course['selected_certs']);
+            $selected_certs = $course['selected_certs'];
         }
-        
-        // Check which certificates were selected
-        $has_edevlet_cert = in_array('edevlet_cert', $selected_certs) ? 1 : 0;
-        $has_eng_cert = in_array('eng_cert', $selected_certs) ? 1 : 0;
-        $has_tr_cert = in_array('tr_cert', $selected_certs) ? 1 : 0;
-        $has_eng_transcript = in_array('eng_transcript', $selected_certs) ? 1 : 0;
-        $has_tr_transcript = in_array('tr_transcript', $selected_certs) ? 1 : 0;
-        
-        // Get individual certificate prices from the course table
-        $edevlet_price = $has_edevlet_cert ? $course['edevlet_cert_price'] : 0;
-        $eng_price = $has_eng_cert ? $course['eng_cert_price'] : 0;
-        $tr_price = $has_tr_cert ? $course['tr_cert_price'] : 0;
-        $eng_trans_price = $has_eng_transcript ? $course['eng_transcript_price'] : 0;
-        $tr_trans_price = $has_tr_transcript ? $course['tr_transcript_price'] : 0;
+        $has_kurum_cert = 0;
+        $has_uni_cert = 0;
+        if($selected_certs == 'kurum_cert') {
+            $has_kurum_cert = 1;
+        } else if($selected_certs == 'uni_cert') {
+            $has_uni_cert = 1;
+        } else if($selected_certs == 'both_cert') {
+            $has_kurum_cert = 1;
+            $has_uni_cert = 1;
+        }
+
         
         // Create the SQL with certificate fields
         $satis_ekle = $db->prepare("INSERT INTO satilan_kurslar SET
             fatura_id = :fatura_id,
             kurs_id = :kurs_id,
             fiyat = :fiyat,
-            has_edevlet_cert = :edevlet_cert,
-            has_eng_cert = :eng_cert,
-            has_tr_cert = :tr_cert,
-            has_eng_transcript = :eng_transcript,
-            has_tr_transcript = :tr_transcript
+            has_kurum_cert = :kurum_cert,
+            has_uni_cert = :uni_cert
         ");
         $satis_ekle->execute([
             'fatura_id' => $fatura_id,
             'kurs_id' => $course['kurs_id'],
             'fiyat' => $course['cert_total_price'],
-            'edevlet_cert' => $has_edevlet_cert,
-            'eng_cert' => $has_eng_cert,
-            'tr_cert' => $has_tr_cert,
-            'eng_transcript' => $has_eng_transcript,
-            'tr_transcript' => $has_tr_transcript
+            'kurum_cert' => $has_kurum_cert,
+            'uni_cert' => $has_uni_cert
         ]);
         
     }
@@ -2887,31 +2900,67 @@ if(isset($_POST["buyNow"])) {
     }
     
     $kurs_id = $_POST['course_id'];
-    $selected_certs = isset($_POST['selected_certs']) ? $_POST['selected_certs'] : '';
-    $cert_total_price = isset($_POST['cert_total_price']) ? floatval($_POST['cert_total_price']) : 0;
+    $selected_cert = isset($_POST['selected_cert']) ? $_POST['selected_cert'] : '';
+    $cert_price = isset($_POST['cert_price']) ? floatval($_POST['cert_price']) : 0;
+    $total_price = isset($_POST['total_price']) ? floatval($_POST['total_price']) : 0;
     
-    // Clear existing cart
-    $cart_clear = $db->prepare("DELETE FROM sepet WHERE user_id = :user_id");
-    $cart_clear->execute(['user_id' => $_SESSION['userkullanici_id']]);
-
-    // Add course with certificates to cart
-    $cart_add = $db->prepare("INSERT INTO sepet SET 
-        user_id = :user_id,
-        course_id = :course_id,
-        selected_certs = :selected_certs,
-        cert_total_price = :cert_total_price
-    ");
-    
-    $insert = $cart_add->execute([
-        'user_id' => $_SESSION['userkullanici_id'],
-        'course_id' => $kurs_id,
-        'selected_certs' => $selected_certs,
-        'cert_total_price' => $cert_total_price
-    ]);
-
-    if($insert) {
-        Header("Location:../../checkout-address.php");
+    // Validate that a certificate option is selected
+    if (empty($selected_cert)) {
+        Header("Location:../../kurs-detay.php?kurs_id=$kurs_id&durum=sertifikasec");
         exit;
+    }
+
+    // Convert single certificate selection to the format expected by the database
+    $selected_certs = '';
+    if ($selected_cert == 'kurum_cert') {
+        $selected_certs = 'kurum_cert';
+    } else if ($selected_cert == 'uni_cert') {
+        $selected_certs = 'uni_cert';
+    } else if ($selected_cert == 'both_cert') {
+        $selected_certs = 'both_cert';
+    }
+    
+    // Check if course already in cart
+    $cart_check = $db->prepare("SELECT * FROM sepet WHERE user_id = :user_id AND course_id = :course_id");
+    $cart_check->execute([
+        'user_id' => $_SESSION["userkullanici_id"],
+        'course_id' => $kurs_id
+    ]);
+    
+    if($cart_check->rowCount() == 0) {
+        // Insert new cart item
+        $cart_add = $db->prepare("INSERT INTO sepet 
+            (user_id, course_id, selected_certs, cert_total_price) 
+            VALUES (:user_id, :course_id, :selected_certs, :cert_total_price)");
+            
+        $insert = $cart_add->execute([
+            'user_id' => $_SESSION["userkullanici_id"],
+            'course_id' => $kurs_id,
+            'selected_certs' => $selected_certs,
+            'cert_total_price' => $total_price
+        ]);
+        if($insert) {
+            Header("Location:../../checkout-address.php");
+            exit;
+        }
+    } else {
+        // Update existing cart item
+        $cart_update = $db->prepare("UPDATE sepet SET 
+            selected_certs = :selected_certs,
+            cert_total_price = :cert_total_price
+            WHERE user_id = :user_id AND course_id = :course_id");
+            
+        $update = $cart_update->execute([
+            'selected_certs' => $selected_certs,
+            'cert_total_price' => $total_price,
+            'user_id' => $_SESSION["userkullanici_id"],
+            'course_id' => $kurs_id
+        ]);
+        
+        if($update) {
+            Header("Location:../../checkout-address.php");
+            exit;
+        }
     }
 }
 
