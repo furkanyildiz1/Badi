@@ -43,33 +43,25 @@ $toplam_tutar = $ara_toplam - $indirim_tutari;
                 <?php if(!empty($item['selected_certs'])) { ?>
                     <div class="selected-certificates mt-2">
                         <?php 
-                        $certs = explode(',', $item['selected_certs']);
-                        foreach($certs as $cert) {
+                        $certs = $item['selected_certs'];
+                        
                             echo '<div class="cert-item d-flex justify-content-between">';
-                            switch($cert) {
-                                case 'edevlet_cert':
-                                    echo '<small class="text-muted">- e-Devlet & Üniversite Sertifikası</small>';
-                                    echo '<small class="text-muted">' . number_format($item['edevlet_cert_price'], 2) . ' TL</small>';
+                            switch($certs) {
+                                case 'kurum_cert':
+                                    echo '<small class="text-muted">- Kurum Onaylı Sertifika</small>';
+                                    echo '<small class="text-muted">' . number_format($item['kurum_onayli_sertifika_fiyat'], 2) . ' TL</small>';
                                     break;
-                                case 'eng_cert':
-                                    echo '<small class="text-muted">- Uluslararası İngilizce Sertifika</small>';
-                                    echo '<small class="text-muted">' . number_format($item['eng_cert_price'], 2) . ' TL</small>';
+                                case 'uni_cert':
+                                    echo '<small class="text-muted">- Üniversite Onaylı Sertifika</small>';
+                                    echo '<small class="text-muted">' . number_format($item['uni_onayli_sertifika_fiyat'], 2) . ' TL</small>';
                                     break;
-                                case 'tr_cert':
-                                    echo '<small class="text-muted">- Uluslararası Türkçe Sertifika</small>';
-                                    echo '<small class="text-muted">' . number_format($item['tr_cert_price'], 2) . ' TL</small>';
-                                    break;
-                                case 'eng_transcript':
-                                    echo '<small class="text-muted">- Uluslararası İngilizce Transkript</small>';
-                                    echo '<small class="text-muted">' . number_format($item['eng_transcript_price'], 2) . ' TL</small>';
-                                    break;
-                                case 'tr_transcript':
-                                    echo '<small class="text-muted">- Uluslararası Türkçe Transkript</small>';
-                                    echo '<small class="text-muted">' . number_format($item['tr_transcript_price'], 2) . ' TL</small>';
+                                case 'both_cert':
+                                    echo '<small class="text-muted">- Kurum & Üniversite Onaylı Sertifika</small>';
+                                    echo '<small class="text-muted">' . number_format($item['sertifikalar_birlikte_fiyat'], 2) . ' TL</small>';
                                     break;
                             }
                             echo '</div>';
-                        }
+                        
                         ?>
                     </div>
                 <?php } ?>
