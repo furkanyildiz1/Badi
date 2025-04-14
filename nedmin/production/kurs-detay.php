@@ -113,17 +113,7 @@ function kontrol($veri) {
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <p class="form-control-static">
                                         <?php
-                                        // Find minimum certificate price (excluding transcripts)
-                                        $prices = [];
-                                        if (!empty($kurs['edevlet_cert_price']) && $kurs['edevlet_cert_price'] > 0) 
-                                            $prices[] = $kurs['edevlet_cert_price'];
-                                        if (!empty($kurs['eng_cert_price']) && $kurs['eng_cert_price'] > 0) 
-                                            $prices[] = $kurs['eng_cert_price'];
-                                        if (!empty($kurs['tr_cert_price']) && $kurs['tr_cert_price'] > 0) 
-                                            $prices[] = $kurs['tr_cert_price'];
-                                        
-                                        $min_price = !empty($prices) ? min($prices) : 0;
-                                        echo $min_price > 0 ? $min_price . ' TL\'den başlayan fiyatlarla' : 'Ücretsiz';
+                                        echo $kurs['kurs_fiyat'] > 0 ? $kurs['kurs_fiyat'] . ' TL' : 'Ücretsiz';
                                         ?>
                                     </p>
                                 </div>
@@ -277,19 +267,19 @@ function kontrol($veri) {
 
                             <!-- Add this section after the course pricing information -->
                             <div class="x_title" style="margin-top: 20px;">
-                                <h2><strong>Sertifika ve Transkript</strong> Fiyatları</h2>
+                                <h2><strong>Sertifika Fiyatları</strong></h2>
                                 <div class="clearfix"></div>
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">E-Devlet Sertifikası:</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Kurum Onaylı Sertifika:</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <p class="form-control-static">
                                         <?php 
-                                        if (!empty($kurs['edevlet_cert_price']) && $kurs['edevlet_cert_price'] > 0) {
-                                            echo $kurs['edevlet_cert_price'] . ' TL';
+                                        if (!empty($kurs['kurum_onayli_sertifika_fiyat']) && $kurs['kurum_onayli_sertifika_fiyat'] > 0) {
+                                            echo $kurs['kurum_onayli_sertifika_fiyat'] . ' TL';
                                         } else {
-                                            echo "Kullanılabilir değil";
+                                            echo "Ücretsiz";
                                         }
                                         ?>
                                     </p>
@@ -297,14 +287,14 @@ function kontrol($veri) {
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">İngilizce Sertifika:</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Üniversite Onaylı Sertifika:</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <p class="form-control-static">
                                         <?php 
-                                        if (!empty($kurs['eng_cert_price']) && $kurs['eng_cert_price'] > 0) {
-                                            echo $kurs['eng_cert_price'] . ' TL';
+                                        if (!empty($kurs['uni_onayli_sertifika_fiyat']) && $kurs['uni_onayli_sertifika_fiyat'] > 0) {
+                                            echo $kurs['uni_onayli_sertifika_fiyat'] . ' TL';
                                         } else {
-                                            echo "Kullanılabilir değil";
+                                            echo "Ücretsiz";
                                         }
                                         ?>
                                     </p>
@@ -312,44 +302,14 @@ function kontrol($veri) {
                             </div>
 
                             <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Türkçe Sertifika:</label>
+                                <label class="control-label col-md-3 col-sm-3 col-xs-12">İki Sertifika Birlikte Alınırken Fiyatı:</label>
                                 <div class="col-md-6 col-sm-6 col-xs-12">
                                     <p class="form-control-static">
                                         <?php 
-                                        if (!empty($kurs['tr_cert_price']) && $kurs['tr_cert_price'] > 0) {
-                                            echo $kurs['tr_cert_price'] . ' TL';
+                                        if (!empty($kurs['sertifikalar_birlikte_fiyat']) && $kurs['sertifikalar_birlikte_fiyat'] > 0) {
+                                            echo $kurs['sertifikalar_birlikte_fiyat'] . ' TL';
                                         } else {
-                                            echo "Kullanılabilir değil";
-                                        }
-                                        ?>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">İngilizce Transkript:</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <p class="form-control-static">
-                                        <?php 
-                                        if (!empty($kurs['eng_transcript_price']) && $kurs['eng_transcript_price'] > 0) {
-                                            echo $kurs['eng_transcript_price'] . ' TL';
-                                        } else {
-                                            echo "Kullanılabilir değil";
-                                        }
-                                        ?>
-                                    </p>
-                                </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label class="control-label col-md-3 col-sm-3 col-xs-12">Türkçe Transkript:</label>
-                                <div class="col-md-6 col-sm-6 col-xs-12">
-                                    <p class="form-control-static">
-                                        <?php 
-                                        if (!empty($kurs['tr_transcript_price']) && $kurs['tr_transcript_price'] > 0) {
-                                            echo $kurs['tr_transcript_price'] . ' TL';
-                                        } else {
-                                            echo "Kullanılabilir değil";
+                                            echo "Ücretsiz";
                                         }
                                         ?>
                                     </p>
