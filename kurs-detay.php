@@ -793,9 +793,17 @@ if(isset($_SESSION['userkullanici_id'])) {
                                                 <input type="hidden" name="cert_price" class="cert-price-input" value="0">
                                                 <input type="hidden" name="course_base_price" value="<?php echo $kurs['kurs_fiyat']; ?>">
                                                 <input type="hidden" name="total_price" class="total-price-input" value="<?php echo $kurs['kurs_fiyat']; ?>">
-                                                <button type="submit" name="buyNow" class="btn btn-success" id="buy-now-btn" style="width: 100%;">
-                                                    Hemen Satın Al
-                                                </button>
+                                                
+                                                <!-- Add button type based on price -->
+                                                <?php if ((float)$kurs['kurs_fiyat'] === 0.0): ?>
+                                                    <button type="submit" name="buyNowFree" class="btn btn-success" id="buy-now-btn" style="width: 100%;">
+                                                        Ücretsiz Kaydol
+                                                    </button>
+                                                <?php else: ?>
+                                                    <button type="submit" name="buyNow" class="btn btn-success" id="buy-now-btn" style="width: 100%;">
+                                                        Hemen Satın Al
+                                                    </button>
+                                                <?php endif; ?>
                                             </form>
                                         </div>
                                     <?php } else { 
@@ -1034,6 +1042,13 @@ if(isset($_SESSION['userkullanici_id'])) {
                     $(this).find('.cert-price-input').val(certPrice);
                     $(this).find('.total-price-input').val(totalPrice);
                 });
+                
+                // Update button text based on total price
+                if (totalPrice === 0) {
+                    $('#buy-now-btn').text('Ücretsiz Kaydol').attr('name', 'buyNowFree');
+                } else {
+                    $('#buy-now-btn').text('Hemen Satın Al').attr('name', 'buyNow');
+                }
             });
 
             // Form validation for both "Add to Cart" and "Buy Now" forms
