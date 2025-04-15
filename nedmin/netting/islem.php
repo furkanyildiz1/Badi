@@ -2477,7 +2477,7 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
     }
     
     $toplam_tutar = $ara_toplam - $indirim_tutari;
-
+    
     // Create invoice
     $fatura_ekle = $db->prepare("INSERT INTO faturalar SET
         user_id = :user_id,
@@ -2490,7 +2490,6 @@ function createOrder($db, $fatura_no, $odeme_yontemi, $odeme_durumu) {
         odeme_yontemi = :odeme_yontemi,
         odeme_durumu = :odeme_durumu
     ");
-    
     $fatura_ekle->execute([
         'user_id' => $_SESSION['userkullanici_id'],
         'fatura_no' => $fatura_no,
@@ -3048,9 +3047,9 @@ if (isset($_POST['kullanici_resim_guncelle'])) {
     
     $tmp_name = $_FILES['kullanici_resim']["tmp_name"];
     $name = $_FILES['kullanici_resim']["name"];
-    $benzersizsayi1 = rand(20000, 32000);
-    $benzersizsayi2 = rand(20000, 32000);
-    $benzersizad = $benzersizsayi1 . $benzersizsayi2;
+            $benzersizsayi1 = rand(20000, 32000);
+            $benzersizsayi2 = rand(20000, 32000);
+            $benzersizad = $benzersizsayi1 . $benzersizsayi2;
     $refimgyol = substr($uploads_dir, 6) . "/" . $benzersizad . $name;
     
     // Check file type
@@ -3066,8 +3065,8 @@ if (isset($_POST['kullanici_resim_guncelle'])) {
         header("Location:../../profile.php?durum=buyuk-boyut");
         exit;
     }
-    
-    // Delete old image if exists
+            
+            // Delete old image if exists
     $kullanici = $db->prepare("SELECT kullanici_resim FROM kullanici WHERE kullanici_id = ?");
     $kullanici->execute([$_SESSION['userkullanici_id']]);
     $eski_resim = $kullanici->fetch(PDO::FETCH_ASSOC)['kullanici_resim'];
@@ -3373,9 +3372,9 @@ if (isset($_POST['forgot_password'])) {
     if ($kullanicisor->rowCount() == 0) {
         // Email not found
         header("Location:../../forgot-password.php?durum=mailbulunamadi");
-        exit;
-    }
-    
+    exit;
+}
+
     // Generate token
     $token = bin2hex(random_bytes(32));
     $token_expiry = date('Y-m-d H:i:s', strtotime('+1 hour'));
@@ -3502,7 +3501,7 @@ if (isset($_POST['forgot_password'])) {
         } elseif (strpos($ayarcek['ayar_smtphost'], 'outlook') !== false || strpos($ayarcek['ayar_smtphost'], 'hotmail') !== false) {
             $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_STARTTLS;
             $mail->Port = 587;
-        } else {
+    } else {
             // Default to SSL if not specified
             $mail->SMTPSecure = PHPMailer\PHPMailer\PHPMailer::ENCRYPTION_SMTPS;
             $mail->Port = 465;
@@ -3595,9 +3594,9 @@ if(isset($_POST['bulk_lesson_add'])) {
     // Hata kontrolü
     if(!isset($_FILES['videos']) || empty($_FILES['videos']['name'][0])) {
         header("Location:../production/kurs-icerik-duzenle.php?kurs_id=" . $kurs_id . "&durum=no&mesaj=Video seçilmedi");
-        exit;
-    }
-    
+    exit;
+}
+
     // Get course name for folder organization
     try {
         // Get course name
@@ -3685,8 +3684,8 @@ if(isset($_POST['bulk_lesson_add'])) {
                     icerik_tipi = ?,
                     video_url = ?,
                     embed_kodu = ?");
-                
-                $insert = $kaydet->execute([
+
+    $insert = $kaydet->execute([
                     $modul_id,
                     $title,
                     $bolum_sira,
@@ -3752,7 +3751,7 @@ if(isset($_POST['youtube_import'])) {
             bolum_sure_dakika = ?,
             icerik_tipi = ?,
             video_url = ?");
-        
+
         $insert = $kaydet->execute([
             $modul_id,
             $title,
@@ -3851,7 +3850,7 @@ if(isset($_POST['vimeo_import'])) {
         
         // AJAX isteği için JSON yanıtı döndür
         echo json_encode(['success' => true, 'message' => 'Vimeo videosu başarıyla eklendi.']);
-        exit;
+    exit;
         
     } catch(Exception $e) {
         if($db->inTransaction()) {
@@ -3928,14 +3927,14 @@ if(isset($_POST['url_upload'])) {
         }
         
         $db->commit();
-        
+
         // AJAX isteği için JSON yanıtı döndür
         echo json_encode(['success' => true, 'message' => 'URL içeriği başarıyla eklendi.']);
         exit;
-        
+
     } catch(Exception $e) {
         if($db->inTransaction()) {
-            $db->rollBack();
+        $db->rollBack();
         }
         
         // AJAX isteği için JSON hata yanıtı döndür
@@ -3957,7 +3956,7 @@ if(isset($_POST['url_upload'])) {
         }
         
         $db->beginTransaction();
-        
+
         // Sıradaki mevcut son ders sırasını bul
         $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
         $sirasor->execute([$modul_id]);
@@ -3993,10 +3992,10 @@ if(isset($_POST['url_upload'])) {
         // AJAX isteği için JSON yanıtı döndür
         echo json_encode(['success' => true, 'message' => 'H5P içeriği başarıyla eklendi.']);
         exit;
-        
+
     } catch(Exception $e) {
         if($db->inTransaction()) {
-            $db->rollBack();
+        $db->rollBack();
         }
         
         // AJAX isteği için JSON hata yanıtı döndür
@@ -4262,7 +4261,7 @@ if(isset($_POST['bunny_upload'])) {
         }
         
         $db->beginTransaction();
-        
+
         // Sıradaki mevcut son ders sırasını bul
         $sirasor = $db->prepare("SELECT MAX(bolum_sira) as max_sira FROM kurs_bolumleri WHERE modul_id = ?");
         $sirasor->execute([$modul_id]);
@@ -4292,7 +4291,7 @@ if(isset($_POST['bunny_upload'])) {
         if(!$insert) {
             throw new Exception("İçerik kaydedilirken bir hata oluştu.");
         }
-        
+
         $db->commit();
         
         // AJAX isteği için JSON yanıtı döndür
@@ -4349,10 +4348,10 @@ if(isset($_POST['bolum_duzenle'])) {
         $db->commit();
         header("Location:../production/kurs-icerik-duzenle.php?kurs_id=" . $kurs_id . "&durum=ok");
         exit;
-        
+
     } catch(Exception $e) {
         if($db->inTransaction()) {
-            $db->rollBack();
+        $db->rollBack();
         }
         header("Location:../production/kurs-icerik-duzenle.php?kurs_id=" . $_POST['kurs_id'] . "&durum=no&mesaj=" . urlencode($e->getMessage()));
         exit;
@@ -4405,7 +4404,7 @@ if (isset($_GET['bolum_sil'])) {
             if (file_exists($file_path)) {
                 unlink($file_path);
                 error_log("Deleted H5P file: " . $videocek['video_url']);
-            } else {
+    } else {
                 error_log("H5P file not found: " . $file_path);
             }
         }
@@ -4426,7 +4425,7 @@ if (isset($_GET['bolum_sil'])) {
             if (preg_match('/' . $scorm_folder_pattern . '/', $video_url, $matches)) {
                 $scorm_folder = $matches[0];
                 error_log("Detected SCORM folder name: " . $scorm_folder);
-            } else {
+    } else {
                 error_log("Could not detect SCORM folder pattern in URL: " . $video_url);
                 $scorm_folder = '';
             }
@@ -4536,7 +4535,7 @@ if (isset($_GET['bolum_sil'])) {
             if (file_exists($file_path)) {
                 unlink($file_path);
                 error_log("Deleted file: " . $videocek['video_url']);
-            } else {
+    } else {
                 // Try with different root path
                 $alt_path = dirname($_SERVER['DOCUMENT_ROOT']) . '/badiakademi' . $videocek['video_url'];
                 if (file_exists($alt_path)) {
@@ -4555,7 +4554,7 @@ if (isset($_GET['bolum_sil'])) {
         if ($kontrol) {
             header("Location:../production/kurs-icerik-duzenle.php?kurs_id=" . $kurs_id . "&durum=ok");
             exit;
-        } else {
+    } else {
             header("Location:../production/kurs-icerik-duzenle.php?kurs_id=" . $kurs_id . "&durum=no");
             exit;
         }
@@ -4595,9 +4594,9 @@ if(isset($_GET['action']) && $_GET['action'] == 'get_youtube_info') {
             'success' => false,
             'error' => 'Geçerli bir YouTube video URL\'si veya ID\'si giriniz.'
         ]);
-        exit;
-    }
-    
+    exit;
+}
+
     try {
         // YouTube API'den video bilgilerini al
         $api_url = "https://www.googleapis.com/youtube/v3/videos?id={$video_id}&key={$api_key}&part=snippet,contentDetails,statistics";
@@ -4663,9 +4662,9 @@ if(isset($_GET['action']) && $_GET['action'] == 'get_youtube_info') {
         ]);
     }
     
-    exit;
-}
-
+        exit;
+    }
+    
 // Vimeo Video Bilgilerini Getirme
 if(isset($_GET['action']) && $_GET['action'] == 'get_vimeo_info') {
     $video_id = "";
@@ -4692,7 +4691,7 @@ if(isset($_GET['action']) && $_GET['action'] == 'get_vimeo_info') {
         ]);
         exit;
     }
-    
+
     try {
         // Vimeo oEmbed API'den video bilgilerini al
         $oembed_url = "https://vimeo.com/api/oembed.json?url=https://vimeo.com/{$video_id}";
@@ -4809,10 +4808,10 @@ if(isset($_POST['vimeo_import'])) {
         
         // AJAX isteği için JSON hata yanıtı döndür
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-        exit;
+            exit;
+        }
     }
-}
-
+    
 // Fetch videos from Bunny Stream
 if(isset($_POST['bunny_fetch_videos'])) {
     try {
@@ -4854,7 +4853,7 @@ if(isset($_POST['bunny_fetch_videos'])) {
         error_log("Bunny fetch error: " . $e->getMessage());
         header('Content-Type: application/json');
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-        exit;
+    exit;
     }
 }
 
@@ -4931,7 +4930,7 @@ if(isset($_POST['bunny_add_selected_video'])) {
         
         // AJAX isteği için JSON hata yanıtı döndür
         echo json_encode(['success' => false, 'error' => $e->getMessage()]);
-        exit;
+    exit;
     }
 }
 
@@ -5027,8 +5026,8 @@ if(isset($_POST['h5p_upload'])) {
     } catch(Exception $e) {
         if(isset($db) && $db->inTransaction()) {
             $db->rollBack();
-        }
-        
+    }
+    
         header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=no&hata=" . urlencode($e->getMessage()));
         exit;
     }
@@ -5114,7 +5113,7 @@ if(isset($_POST['pdf_upload'])) {
         $db->commit();
         
         header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=ok");
-        exit;
+    exit;
         
     } catch(Exception $e) {
         if(isset($db) && $db->inTransaction()) {
@@ -5127,7 +5126,7 @@ if(isset($_POST['pdf_upload'])) {
         }
         
         header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=" . $_POST['kurs_id'] . "&durum=no&hata=" . urlencode($e->getMessage()));
-        exit;
+    exit;
     }
 }
 
@@ -5216,7 +5215,7 @@ if(isset($_POST['presentation_upload'])) {
         $db->commit();
         
         header("Location: ../production/kurs-icerik-duzenle.php?kurs_id=$kurs_id&durum=ok");
-        exit;
+    exit;
         
     } catch(Exception $e) {
         if(isset($db) && $db->inTransaction()) {
@@ -5232,6 +5231,137 @@ if(isset($_POST['presentation_upload'])) {
         exit;
     }
 }
+
+
+if(isset($_POST["buyNowFree"])) {
+    // Server-side security check is still needed
+    if(!isset($_SESSION['userkullanici_id'])){
+        echo json_encode(['error' => 'login_required']);
+        exit;
+    }
+    
+    $kurs_id = $_POST['course_id'];
+    $selected_cert = isset($_POST['selected_cert']) ? $_POST['selected_cert'] : '';
+    $cert_price = isset($_POST['cert_price']) ? floatval($_POST['cert_price']) : 0;
+    $total_price = isset($_POST['total_price']) ? floatval($_POST['total_price']) : 0;
+    
+    // Validate that a certificate option is selected
+    if (empty($selected_cert)) {
+        Header("Location:../../kurs-detay.php?kurs_id=$kurs_id&durum=sertifikasec");
+        exit;
+    }
+
+    // Verify that this is actually a free course
+    if ($total_price > 0) {
+        Header("Location:../../kurs-detay.php?kurs_id=$kurs_id&durum=error");
+        exit;
+    }
+
+    // Convert single certificate selection to the format expected by the database
+    $selected_certs = '';
+    if ($selected_cert == 'kurum_cert') {
+        $selected_certs = 'kurum_cert';
+    } else if ($selected_cert == 'uni_cert') {
+        $selected_certs = 'uni_cert';
+    } else if ($selected_cert == 'both_cert') {
+        $selected_certs = 'both_cert';
+    }
+    
+    // Check if course already in cart
+    $cart_check = $db->prepare("SELECT * FROM sepet WHERE user_id = :user_id AND course_id = :course_id");
+    $cart_check->execute([
+        'user_id' => $_SESSION["userkullanici_id"],
+        'course_id' => $kurs_id
+    ]);
+    
+    if($cart_check->rowCount() == 0) {
+        // Insert new cart item
+        $cart_add = $db->prepare("INSERT INTO sepet 
+            (user_id, course_id, selected_certs, cert_total_price) 
+            VALUES (:user_id, :course_id, :selected_certs, :cert_total_price)");
+            
+        $insert = $cart_add->execute([
+            'user_id' => $_SESSION["userkullanici_id"],
+            'course_id' => $kurs_id,
+            'selected_certs' => $selected_certs,
+            'cert_total_price' => $total_price
+        ]);
+    } else {
+        // Update existing cart item
+        $cart_update = $db->prepare("UPDATE sepet SET 
+            selected_certs = :selected_certs,
+            cert_total_price = :cert_total_price
+            WHERE user_id = :user_id AND course_id = :course_id");
+            
+        $update = $cart_update->execute([
+            'selected_certs' => $selected_certs,
+            'cert_total_price' => $total_price,
+            'user_id' => $_SESSION["userkullanici_id"],
+            'course_id' => $kurs_id
+        ]);
+    }
+    
+    // Generate a unique invoice number
+    $fatura_no = 'INV-' . time() . '-' . mt_rand(1000, 9999);
+    
+    // Create the order with 'onaylandi' status since it's free
+    $fatura_id = createOrder($db, $fatura_no, 'kredi_karti', 'onaylandi');
+    
+    if($fatura_id) {
+        Header("Location:../../kurs-detay.php?kurs_id=$kurs_id&durum=ok");
+    } else {
+        Header("Location:../../kurs-detay.php?kurs_id=$kurs_id&durum=error");
+    }
+    exit;
+}
+
+if(isset($_POST["completePaymentFree"])) {
+    // Server-side security check is still needed
+    if(!isset($_SESSION['userkullanici_id'])){
+        Header("Location:../../login.php");
+        exit;
+    }
+    
+    // Verify that cart total is actually 0
+    $cart_items = $db->prepare("SELECT SUM(cert_total_price) as total FROM sepet WHERE user_id = :user_id");
+    $cart_items->execute(['user_id' => $_SESSION['userkullanici_id']]);
+    $total = $cart_items->fetch(PDO::FETCH_ASSOC)['total'];
+    
+    if(floatval($total) > 0) {
+        Header("Location:../../cart.php?durum=error");
+        exit;
+    }
+    
+    // Check if user has selected an address
+    if(!isset($_SESSION['fatura_adres_id'])) {
+        // Find default address or the first address
+        $adres_sorgu = $db->prepare("SELECT fatura_adres_id FROM fatura_adresleri 
+                                   WHERE user_id = ? ORDER BY varsayilan DESC, fatura_adres_id ASC LIMIT 1");
+        $adres_sorgu->execute([$_SESSION['userkullanici_id']]);
+        $adres = $adres_sorgu->fetch(PDO::FETCH_ASSOC);
+        
+        if($adres) {
+            $_SESSION['fatura_adres_id'] = $adres['fatura_adres_id'];
+        } else {
+            Header("Location:../../checkout-address.php?durum=adresyok");
+            exit;
+        }
+    }
+    
+    // Generate a unique invoice number
+    $fatura_no = 'INV-' . time() . '-' . mt_rand(1000, 9999);
+    
+    // Create the order with 'onaylandi' status since it's free
+    $fatura_id = createOrder($db, $fatura_no, 'kredi_karti', 'onaylandi');
+    
+    if($fatura_id) {
+        Header("Location:../../cart.php?durum=ok");
+    } else {
+        Header("Location:../../cart.php?durum=error");
+    }
+    exit;
+}
+
 
 ?>
 
