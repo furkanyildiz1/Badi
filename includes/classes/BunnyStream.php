@@ -456,7 +456,7 @@ class BunnyStream {
      * @return string HTML embed code
      */
     public function getEmbedCode($guid, $width = '100%', $height = 400) {
-        return '<iframe src="https://' . $this->hostname . '/embed/' . $guid . '" width="' . $width . '" height="' . $height . '" frameborder="0" allowfullscreen></iframe>';
+        return '<div style="position:relative;padding-top:56.25%;"><iframe src="https://iframe.mediadelivery.net/embed/' . $this->libraryId . '/' . $guid . '?autoplay=false&loop=false&muted=false&preload=true&responsive=true" loading="lazy" style="border:0;position:absolute;top:0;height:100%;width:100%;" allow="accelerometer;gyroscope;autoplay;encrypted-media;picture-in-picture;" allowfullscreen="true"></iframe></div>';
     }
 }
 ?> 
