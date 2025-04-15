@@ -27,6 +27,20 @@ while($item = $cart_items->fetch(PDO::FETCH_ASSOC)) {// Base course price
 
 // Reset again for display loop
 $cart_items->execute(['user_id' => $_SESSION['userkullanici_id']]);
+
+// Calculate final total
+if(isset($_SESSION['kampanya_indirim'])) {
+    if($_SESSION['kampanya_tur'] == 'yuzde') {
+        $final_total = $total - ($total * ($_SESSION['kampanya_indirim'] / 100));
+    } else {
+        $final_total = $total - $_SESSION['kampanya_indirim'];
+    }
+} else {
+    $final_total = $total;
+}
+
+// Check if it's free
+$is_free = $final_total <= 0;
 ?>
 
 <!-- Start Page Title Area -->
@@ -184,24 +198,25 @@ $cart_items->execute(['user_id' => $_SESSION['userkullanici_id']]);
                                 <span><strong>Toplam:</strong></span>
                                 <span class="price"><strong>
                                     <?php 
-                                    if(isset($_SESSION['kampanya_indirim'])) {
-                                        if($_SESSION['kampanya_tur'] == 'yuzde') {
-                                            $final_total = $total - ($total * ($_SESSION['kampanya_indirim'] / 100));
-                                        } else {
-                                            $final_total = $total - $_SESSION['kampanya_indirim'];
-                                        }
-                                    } else {
-                                        $final_total = $total;
-                                    }
                                     echo number_format($final_total, 2, ',', '.'); 
                                     ?> TL
                                 </strong></span>
                             </div>
                         </div>
 
-                        <a href="checkout-address.php" class="btn btn-primary">
-                            Ödemeye Geç
-                        </a>
+                        <?php if($is_free): ?>
+                            <!-- For free orders -->
+                            <form method="POST" action="nedmin/netting/islem.php">
+                                <button type="submit" name="completePaymentFree" class="btn btn-primary" style="width: 100%;">
+                                    Ücretsiz Tamamla
+                                </button>
+                            </form>
+                        <?php else: ?>
+                            <!-- For paid orders -->
+                            <a href="checkout-address.php" class="btn btn-primary" style="width: 100%;">
+                                Ödemeye Geç
+                            </a>
+                        <?php endif; ?>
                     </div>
                 </div>
             </div>
