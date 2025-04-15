@@ -4887,9 +4887,17 @@ if(isset($_POST['bunny_add_selected_video'])) {
         $siracek = $sirasor->fetch(PDO::FETCH_ASSOC);
         $bolum_sira = ($siracek['max_sira'] ?? 0) + 1;
         
-        // Create embed code instead of just saving the GUID
+        // Create proper embed code using the BunnyStream class
+        require_once '../../includes/classes/BunnyStream.php';
         require_once '../../includes/config.php';
-        $embed_code = '<iframe src="https://' . BUNNY_STREAM_HOSTNAME . '/embed/' . $video_guid . '" width="100%" height="400" frameborder="0" allowfullscreen></iframe>';
+        
+        $bunnyStream = new BunnyStream(
+            BUNNY_STREAM_API_KEY,
+            BUNNY_STREAM_LIBRARY_ID,
+            BUNNY_STREAM_HOSTNAME
+        );
+        
+        $embed_code = $bunnyStream->getEmbedCode($video_guid);
         
         // Save to database with embed code
         $kaydet = $db->prepare("INSERT INTO kurs_bolumleri SET
