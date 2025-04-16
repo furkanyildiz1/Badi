@@ -325,7 +325,7 @@ $kurslar->execute([$_SESSION['userkullanici_id']]);
                         
                         <div class="course-actions">
                             <?php if($kurs['odeme_durumu'] == "onaylandi"): ?>
-                                <a href="kurs-detay.php?kurs_id=<?php echo $kurs['kurs_id']; ?>" class="btn btn-custom btn-view">
+                                <a href="kurs-izle.php?kurs_id=<?php echo $kurs['kurs_id']; ?>" class="btn btn-custom btn-view">
                                     <i class="fas fa-play-circle"></i> Kursa Git
                                 </a>
                             <?php else: ?>
