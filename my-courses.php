@@ -1,32 +1,28 @@
 <?php 
 header('Content-Type: text/html; charset=utf-8');
 session_start();
-
 include 'nedmin/netting/baglan.php';
 
-// Check if user is logged in
-if(!isset($_SESSION['userkullanici_mail'])) {
+// Kullanıcı girişi kontrolü
+if (!isset($_SESSION['userkullanici_mail'])) {
     header("Location: login.php");
     exit();
 }
 
-// Get user's courses with credential information
+// Kullanıcının satın aldığı kursları çekiyoruz
 $kurslar = $db->prepare("
     SELECT 
         k.*,
-        f.created_at as erisim_tarihi,
-        f.fatura_no,
-        f.odeme_durumu,
-        sk.satis_id
+        f.created_at AS erisim_tarihi,
+        f.odeme_durumu
     FROM satilan_kurslar sk
     JOIN kurslar k ON sk.kurs_id = k.kurs_id
     JOIN faturalar f ON sk.fatura_id = f.fatura_id
     WHERE f.user_id = ?
     ORDER BY f.created_at DESC
 ");
-$kurslar->execute([$_SESSION['userkullanici_id']]);
+$kurslar->execute([ $_SESSION['userkullanici_id'] ]);
 ?>
-
 <style>
 .my-courses {
     padding-top: 30px;
@@ -255,117 +251,121 @@ $kurslar->execute([$_SESSION['userkullanici_id']]);
 </style>
 
 <div class="my-courses">
-    <div class="container">
-        <h1 class="page-title">Kurslarım</h1>
-        <p class="page-subtitle">Satın aldığınız ve erişim sağlayabileceğiniz kursları içerir.</p>
-        
-        <div class="filter-section">
-            <div class="search-box">
-                <input type="text" placeholder="Kurs ara..." id="courseSearch">
-                <i class="fas fa-search"></i>
-            </div>
-        </div>
-        
-        <?php if($kurslar->rowCount() > 0): ?>
-            <div class="course-list">
-                <?php while($kurs = $kurslar->fetch(PDO::FETCH_ASSOC)): ?>
-                    <?php
-                    // Mock progress data (random for now)
-                    $progress = mt_rand(0, 100);
-                    
-                    // Set appropriate badge and style based on course type
-                    $kurs_tur = $kurs['kurs_tur'];
-                    $badge_class = '';
-                    $badge_text = '';
-                    
-                    switch($kurs_tur) {
-                        case 'online':
-                            $badge_class = 'badge-online';
-                            $badge_text = 'Online';
-                            break;
-                        case 'canli':
-                            $badge_class = 'badge-canli';
-                            $badge_text = 'Canlı';
-                            break;
-                        case 'yuzyuze':
-                            $badge_class = 'badge-yuzyuze';
-                            $badge_text = 'Yüz Yüze';
-                            break;
-                        default:
-                            $badge_class = 'badge-secondary';
-                            $badge_text = 'Kurs';
-                    }
-                    ?>
-                    
-                    <div class="course-item">
-                        <img src="<?php echo $kurs['resim_yol']; ?>" alt="<?php echo $kurs['baslik']; ?>" class="course-image">
-                        
-                        <span class="course-badge <?php echo $badge_class; ?>"><?php echo $badge_text; ?></span>
-                        
-                        <div class="course-info">
-                            <a href="kurs-detay.php?kurs_id=<?php echo $kurs['kurs_id']; ?>" class="course-title"><?php echo $kurs['baslik']; ?></a>
-                            <div class="course-meta">
-                                <span><i class="far fa-clock"></i> <?php echo $kurs['sure']; ?> Saat</span>
-                                <span><i class="far fa-user"></i> <?php echo $kurs['ogrenci_sayi']; ?> Öğrenci</span>
-                                <span><i class="far fa-calendar-alt"></i> <?php echo date('d.m.Y', strtotime($kurs['erisim_tarihi'])); ?></span>
-                            </div>
-                        </div>
-                        
-                        <?php if($kurs_tur == 'online'): ?>
-                        <div class="progress-container">
-                            <div class="progress-info">
-                                <span>İlerleme</span>
-                                <span><?php echo $progress; ?>%</span>
-                            </div>
-                            <div class="progress">
-                                <div class="progress-bar" style="width: <?php echo $progress; ?>%; background-color: #00b074;"></div>
-                            </div>
-                        </div>
-                        <?php endif; ?>
-                        
-                        <div class="course-actions">
-                            <?php if($kurs['odeme_durumu'] == "onaylandi"): ?>
-                                <a href="kurs-izle.php?kurs_id=<?php echo $kurs['kurs_id']; ?>" class="btn btn-custom btn-view">
-                                    <i class="fas fa-play-circle"></i> Kursa Git
-                                </a>
-                            <?php else: ?>
-                                <span class="payment-pending">
-                                    <i class="fas fa-exclamation-circle"></i> Ödeme Bekleniyor
-                                </span>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                <?php endwhile; ?>
-            </div>
-        <?php else: ?>
-            <div class="no-courses">
-                <i class="fas fa-book-open"></i>
-                <h3>Henüz Kursunuz Bulunmuyor</h3>
-                <p>Hemen yeni bir kurs satın alarak öğrenmeye başlayın!</p>
-                <a href="courses.php" class="btn btn-primary">Kursları İncele</a>
-            </div>
-        <?php endif; ?>
+  <div class="container">
+    <h1 class="page-title">Kurslarım</h1>
+    <p class="page-subtitle">Satın aldığınız ve erişim sağlayabileceğiniz kursları içerir.</p>
+    
+    <div class="filter-section">
+      <div class="search-box">
+        <input type="text" placeholder="Kurs ara..." id="courseSearch">
+        <i class="fas fa-search"></i>
+      </div>
     </div>
+
+    <?php if ($kurslar->rowCount() > 0): ?>
+      <div class="course-list">
+        <?php while ($kurs = $kurslar->fetch(PDO::FETCH_ASSOC)): ?>
+          <?php
+          // İlgili kurs için ilerleme hesaplaması
+          $kurs_id = $kurs['kurs_id'];
+          $user_id = $_SESSION['userkullanici_id'];
+
+          // Kurs genel ilerleme hesaplama
+          $progressQuery = $db->prepare("
+              SELECT 
+                  (SELECT COUNT(*) FROM kurs_bolumleri kb 
+                   JOIN kurs_modulleri km ON kb.modul_id = km.modul_id 
+                   WHERE km.kurs_id = ?) as total_lessons,
+                  (SELECT COUNT(*) FROM kurs_izleme_kayitlari 
+                   WHERE user_id = ? AND kurs_id = ?) as viewed_lessons
+          ");
+          $progressQuery->execute([$kurs_id, $user_id, $kurs_id]);
+          $progressData = $progressQuery->fetch(PDO::FETCH_ASSOC);
+          $progressPercentage = 0;
+          if ($progressData && $progressData['total_lessons'] > 0) {
+              $progressPercentage = round(($progressData['viewed_lessons'] / $progressData['total_lessons']) * 100);
+          }
+
+          // Badge ayarları
+          switch ($kurs['kurs_tur']) {
+              case 'online':
+                  $badge_class = 'badge-online';  $badge_text = 'Online';  break;
+              case 'canli':
+                  $badge_class = 'badge-canli';   $badge_text = 'Canlı';   break;
+              case 'yuzyuze':
+                  $badge_class = 'badge-yuzyuze'; $badge_text = 'Yüz Yüze'; break;
+              default:
+                  $badge_class = 'badge-secondary'; $badge_text = 'Kurs';
+          }
+          ?>
+          <div class="course-item">
+            <img src="<?php echo htmlspecialchars($kurs['resim_yol']); ?>"
+                 alt="<?php echo htmlspecialchars($kurs['baslik']); ?>"
+                 class="course-image">
+            <span class="course-badge <?php echo $badge_class; ?>">
+              <?php echo $badge_text; ?>
+            </span>
+            <div class="course-info">
+              <a href="kurs-detay.php?kurs_id=<?php echo $kurs_id; ?>"
+                 class="course-title">
+                <?php echo htmlspecialchars($kurs['baslik']); ?>
+              </a>
+              <div class="course-meta">
+                <span><i class="far fa-clock"></i> <?php echo $kurs['sure']; ?> Saat</span>
+                <span><i class="far fa-user"></i> <?php echo $kurs['ogrenci_sayi']; ?> Öğrenci</span>
+                <span><i class="far fa-calendar-alt"></i> 
+                  <?php echo date('d.m.Y', strtotime($kurs['erisim_tarihi'])); ?>
+                </span>
+              </div>
+            </div>
+            <?php if ($kurs['kurs_tur'] === 'online'): ?>
+            <div class="progress-container">
+              <div class="progress-info">
+                <span>İlerleme</span>
+                <span><?php echo $progressPercentage; ?>%</span>
+              </div>
+              <div class="progress">
+                <div class="progress-bar"
+                     style="width: <?php echo $progressPercentage; ?>%; background-color: #00b074;">
+                </div>
+              </div>
+            </div>
+            <?php endif; ?>
+            <div class="course-actions">
+              <?php if ($kurs['odeme_durumu'] === "onaylandi"): ?>
+                <a href="kurs-izle.php?kurs_id=<?php echo $kurs_id; ?>"
+                   class="btn btn-custom btn-view">
+                  <i class="fas fa-play-circle"></i> Kursa Git
+                </a>
+              <?php else: ?>
+                <span class="payment-pending">
+                  <i class="fas fa-exclamation-circle"></i> Ödeme Bekleniyor
+                </span>
+              <?php endif; ?>
+            </div>
+          </div>
+        <?php endwhile; ?>
+      </div>
+    <?php else: ?>
+      <div class="no-courses">
+        <i class="fas fa-book-open"></i>
+        <h3>Henüz Kursunuz Bulunmuyor</h3>
+        <p>Hemen yeni bir kurs satın alarak öğrenmeye başlayın!</p>
+        <a href="courses.php" class="btn btn-primary">Kursları İncele</a>
+      </div>
+    <?php endif; ?>
+  </div>
 </div>
 
 <script>
-document.addEventListener('DOMContentLoaded', function() {
-    // Course search functionality
-    const searchInput = document.getElementById('courseSearch');
-    if (searchInput) {
-        searchInput.addEventListener('input', function() {
-            const searchTerm = this.value.toLowerCase();
-            const courseItems = document.querySelectorAll('.course-item');
-            
-            courseItems.forEach(function(item) {
-                const title = item.querySelector('.course-title').textContent.toLowerCase();
-                if (title.includes(searchTerm)) {
-                    item.style.display = 'flex';
-                } else {
-                    item.style.display = 'none';
-                }
-            });
-        });
-    }
+document.addEventListener('DOMContentLoaded', () => {
+  const searchInput = document.getElementById('courseSearch');
+  searchInput?.addEventListener('input', function() {
+    const term = this.value.toLowerCase();
+    document.querySelectorAll('.course-item').forEach(item => {
+      const title = item.querySelector('.course-title').textContent.toLowerCase();
+      item.style.display = title.includes(term) ? 'flex' : 'none';
+    });
+  });
 });
 </script>
